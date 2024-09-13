@@ -6,12 +6,10 @@ export default function App() {
   return (
     <>
       <Navbar />
-      <main className="text-blue-800">
-        <Routes>
-          <Route path="/signup" element={<UserForm />} />
-        </Routes>
-        <Outlet />
-      </main>
+      <Routes>
+        <Route path="/signup" element={<UserForm />} />
+      </Routes>
+      <Outlet />
     </>
   );
 }

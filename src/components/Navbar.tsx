@@ -1,9 +1,11 @@
 import { NavLink } from "react-router-dom";
-
+import burger from "../assets/burger.svg";
 export default function Navbar() {
   return (
-    <nav className="">
-      <ul className="flex gap-4 bg-blue-800 p-2 py-3 text-stone-100">
+    <nav className="flex gap-4 bg-blue-800 p-2 py-3 text-stone-100">
+      <img src={burger} alt="open menu" />
+      {/* large menu */}
+      {/* <ul className="">
         <li>
           <NavLink
             className={"text-lg font-bold tracking-wide"}
@@ -11,8 +13,8 @@ export default function Navbar() {
           >
             petflex
           </NavLink>
-        </li>
-        {/* <li>
+        </li> */}
+      {/* <li>
           <NavLink to={"login"}>login</NavLink>
         </li>
         <li>
@@ -21,7 +23,7 @@ export default function Navbar() {
         <li>
           <NavLink to={"home"}>home</NavLink>
         </li> */}
-      </ul>
+      {/* </ul> */}
     </nav>
   );
 }
