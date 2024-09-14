@@ -1,7 +1,7 @@
 export default function UserForm() {
-  const error = true;
+  const error = false;
   return (
-    <main className="relative m-auto h-[90vh] w-[300px] overflow-visible py-10 text-blue-800 sm:w-[400px] sm:text-xl md:text-2xl lg:w-[455px] lg:text-[28px]">
+    <main className="relative m-auto w-[300px] overflow-visible p-8 py-10 text-blue-800 sm:w-[400px] sm:text-xl md:text-2xl lg:w-[455px] lg:text-[28px]">
       <section
         aria-label="header"
         className="header text-center font-extrabold"
