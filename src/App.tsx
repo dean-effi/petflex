@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import UserForm from "./components/UserForm";
+import Signup from "./pages/Signup";
 
 export default function App() {
   return (
@@ -16,7 +16,7 @@ export default function App() {
               </h1>
             }
           />
-          <Route path="/signup" element={<UserForm />} />
+          <Route path="/signup" element={<Signup />} />
         </Routes>
       </div>
     </>

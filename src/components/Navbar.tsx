@@ -4,7 +4,7 @@ import moon from "../assets/moon.svg";
 
 export default function Navbar() {
   return (
-    <div className="flex gap-4 bg-blue-800 text-stone-100 shadow-md shadow-blue-200">
+    <div className="sticky top-0 z-10 flex gap-4 bg-blue-800 text-stone-100 shadow-md shadow-blue-200">
       {/* mobile Nav */}
       <button className="rounded-md hover:bg-blue-900 lg:hidden">
         <img src={burger} alt="open menu" />

@@ -1,4 +1,25 @@
-export default function UserForm() {
+import { useState } from "react";
+
+type UserFormProps = {
+  onFormSubmit: (userDetails: {
+    username: string;
+    password: string;
+  }) => void;
+};
+
+export default function UserForm({ onFormSubmit }: UserFormProps) {
+  const [userDetails, setUserDetails] = useState({
+    username: "",
+    password: "",
+  });
+  console.log(userDetails);
+  function onInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setUserDetails({
+      ...userDetails,
+      [e.target.name]: e.target.value,
+    });
+    return;
+  }
   const error = false;
   return (
     <main className="relative m-auto w-[300px] overflow-visible p-8 py-10 text-blue-800 sm:w-[400px] sm:text-xl md:text-2xl lg:w-[455px] lg:text-[28px]">
@@ -22,12 +43,18 @@ export default function UserForm() {
       <section className="registeration mt-12 lg:mt-14">
         <form
           action=""
-          onSubmit={e => e.preventDefault()}
+          onSubmit={e => {
+            e.preventDefault();
+            onFormSubmit(userDetails);
+          }}
           className="mt-auto grid gap-5 sm:gap-6 lg:gap-7"
         >
           <label className="grid gap-3 font-bold sm:gap-4 lg:gap-5">
             Username:
             <input
+              name="username"
+              onChange={onInputChange}
+              value={userDetails.username}
               type="text"
               className="rounded-lg bg-stone-300 p-2 font-normal text-stone-800"
             />
@@ -35,6 +62,9 @@ export default function UserForm() {
           <label className="grid gap-3 font-bold sm:gap-4 lg:gap-5">
             Password:
             <input
+              name="password"
+              onChange={onInputChange}
+              value={userDetails.password}
               type="password"
               className="rounded-lg bg-stone-300 p-2 font-normal text-stone-800"
             />
