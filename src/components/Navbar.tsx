@@ -17,7 +17,7 @@ export default function Navbar() {
         >
           petflex
         </NavLink>
-        <ul className="flex items-center gap-4 text-2xl font-bold">
+        <ul className="flex items-center gap-4 text-2xl font-semibold">
           <li>
             <NavLink to={""}>Home</NavLink>
           </li>

@@ -1,13 +1,18 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 type UserFormProps = {
   onFormSubmit: (userDetails: {
     username: string;
     password: string;
   }) => void;
+  formType: "login" | "signup";
 };
 
-export default function UserForm({ onFormSubmit }: UserFormProps) {
+export default function UserForm({
+  onFormSubmit,
+  formType,
+}: UserFormProps) {
   const [userDetails, setUserDetails] = useState({
     username: "",
     password: "",
@@ -28,7 +33,7 @@ export default function UserForm({ onFormSubmit }: UserFormProps) {
         className="header text-center font-extrabold"
       >
         <h1 className="grid">
-          Sign up to
+          {formType === "signup" ? "Sign up to" : "Log in to"}
           <span className="text-6xl tracking-widest sm:text-7xl">
             {" "}
             petflex
@@ -82,11 +87,26 @@ export default function UserForm({ onFormSubmit }: UserFormProps) {
               type="submit"
               className="m-auto rounded-[20px] bg-blue-800 p-2 px-5 text-xl font-bold text-stone-100 sm:text-2xl md:text-[26px] lg:p-3 lg:px-6 lg:text-3xl lg:text-[28px]"
             >
-              Sign up
+              {formType === "signup" ? "Sign up" : "Log in"}
             </button>
             <p>
-              Don't have an account?{" "}
-              <span className="font-extrabold">Sign up</span>
+              {formType === "signup" ? (
+                <p>
+                  Already have an account?
+                  <Link to="/login" className="font-extrabold">
+                    {" "}
+                    Login
+                  </Link>
+                </p>
+              ) : (
+                <p>
+                  Don't have an account?
+                  <Link to={"/signup"} className="font-extrabold">
+                    {" "}
+                    Sign up
+                  </Link>
+                </p>
+              )}
             </p>
           </div>
         </form>

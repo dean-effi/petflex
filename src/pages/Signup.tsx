@@ -9,8 +9,8 @@ export default function Signup() {
     return;
   }
   return (
-    <div>
-      <UserForm onFormSubmit={onSignup} />
-    </div>
+    <>
+      <UserForm onFormSubmit={onSignup} formType="signup" />
+    </>
   );
 }
