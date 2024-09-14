@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { UserDetails } from "../types";
 
 type UserFormProps = {
-  onFormSubmit: (userDetails: {
-    username: string;
-    password: string;
-  }) => void;
+  onFormSubmit: (userDetails: UserDetails) => void;
   formType: "login" | "signup";
+  errorMsg: string | null;
 };
 
 export default function UserForm({
   onFormSubmit,
   formType,
+  errorMsg,
 }: UserFormProps) {
   const [userDetails, setUserDetails] = useState({
     username: "",
@@ -25,7 +25,6 @@ export default function UserForm({
     });
     return;
   }
-  const error = false;
   return (
     <main className="relative m-auto w-[300px] overflow-visible p-8 py-10 text-blue-800 sm:w-[400px] sm:text-xl md:text-2xl lg:w-[455px] lg:text-[28px]">
       <section
@@ -58,6 +57,8 @@ export default function UserForm({
             Username:
             <input
               name="username"
+              minLength={3}
+              maxLength={20}
               onChange={onInputChange}
               value={userDetails.username}
               type="text"
@@ -68,6 +69,8 @@ export default function UserForm({
             Password:
             <input
               name="password"
+              minLength={5}
+              maxLength={40}
               onChange={onInputChange}
               value={userDetails.password}
               type="password"
@@ -75,11 +78,7 @@ export default function UserForm({
             />
           </label>
           <div className="h-[80px] text-center font-bold text-red-800 xl:text-2xl">
-            {error && (
-              <p className="">
-                Username must contain between 5 and 20 characters{" "}
-              </p>
-            )}
+            {errorMsg && <p className="capitalize">{errorMsg}</p>}
           </div>
 
           <div className="m-auto mt-8 grid w-full gap-4 text-center lg:mt-9 xl:mt-11">
@@ -91,7 +90,7 @@ export default function UserForm({
             </button>
             <p>
               {formType === "signup" ? (
-                <p>
+                <p className="text-xl xl:text-2xl">
                   Already have an account?
                   <Link to="/login" className="font-extrabold">
                     {" "}
