@@ -77,11 +77,11 @@ export default function UserForm({
               className="rounded-lg bg-stone-300 p-2 font-normal text-stone-800"
             />
           </label>
-          <div className="h-[80px] text-center font-bold text-red-800 xl:text-2xl">
-            {errorMsg && <p className="capitalize">{errorMsg}</p>}
+          <div className="h-[80px] pb-2 text-center font-bold text-red-800 xl:text-2xl">
+            {errorMsg && <p className="">{errorMsg}</p>}
           </div>
 
-          <div className="m-auto mt-8 grid w-full gap-4 text-center lg:mt-9 xl:mt-11">
+          <div className="m-auto grid w-full gap-4 text-center">
             <button
               type="submit"
               className="m-auto rounded-[20px] bg-blue-800 p-2 px-5 text-xl font-bold text-stone-100 sm:text-2xl md:text-[26px] lg:p-3 lg:px-6 lg:text-3xl lg:text-[28px]"
@@ -90,7 +90,7 @@ export default function UserForm({
             </button>
             <p>
               {formType === "signup" ? (
-                <p className="text-xl xl:text-2xl">
+                <p className="text-sm md:text-base lg:text-xl xl:text-2xl">
                   Already have an account?
                   <Link to="/login" className="font-extrabold">
                     {" "}

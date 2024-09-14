@@ -41,8 +41,11 @@ async function signUser(userDetails: UserDetails) {
     },
     body: JSON.stringify(userDetails),
   });
-  const responseJson = await response.json();
+  const responseJson = await response.json().catch(() => {
+    throw new Error("Unexpected error, try again");
+  });
   if (!response.ok) {
+    console.log("not okayyy");
     throw new Error(responseJson.errors[0].msg);
   }
   return response;
