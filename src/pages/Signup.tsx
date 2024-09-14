@@ -17,9 +17,7 @@ export default function Signup() {
     signupMut.mutate(userDetails);
     return;
   }
-  if (signupMut.error) {
-    console.log(signupMut.error.message);
-  }
+
   return (
     <>
       <UserForm
@@ -40,6 +38,8 @@ async function signUser(userDetails: UserDetails) {
       "content-type": "application/json",
     },
     body: JSON.stringify(userDetails),
+  }).catch(() => {
+    throw new Error("Unexpected error, try again");
   });
   const responseJson = await response.json().catch(() => {
     throw new Error("Unexpected error, try again");
