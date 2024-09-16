@@ -86,7 +86,7 @@ export default function UserForm({
             <button
               type="submit"
               disabled={isPending}
-              className="m-auto rounded-[20px] bg-blue-800 p-2 px-5 text-xl font-bold text-stone-100 disabled:bg-slate-700 sm:text-2xl md:text-[26px] lg:p-3 lg:px-6 lg:text-3xl lg:text-[28px]"
+              className="m-auto rounded-[20px] bg-blue-800 p-2 px-5 text-xl font-bold text-stone-100 hover:bg-blue-950 active:bg-blue-600 disabled:bg-slate-700 sm:text-2xl md:text-[26px] lg:p-3 lg:px-6 lg:text-3xl lg:text-[28px]"
             >
               {formType === "signup" ? "Sign up" : "Log in"}
             </button>

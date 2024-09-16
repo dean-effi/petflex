@@ -13,15 +13,10 @@ export default function SignupPage() {
     },
   });
 
-  function onSignup(userDetails: UserDetails) {
-    signupMut.mutate(userDetails);
-    return;
-  }
-
   return (
     <>
       <UserForm
-        onFormSubmit={onSignup}
+        onFormSubmit={signupMut.mutate}
         formType="signup"
         errorMsg={signupMut.isError ? signupMut.error.message : null}
         isPending={signupMut.isPending}
