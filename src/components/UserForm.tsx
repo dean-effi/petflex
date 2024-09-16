@@ -6,18 +6,19 @@ type UserFormProps = {
   onFormSubmit: (userDetails: UserDetails) => void;
   formType: "login" | "signup";
   errorMsg: string | null;
+  isPending: boolean;
 };
 
 export default function UserForm({
   onFormSubmit,
   formType,
   errorMsg,
+  isPending,
 }: UserFormProps) {
   const [userDetails, setUserDetails] = useState({
     username: "",
     password: "",
   });
-  console.log(userDetails);
   function onInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     setUserDetails({
       ...userDetails,
@@ -77,36 +78,35 @@ export default function UserForm({
               className="rounded-lg bg-stone-300 p-2 font-normal text-stone-800"
             />
           </label>
-          <div className="h-[80px] pb-2 text-center font-bold text-red-800 xl:text-2xl">
+          <div className="pb-2 text-center font-bold text-red-800 xl:text-2xl">
             {errorMsg && <p className="">{errorMsg}</p>}
           </div>
 
           <div className="m-auto grid w-full gap-4 text-center">
             <button
               type="submit"
-              className="m-auto rounded-[20px] bg-blue-800 p-2 px-5 text-xl font-bold text-stone-100 sm:text-2xl md:text-[26px] lg:p-3 lg:px-6 lg:text-3xl lg:text-[28px]"
+              disabled={isPending}
+              className="m-auto rounded-[20px] bg-blue-800 p-2 px-5 text-xl font-bold text-stone-100 disabled:bg-slate-700 sm:text-2xl md:text-[26px] lg:p-3 lg:px-6 lg:text-3xl lg:text-[28px]"
             >
               {formType === "signup" ? "Sign up" : "Log in"}
             </button>
-            <p>
-              {formType === "signup" ? (
-                <p className="text-sm md:text-base lg:text-xl xl:text-2xl">
-                  Already have an account?
-                  <Link to="/login" className="font-extrabold">
-                    {" "}
-                    Login
-                  </Link>
-                </p>
-              ) : (
-                <p>
-                  Don't have an account?
-                  <Link to={"/signup"} className="font-extrabold">
-                    {" "}
-                    Sign up
-                  </Link>
-                </p>
-              )}
-            </p>
+            {formType === "signup" ? (
+              <p className="text-sm md:text-base lg:text-xl xl:text-2xl">
+                Already have an account?
+                <Link to="/login" className="font-extrabold">
+                  {" "}
+                  Login
+                </Link>
+              </p>
+            ) : (
+              <p>
+                Don't have an account?
+                <Link to={"/signup"} className="font-extrabold">
+                  {" "}
+                  Sign up
+                </Link>
+              </p>
+            )}
           </div>
         </form>
       </section>

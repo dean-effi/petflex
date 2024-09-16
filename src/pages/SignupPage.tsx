@@ -3,7 +3,7 @@ import UserForm from "../components/UserForm";
 import { UserDetails } from "../types";
 import { useNavigate } from "react-router-dom";
 
-export default function Signup() {
+export default function SignupPage() {
   const navigate = useNavigate();
 
   const signupMut = useMutation({
@@ -12,8 +12,8 @@ export default function Signup() {
       return navigate("/login");
     },
   });
+
   function onSignup(userDetails: UserDetails) {
-    console.log("signed up", userDetails);
     signupMut.mutate(userDetails);
     return;
   }
@@ -24,14 +24,13 @@ export default function Signup() {
         onFormSubmit={onSignup}
         formType="signup"
         errorMsg={signupMut.isError ? signupMut.error.message : null}
+        isPending={signupMut.isPending}
       />
     </>
   );
 }
 
 async function signUser(userDetails: UserDetails) {
-  console.log("mutation function");
-  console.log(JSON.stringify(userDetails));
   const response = await fetch("http://localhost:3000/users", {
     method: "POST",
     headers: {
@@ -45,8 +44,7 @@ async function signUser(userDetails: UserDetails) {
     throw new Error("Unexpected error, try again");
   });
   if (!response.ok) {
-    console.log("not okayyy");
     throw new Error(responseJson.errors[0].msg);
   }
-  return response;
+  return responseJson;
 }
