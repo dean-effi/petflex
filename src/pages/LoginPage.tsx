@@ -1,10 +1,18 @@
 import { useMutation } from "@tanstack/react-query";
 import UserForm from "../components/UserForm";
 import { UserDetails } from "../types";
+import { useNavigate } from "react-router-dom";
+import { queryClient } from "../main";
 
 export default function LoginPage() {
+  const navigate = useNavigate();
   const loginMut = useMutation({
     mutationFn: logInUser,
+    onSuccess: ({ user, token }) => {
+      localStorage.setItem("token", "bearer " + token);
+      queryClient.setQueryData(["user"], { user });
+      navigate("/");
+    },
   });
 
   return (
