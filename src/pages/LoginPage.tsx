@@ -10,7 +10,7 @@ export default function LoginPage() {
     mutationFn: logInUser,
     onSuccess: ({ user, token }) => {
       localStorage.setItem("token", "bearer " + token);
-      queryClient.setQueryData(["user"], { user });
+      queryClient.setQueryData(["user"], { ...user });
       navigate("/");
     },
   });
