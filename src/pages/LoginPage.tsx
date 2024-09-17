@@ -28,13 +28,16 @@ export default function LoginPage() {
 }
 
 async function logInUser(userDetails: UserDetails) {
-  const response = await fetch("http://localhost:3000/login", {
-    method: "POST",
-    headers: {
-      "content-type": "application/json",
-    },
-    body: JSON.stringify(userDetails),
-  }).catch(() => {
+  const response = await fetch(
+    import.meta.env.VITE_ENDPOINT + "login",
+    {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(userDetails),
+    }
+  ).catch(() => {
     throw new Error("Unexpected error, try again");
   });
   const responseJson = await response.json().catch(() => {

@@ -13,7 +13,7 @@ export default function App() {
     staleTime: 1000 * 60 * 30,
     // refetchInterval: 1000 * 3,
   });
-  console.log("re-rendered!!! userquery:", userQuery.data);
+
   return (
     <div className="h-full min-h-screen w-full bg-stone-100 text-blue-800">
       <appContext.Provider value={{ user: userQuery.data }}>
@@ -47,12 +47,15 @@ async function loadUser() {
     if (!token) {
       return null;
     }
-    const response = await fetch("http://localhost:3000/users", {
-      method: "GET",
-      headers: {
-        authorization: token,
-      },
-    });
+    const response = await fetch(
+      import.meta.env.VITE_ENDPOINT + "users",
+      {
+        method: "GET",
+        headers: {
+          authorization: token,
+        },
+      }
+    );
     const responseJson = await response.json();
     return responseJson;
   } catch (error) {
