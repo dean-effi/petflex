@@ -1,9 +1,16 @@
 import { NavLink } from "react-router-dom";
 import burger from "../assets/burger.svg";
 import moon from "../assets/moon.svg";
+import { queryClient } from "../main";
+import { useContext } from "react";
+import { appContext } from "../App";
 
 export default function Navbar() {
-  console.log("rendering navbar");
+  function logout() {
+    localStorage.removeItem("token");
+    queryClient.setQueryData(["user"], null);
+  }
+  const { user } = useContext(appContext);
   return (
     <div className="sticky top-0 z-10 flex gap-4 bg-blue-800 text-stone-100 shadow-md shadow-blue-200">
       {/* mobile Nav */}
@@ -22,12 +29,21 @@ export default function Navbar() {
           <li>
             <NavLink to={""}>Home</NavLink>
           </li>
-          <li>
-            <NavLink to={"login"}>Log in</NavLink>
-          </li>
-          <li>
-            <NavLink to={"signup"}>Sign up</NavLink>
-          </li>
+          {user ? (
+            <li>
+              <button onClick={logout}>Log out</button>
+            </li>
+          ) : (
+            <>
+              <li>
+                <NavLink to={"login"}>Log in</NavLink>
+              </li>
+              <li>
+                <NavLink to={"signup"}>Sign up</NavLink>
+              </li>
+            </>
+          )}
+
           <button>
             <img src={moon} alt="moon icon" />
           </button>

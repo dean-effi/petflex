@@ -15,26 +15,24 @@ export default function App() {
   });
   console.log("re-rendered!!! userquery:", userQuery.data);
   return (
-    <>
+    <div className="h-full min-h-screen w-full bg-stone-100 text-blue-800">
       <appContext.Provider value={{ user: userQuery.data }}>
-        <div className="h-full min-h-screen w-full bg-stone-100 text-blue-800">
-          <Navbar />
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <h1 className="p-3 text-7xl font-bold">
-                  Welcome to petflex!{" "}
-                  {userQuery.data && userQuery.data.username}!!!
-                </h1>
-              }
-            />
-            <Route path="/signup" element={<SignupPage />} />
-            <Route path="/login" element={<LoginPage />} />
-          </Routes>
-        </div>
+        <Navbar />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <h1 className="p-3 text-7xl font-bold">
+                Welcome to petflex!{" "}
+                {userQuery.data && userQuery.data.username}!
+              </h1>
+            }
+          />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/login" element={<LoginPage />} />
+        </Routes>
       </appContext.Provider>
-    </>
+    </div>
   );
 }
 
