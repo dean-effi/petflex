@@ -2,6 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  font-family: "inter", sans-serif;
+@layer base {
+  html {
+    font-family: "inter", sans-serif;
+  }
+}
+
+@layer utilities {
+  .small-nav {
+    animation: slide 1s;
+  }
+
+  @keyframes slide {
+    0% {
+      transform: translate(-300px, 0px);
+
+      background-color: #ccc;
+    }
+
+    100% {
+    }
+  }
 }

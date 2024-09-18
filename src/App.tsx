@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { createContext } from "react";
 import { User } from "./types";
 export default function App() {
+  console.log("endpoint! " + import.meta.env.VITE_ENDPOINT);
   const userQuery = useQuery<User>({
     queryKey: ["user"],
     queryFn: loadUser,
