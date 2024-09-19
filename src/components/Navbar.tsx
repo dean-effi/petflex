@@ -6,12 +6,13 @@ import moon from "../assets/moon.svg";
 import moonBlue from "../assets/moon-blue.svg";
 
 import { queryClient } from "../main";
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { appContext } from "../App";
 import NavbarLinks from "./NavbarLinks";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const everOpened = useRef(false);
 
   function logout() {
     localStorage.removeItem("token");
@@ -19,10 +20,21 @@ export default function Navbar() {
   }
   const { user } = useContext(appContext);
   console.log("re-rendering nav");
+  console.log(everOpened.current, "helloooo");
+  let smallNavStateClass =
+    everOpened.current === false
+      ? " hidden"
+      : isOpen
+        ? " nav-open"
+        : " nav-close";
+
   return (
     <div className="sticky top-0 z-10 flex gap-4 bg-blue-800 text-stone-100 shadow-md shadow-blue-200">
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => {
+          if (!everOpened.current) everOpened.current = true;
+          setIsOpen(!isOpen);
+        }}
         className="rounded-md py-1 hover:bg-blue-900 lg:hidden"
       >
         <img src={burger} alt="open menu" />
@@ -31,7 +43,7 @@ export default function Navbar() {
       <nav
         className={
           "absolute left-0 grid h-[100vh] w-[40%] min-w-[270px] grid-rows-[100px,1fr,100px] justify-between border-r bg-stone-100 p-2 text-blue-800 shadow-lg lg:hidden" +
-          (isOpen ? " nav-open" : " nav-close")
+          smallNavStateClass
         }
       >
         <button
