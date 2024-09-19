@@ -9,18 +9,34 @@
 }
 
 @layer utilities {
-  .small-nav {
-    animation: slide 1s;
+  .nav-open {
+    animation: slideIn 0.8s;
+    animation-fill-mode: forwards;
   }
 
-  @keyframes slide {
+  @keyframes slideIn {
     0% {
-      transform: translate(-300px, 0px);
+      transform: translate(-100%, 0px);
 
       background-color: #ccc;
     }
 
     100% {
+    }
+  }
+
+  .nav-close {
+    animation: slideOut 0.6s;
+    animation-fill-mode: forwards;
+  }
+  @keyframes slideOut {
+    0% {
+      background-color: #ccc;
+    }
+
+    100% {
+      transform: translate(-100%, 0px);
+      display: hidden;
     }
   }
 }

@@ -8,14 +8,17 @@ import moonBlue from "../assets/moon-blue.svg";
 import { queryClient } from "../main";
 import { useContext, useState } from "react";
 import { appContext } from "../App";
+import NavbarLinks from "./NavbarLinks";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+
   function logout() {
     localStorage.removeItem("token");
     queryClient.setQueryData(["user"], null);
   }
   const { user } = useContext(appContext);
+  console.log("re-rendering nav");
   return (
     <div className="sticky top-0 z-10 flex gap-4 bg-blue-800 text-stone-100 shadow-md shadow-blue-200">
       <button
@@ -25,45 +28,36 @@ export default function Navbar() {
         <img src={burger} alt="open menu" />
       </button>
       {/* small screen collapseable Nav */}
-      {isOpen && (
-        <nav className="small-nav absolute left-0 grid h-[100vh] w-[40%] min-w-[270px] grid-rows-[100px,1fr,100px] justify-between border-r bg-stone-100 p-2 text-blue-800 shadow-lg lg:hidden">
-          <button
-            onClick={e => {
-              e.stopPropagation();
-              setIsOpen(!isOpen);
-            }}
-            className="self-start justify-self-start rounded-md hover:bg-stone-400"
-          >
-            <img src={burgerBlue} alt="close menu " />
-          </button>
-          <ul className="flex flex-col gap-6 p-4 pt-0 text-2xl font-bold md:gap-8 md:text-3xl">
-            <li onClick={() => setIsOpen(false)}>
-              <NavLink to={""}>Home</NavLink>
-            </li>
-            {user ? (
-              <li onClick={() => setIsOpen(false)}>
-                <button onClick={logout}>Log out</button>
-              </li>
-            ) : (
-              <>
-                <li onClick={() => setIsOpen(false)}>
-                  <NavLink to={"login"}>Log in</NavLink>
-                </li>
-                <li onClick={() => setIsOpen(false)}>
-                  <NavLink to={"signup"}>Sign up</NavLink>
-                </li>
-              </>
-            )}
-          </ul>
-          <button className="self-start p-4 pt-0">
-            <img
-              src={moonBlue}
-              className="w-10 md:w-12"
-              alt="moon icon"
-            />
-          </button>
-        </nav>
-      )}
+      <nav
+        className={
+          "absolute left-0 grid h-[100vh] w-[40%] min-w-[270px] grid-rows-[100px,1fr,100px] justify-between border-r bg-stone-100 p-2 text-blue-800 shadow-lg lg:hidden" +
+          (isOpen ? " nav-open" : " nav-close")
+        }
+      >
+        <button
+          onClick={e => {
+            e.stopPropagation();
+            setIsOpen(!isOpen);
+          }}
+          className="self-start justify-self-start rounded-md hover:bg-stone-400"
+        >
+          <img src={burgerBlue} alt="close menu " />
+        </button>
+        <ul className="flex flex-col gap-6 p-4 pt-0 text-2xl font-bold md:gap-8 md:text-3xl">
+          <NavbarLinks
+            user={user}
+            setIsOpen={setIsOpen}
+            logout={logout}
+          />
+        </ul>
+        <button className="self-start p-4 pt-0">
+          <img
+            src={moonBlue}
+            className="w-10 md:w-12"
+            alt="moon icon"
+          />
+        </button>
+      </nav>
       {/* large menu */}
       <nav className="hidden w-full justify-between p-4 px-6 lg:flex">
         <NavLink
@@ -73,23 +67,7 @@ export default function Navbar() {
           petflex
         </NavLink>
         <ul className="flex items-center gap-4 text-2xl font-semibold">
-          <li>
-            <NavLink to={""}>Home</NavLink>
-          </li>
-          {user ? (
-            <li>
-              <button onClick={logout}>Log out</button>
-            </li>
-          ) : (
-            <>
-              <li>
-                <NavLink to={"login"}>Log in</NavLink>
-              </li>
-              <li>
-                <NavLink to={"signup"}>Sign up</NavLink>
-              </li>
-            </>
-          )}
+          <NavbarLinks user={user} logout={logout} />
 
           <button>
             <img src={moon} alt="moon icon" />
