@@ -3,8 +3,9 @@ import Navbar from "./components/Navbar";
 import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
 import { useQuery } from "@tanstack/react-query";
-import { createContext } from "react";
 import { User } from "./types";
+import { appContext } from "./appContext";
+import PostPetPage from "./pages/PostPetPage";
 export default function App() {
   console.log("endpoint! " + import.meta.env.VITE_ENDPOINT);
   const userQuery = useQuery<User>({
@@ -31,15 +32,12 @@ export default function App() {
           />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/post" element={<PostPetPage />} />
         </Routes>
       </appContext.Provider>
     </div>
   );
 }
-
-export const appContext = createContext<{ user: User | undefined }>({
-  user: undefined,
-});
 
 async function loadUser() {
   console.log("loading user...");
@@ -59,6 +57,7 @@ async function loadUser() {
     );
     const responseJson = await response.json();
     return responseJson;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     throw new Error("error retreving the user");
   }

@@ -7,7 +7,7 @@ import moonBlue from "../assets/moon-blue.svg";
 
 import { queryClient } from "../main";
 import { useContext, useRef, useState } from "react";
-import { appContext } from "../App";
+import { appContext } from "../appContext";
 import NavbarLinks from "./NavbarLinks";
 
 export default function Navbar() {
@@ -21,7 +21,7 @@ export default function Navbar() {
   const { user } = useContext(appContext);
   console.log("re-rendering nav");
   console.log(everOpened.current, "helloooo");
-  let smallNavStateClass =
+  const smallNavStateClass =
     everOpened.current === false
       ? " hidden"
       : isOpen
