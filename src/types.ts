@@ -7,3 +7,8 @@ export type User = {
   username: string;
   notifications: any[];
 };
+
+export type QueryError = {
+  message: "";
+  status?: "";
+};

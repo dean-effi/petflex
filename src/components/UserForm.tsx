@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { UseMutateFunction } from "@tanstack/react-query";
 import { UserDetails } from "../types";
 
 type UserFormProps = {
-  onFormSubmit: (userDetails: UserDetails) => void;
+  onFormSubmit: UseMutateFunction<any, Error, UserDetails, unknown>;
   formType: "login" | "signup";
   errorMsg: string | null;
   isPending: boolean;

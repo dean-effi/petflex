@@ -7,12 +7,11 @@ import { User } from "./types";
 import { appContext } from "./appContext";
 import PostPetPage from "./pages/PostPetPage";
 export default function App() {
-  console.log("endpoint! " + import.meta.env.VITE_ENDPOINT);
   const userQuery = useQuery<User>({
     queryKey: ["user"],
     queryFn: loadUser,
     refetchInterval: 1000 * 60 * 60,
-    staleTime: 1000 * 60 * 30,
+    // staleTime: 1000 * 60 * 30,
     // refetchInterval: 1000 * 3,
   });
 
@@ -40,12 +39,12 @@ export default function App() {
 }
 
 async function loadUser() {
-  console.log("loading user...");
   const token = localStorage.getItem("token");
   try {
     if (!token) {
       return null;
     }
+    console.log("has token!!!!!!!!!");
     const response = await fetch(
       import.meta.env.VITE_ENDPOINT + "users",
       {
@@ -53,6 +52,7 @@ async function loadUser() {
         headers: {
           authorization: token,
         },
+        body: null,
       }
     );
     const responseJson = await response.json();

@@ -1,5 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { FormEvent, useState } from "react";
+import { QueryError } from "../types";
 
 export default function PostPetPage() {
   const [newPet, setNewPet] = useState<any>({
@@ -16,8 +17,16 @@ export default function PostPetPage() {
   console.log(newPet);
   const postMut = useMutation({
     mutationFn: (newPet: any) => postPet(newPet),
+    onError: (err: QueryError) => err,
   });
 
+  if (postMut.isError) {
+    console.log("error:");
+    console.log(postMut.error);
+    console.log(postMut.error.status);
+
+    console.log(postMut.error.message);
+  }
   function onInputChange(e: React.ChangeEvent<any>) {
     const value = e.target.value;
 
@@ -133,33 +142,39 @@ export default function PostPetPage() {
 async function postPet(newPet: any) {
   console.log("submiting", newPet);
   const token = localStorage.getItem("token");
-  try {
-    if (!token) {
-      console.log("no token provided");
-      throw new Error("no token provided");
-    }
-    const data = new FormData();
-    data.append("name", newPet.name);
-    data.append("description", newPet.description);
-    data.append("petType", newPet.petType);
-    data.append("gender", newPet.gender);
-    data.append("birthDate", newPet.birthDate);
-    data.append("image", newPet.image);
-
-    const response = await fetch(
-      import.meta.env.VITE_ENDPOINT + "posts",
-      {
-        method: "POST",
-        headers: {
-          authorization: token,
-        },
-        body: data,
-      }
-    );
-    const responseJson = await response.json();
-    return responseJson;
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } catch (error) {
-    throw new Error("error retreving the user");
+  if (!token) {
+    console.log("no token provided");
+    throw new Error("no token provided");
   }
+  const data = new FormData();
+  data.append("name", newPet.name);
+  data.append("description", newPet.description);
+  data.append("petType", newPet.petType);
+  data.append("gender", newPet.gender);
+  data.append("birthDate", newPet.birthDate);
+  data.append("image", newPet.image);
+
+  const response = await fetch(
+    import.meta.env.VITE_ENDPOINT + "posts",
+    {
+      method: "POST",
+      headers: {
+        authorization: token,
+      },
+      body: data,
+    }
+  );
+
+  const responseJson = await response.json().catch(() => {
+    throw new Error("Unexpected error, try again");
+  });
+  if (!response.ok) {
+    return Promise.reject({
+      hello: responseJson.errors[0].msg,
+      status: response.status,
+    });
+  }
+
+  console.log("response good ", responseJson);
+  return responseJson;
 }
