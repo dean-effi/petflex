@@ -2,24 +2,28 @@ import { useMutation } from "@tanstack/react-query";
 import { FormEvent, useState } from "react";
 
 export default function PostPetPage() {
-  const [newPet, setNewPet] = useState({
+  const [newPet, setNewPet] = useState<any>({
     name: "",
     description: "",
+    birthDate: "",
+    petType: "",
+    gender: "male",
+    image: null,
   });
+
+  console.log(newPet.image);
 
   console.log(newPet);
   const postMut = useMutation({
     mutationFn: (newPet: any) => postPet(newPet),
   });
 
-  function onInputChange(
-    e:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLTextAreaElement>
-  ) {
+  function onInputChange(e: React.ChangeEvent<any>) {
+    const value = e.target.value;
+
     setNewPet({
       ...newPet,
-      [e.target.name]: e.target.value,
+      [e.target.name]: value,
     });
   }
   function onFormSubmit(e: FormEvent) {
@@ -51,6 +55,76 @@ export default function PostPetPage() {
           name="description"
         />
       </label>
+      <label>
+        BirthDate:
+        <input
+          value={newPet.birthDate}
+          onChange={onInputChange}
+          className="border border-black"
+          type="date"
+          name="birthDate"
+        />
+      </label>
+      <label>
+        Pet Type:
+        <select onChange={onInputChange} name="petType" id="petType">
+          <option defaultChecked value={""}>
+            select a type
+          </option>
+
+          <option value="dog">dog</option>
+          <option value="cat">cat</option>
+          <option value="hamster">hamster</option>
+          <option value="lizard">lizard</option>
+          <option value="other">other</option>
+        </select>
+      </label>
+
+      <div>
+        <label>
+          Gender:
+          <br />
+          male:
+          <input
+            onChange={onInputChange}
+            name="gender"
+            value="male"
+            type="radio"
+            checked={newPet.gender === "male"}
+          />
+          female:
+          <input
+            onChange={onInputChange}
+            name="gender"
+            value="female"
+            type="radio"
+            checked={newPet.gender === "female"}
+          />
+          unknown:
+          <input
+            onChange={onInputChange}
+            name="gender"
+            value="unknown"
+            type="radio"
+            checked={newPet.gender === "unknown"}
+          />
+        </label>
+      </div>
+      <label>
+        BirthDate:
+        <input
+          required
+          onChange={e =>
+            setNewPet({
+              ...newPet,
+              image: e.target?.files ? e.target?.files[0] : null,
+            })
+          }
+          className="border border-black"
+          type="file"
+          name="image"
+        />
+      </label>
       <button type="submit">Submit</button>
     </form>
   );
@@ -67,8 +141,13 @@ async function postPet(newPet: any) {
     const data = new FormData();
     data.append("name", newPet.name);
     data.append("description", newPet.description);
+    data.append("petType", newPet.petType);
+    data.append("gender", newPet.gender);
+    data.append("birthDate", newPet.birthDate);
+    data.append("image", newPet.image);
+
     const response = await fetch(
-      import.meta.env.VITE_ENDPOINT + "posts/fake",
+      import.meta.env.VITE_ENDPOINT + "posts",
       {
         method: "POST",
         headers: {
