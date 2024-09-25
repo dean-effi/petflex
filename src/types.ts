@@ -9,6 +9,6 @@ export type User = {
 };
 
 export type QueryError = {
-  message: "";
-  status?: "";
+  message: string;
+  status?: number;
 };

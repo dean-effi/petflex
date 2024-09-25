@@ -13,7 +13,7 @@ export default function NavbarLinks({
   setIsOpen,
 }: NavbarLinksProps) {
   function onLiClick() {
-    setIsOpen && setIsOpen(prev => !prev);
+    return setIsOpen && setIsOpen(prev => !prev);
   }
   return (
     <>
@@ -21,9 +21,14 @@ export default function NavbarLinks({
         <NavLink to={""}>Home</NavLink>
       </li>
       {user ? (
-        <li onClick={onLiClick}>
-          <button onClick={logout}>Log out</button>
-        </li>
+        <>
+          <li onClick={onLiClick}>
+            <NavLink to={"post"}>Post</NavLink>
+          </li>
+          <li onClick={onLiClick}>
+            <button onClick={logout}>Log out</button>
+          </li>
+        </>
       ) : (
         <>
           <li onClick={onLiClick}>

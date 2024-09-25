@@ -8,7 +8,10 @@ export async function fetchApi(
     //if needs to be authenticated, check for token, if available, attach to head
     if (auth) {
       if (!token) {
-        throw new Error("no token provided");
+        return Promise.reject({
+          message: "unauthorized",
+          status: 403,
+        });
       } else {
         options = {
           ...options,
@@ -26,6 +29,7 @@ export async function fetchApi(
       console.log("couldn't reach endpoint");
       throw Error;
     });
+    console.log(response, typeof response.status);
     const responseJson = await response.json().catch(() => {
       throw Error;
     });
@@ -42,18 +46,12 @@ export async function fetchApi(
   } catch (error) {
     return Promise.reject({
       message: "Unexpected error",
-      status: "500",
+      status: 500,
     });
   }
 }
 
 export async function postPet(newPet: any) {
-  console.log("submiting", newPet);
-  const token = localStorage.getItem("token");
-  if (!token) {
-    console.log("no token provided");
-    throw new Error("no token provided");
-  }
   const data = new FormData();
   data.append("name", newPet.name);
   data.append("description", newPet.description);
