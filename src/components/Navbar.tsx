@@ -18,7 +18,7 @@ export default function Navbar() {
     localStorage.removeItem("token");
     queryClient.setQueryData(["user"], null);
   }
-  const { user } = useContext(appContext);
+  const { user } = useContext(appContext).userQuery;
   const smallNavStateClass =
     everOpened.current === false
       ? " hidden"

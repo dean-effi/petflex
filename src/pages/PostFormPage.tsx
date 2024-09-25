@@ -1,9 +1,13 @@
 import { useMutation } from "@tanstack/react-query";
-import { FormEvent, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
 import { QueryError } from "../types";
 import { postPet } from "../fetchApi";
+import { appContext } from "../appContext";
+import ErrorPage from "./ErrorPage";
 
 export default function PostPetPage() {
+  const { user, userLoading } = useContext(appContext).userQuery;
+
   const [newPet, setNewPet] = useState<any>({
     name: "",
     description: "",
@@ -13,9 +17,6 @@ export default function PostPetPage() {
     image: null,
   });
 
-  console.log(newPet.image);
-
-  console.log(newPet);
   const postMut = useMutation({
     mutationFn: (newPet: any) => postPet(newPet),
     onError: (err: QueryError) => err,
@@ -33,6 +34,15 @@ export default function PostPetPage() {
     e.preventDefault();
     postMut.mutate(newPet);
   }
+
+  console.log("post: ", user);
+  if (userLoading) {
+    return <p>loading...</p>;
+  }
+  if (!user) {
+    return <ErrorPage status={401} />;
+  }
+
   return (
     <form
       onSubmit={onFormSubmit}

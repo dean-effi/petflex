@@ -1,6 +1,13 @@
 import { createContext } from "react";
 import { User } from "./types";
 
-export const appContext = createContext<{ user: User | undefined }>({
-  user: undefined,
+type AppContextType = {
+  userQuery: {
+    user: User | undefined;
+    userLoading: boolean;
+  };
+};
+
+export const appContext = createContext<AppContextType>({
+  userQuery: { user: undefined, userLoading: false },
 });

@@ -5,7 +5,7 @@ import LoginPage from "./pages/LoginPage";
 import { useQuery } from "@tanstack/react-query";
 import { User } from "./types";
 import { appContext } from "./appContext";
-import PostPetPage from "./pages/PostPetPage";
+import PostFormPage from "./pages/PostFormPage";
 import { fetchApi } from "./fetchApi";
 export default function App() {
   const userQuery = useQuery<User>({
@@ -19,14 +19,21 @@ export default function App() {
         },
         true
       ),
-    refetchInterval: 1000 * 60 * 60,
-    // staleTime: 1000 * 60 * 30,
+    // refetchInterval: 1000 * 60 * 60,
+    staleTime: 1000 * 60 * 30,
     // refetchInterval: 1000 * 3,
   });
 
   return (
     <div className="h-full min-h-screen w-full bg-stone-100 text-blue-800">
-      <appContext.Provider value={{ user: userQuery.data }}>
+      <appContext.Provider
+        value={{
+          userQuery: {
+            user: userQuery.data,
+            userLoading: userQuery.isLoading,
+          },
+        }}
+      >
         <Navbar />
         <Routes>
           <Route
@@ -40,7 +47,7 @@ export default function App() {
           />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/post" element={<PostPetPage />} />
+          <Route path="/post" element={<PostFormPage />} />
         </Routes>
       </appContext.Provider>
     </div>
