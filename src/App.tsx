@@ -7,6 +7,7 @@ import { User } from "./types";
 import { appContext } from "./appContext";
 import PostFormPage from "./pages/PostFormPage";
 import { fetchApi } from "./fetchApi";
+import PostPage from "./pages/PostPage";
 export default function App() {
   const userQuery = useQuery<User>({
     queryKey: ["user"],
@@ -48,6 +49,7 @@ export default function App() {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/post" element={<PostFormPage />} />
+          <Route path="/:postId" element={<PostPage />} />
         </Routes>
       </appContext.Provider>
     </div>

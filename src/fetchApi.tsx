@@ -22,6 +22,7 @@ export async function fetchApi(
         };
       }
     }
+    console.log(import.meta.env.VITE_ENDPOINT + route);
     const response = await fetch(
       import.meta.env.VITE_ENDPOINT + route,
       options

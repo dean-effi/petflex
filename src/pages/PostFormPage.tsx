@@ -4,8 +4,10 @@ import { QueryError } from "../types";
 import { postPet } from "../fetchApi";
 import { appContext } from "../appContext";
 import ErrorPage from "./ErrorPage";
+import { useNavigate } from "react-router-dom";
 
 export default function PostPetPage() {
+  const navigate = useNavigate();
   const { user, userLoading } = useContext(appContext).userQuery;
 
   const [newPet, setNewPet] = useState<any>({
@@ -20,6 +22,10 @@ export default function PostPetPage() {
   const postMut = useMutation({
     mutationFn: (newPet: any) => postPet(newPet),
     onError: (err: QueryError) => err,
+    onSuccess: data => {
+      console.log("data", data);
+      navigate("/" + data.post.id);
+    },
   });
 
   function onInputChange(e: React.ChangeEvent<any>) {
@@ -36,10 +42,8 @@ export default function PostPetPage() {
   }
 
   console.log("post: ", user);
-  if (userLoading) {
-    return <p>loading...</p>;
-  }
-  if (!user) {
+
+  if (!user && !userLoading) {
     return <ErrorPage status={401} />;
   }
 
