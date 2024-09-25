@@ -6,10 +6,19 @@ import { useQuery } from "@tanstack/react-query";
 import { User } from "./types";
 import { appContext } from "./appContext";
 import PostPetPage from "./pages/PostPetPage";
+import { fetchApi } from "./fetchApi";
 export default function App() {
   const userQuery = useQuery<User>({
     queryKey: ["user"],
-    queryFn: loadUser,
+    queryFn: () =>
+      fetchApi(
+        "users",
+        {
+          method: "GET",
+          body: null,
+        },
+        true
+      ),
     refetchInterval: 1000 * 60 * 60,
     // staleTime: 1000 * 60 * 30,
     // refetchInterval: 1000 * 3,
@@ -38,27 +47,27 @@ export default function App() {
   );
 }
 
-async function loadUser() {
-  const token = localStorage.getItem("token");
-  try {
-    if (!token) {
-      return null;
-    }
-    console.log("has token!!!!!!!!!");
-    const response = await fetch(
-      import.meta.env.VITE_ENDPOINT + "users",
-      {
-        method: "GET",
-        headers: {
-          authorization: token,
-        },
-        body: null,
-      }
-    );
-    const responseJson = await response.json();
-    return responseJson;
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } catch (error) {
-    throw new Error("error retreving the user");
-  }
-}
+// async function loadUser() {
+//   const token = localStorage.getItem("token");
+//   try {
+//     if (!token) {
+//       return null;
+//     }
+//     console.log("has token!!!!!!!!!");
+//     const response = await fetch(
+//       import.meta.env.VITE_ENDPOINT + "users",
+//       {
+//         method: "GET",
+//         headers: {
+//           authorization: token,
+//         },
+//         body: null,
+//       }
+//     );
+//     const responseJson = await response.json();
+//     return responseJson;
+//     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+//   } catch (error) {
+//     throw new Error("error retreving the user");
+//   }
+// }

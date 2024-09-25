@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { FormEvent, useState } from "react";
 import { QueryError } from "../types";
+import { postPet } from "../fetchApi";
 
 export default function PostPetPage() {
   const [newPet, setNewPet] = useState<any>({
@@ -20,13 +21,6 @@ export default function PostPetPage() {
     onError: (err: QueryError) => err,
   });
 
-  if (postMut.isError) {
-    console.log("error:");
-    console.log(postMut.error);
-    console.log(postMut.error.status);
-
-    console.log(postMut.error.message);
-  }
   function onInputChange(e: React.ChangeEvent<any>) {
     const value = e.target.value;
 
@@ -36,7 +30,6 @@ export default function PostPetPage() {
     });
   }
   function onFormSubmit(e: FormEvent) {
-    console.log("form");
     e.preventDefault();
     postMut.mutate(newPet);
   }
@@ -135,46 +128,51 @@ export default function PostPetPage() {
         />
       </label>
       <button type="submit">Submit</button>
+      <div className="pb-2 text-center font-bold text-red-800 xl:text-2xl">
+        {postMut.isError && (
+          <p className="">{postMut.error.message}</p>
+        )}
+      </div>
     </form>
   );
 }
 
-async function postPet(newPet: any) {
-  console.log("submiting", newPet);
-  const token = localStorage.getItem("token");
-  if (!token) {
-    console.log("no token provided");
-    throw new Error("no token provided");
-  }
-  const data = new FormData();
-  data.append("name", newPet.name);
-  data.append("description", newPet.description);
-  data.append("petType", newPet.petType);
-  data.append("gender", newPet.gender);
-  data.append("birthDate", newPet.birthDate);
-  data.append("image", newPet.image);
+// async function postPet(newPet: any) {
+//   console.log("submiting", newPet);
+//   const token = localStorage.getItem("token");
+//   if (!token) {
+//     console.log("no token provided");
+//     throw new Error("no token provided");
+//   }
+//   const data = new FormData();
+//   data.append("name", newPet.name);
+//   data.append("description", newPet.description);
+//   data.append("petType", newPet.petType);
+//   data.append("gender", newPet.gender);
+//   data.append("birthDate", newPet.birthDate);
+//   data.append("image", newPet.image);
 
-  const response = await fetch(
-    import.meta.env.VITE_ENDPOINT + "posts",
-    {
-      method: "POST",
-      headers: {
-        authorization: token,
-      },
-      body: data,
-    }
-  );
+//   const response = await fetch(
+//     import.meta.env.VITE_ENDPOINT + "posts",
+//     {
+//       method: "POST",
+//       headers: {
+//         authorization: token,
+//       },
+//       body: data,
+//     }
+//   );
 
-  const responseJson = await response.json().catch(() => {
-    throw new Error("Unexpected error, try again");
-  });
-  if (!response.ok) {
-    return Promise.reject({
-      hello: responseJson.errors[0].msg,
-      status: response.status,
-    });
-  }
+//   const responseJson = await response.json().catch(() => {
+//     throw new Error("Unexpected error, try again");
+//   });
+//   if (!response.ok) {
+//     return Promise.reject({
+//       hello: responseJson.errors[0].msg,
+//       status: response.status,
+//     });
+//   }
 
-  console.log("response good ", responseJson);
-  return responseJson;
-}
+//   console.log("response good ", responseJson);
+//   return responseJson;
+// }

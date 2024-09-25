@@ -19,8 +19,6 @@ export default function Navbar() {
     queryClient.setQueryData(["user"], null);
   }
   const { user } = useContext(appContext);
-  console.log("re-rendering nav");
-  console.log(everOpened.current, "helloooo");
   const smallNavStateClass =
     everOpened.current === false
       ? " hidden"
