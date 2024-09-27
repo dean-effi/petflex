@@ -40,13 +40,13 @@ export default function UserForm({
       >
         <h1 className="grid">
           {formType === "signup" ? "Sign up to" : "Log in to"}
-          <span className="text-5xl tracking-widest sm:text-6xl">
+          <span className="text-4xl tracking-widest sm:text-5xl">
             {" "}
             petflex
           </span>
         </h1>
         <img
-          className="m-auto mt-2 w-[135px] sm:w-[153px]"
+          className="m-auto mt-2 w-[125px] sm:w-[143px]"
           src="/logo.svg"
           alt="petflex logo"
         />

@@ -12,3 +12,36 @@ export type QueryError = {
   message: string;
   status?: number;
 };
+export type PostType = {
+  _id: string;
+  user: {
+    _id: string;
+    username: string;
+  };
+  name: string;
+  description: string;
+  image: string;
+  imageName: string;
+  gender: "male" | "female" | "unknown";
+  birthDate: string;
+  petType: petsType;
+  likes: string[];
+  commentsCount: number;
+  createdAt: string;
+  __v: number;
+  likesCount: number;
+  age: {
+    years: number;
+    months: number;
+    days: number;
+  };
+  id: string;
+};
+
+export type petsType =
+  | "dog"
+  | "cat"
+  | "lizard"
+  | "hamster"
+  | "rabbit"
+  | "other";
