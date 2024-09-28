@@ -20,13 +20,16 @@ export default function PostPage() {
         ),
     }
   );
+  if (postQuery.isLoading) {
+    return <p>loading...</p>;
+  }
   if (postQuery.isError) {
     return <ErrorPage status={postQuery.error.status} />;
   }
   if (post) {
     return (
       <div className="p-6 text-xl">
-        <div className="text-4xl">{post.name}</div>
+        <h1 className="text-4xl">{post.name}</h1>
         <img src={post.image}></img>
         <p>{post.description}</p>
         <p>{post.age.years} years old!</p>

@@ -8,6 +8,7 @@ import { appContext } from "./appContext";
 import PostFormPage from "./pages/PostFormPage";
 import { fetchApi } from "./fetchApi";
 import PostPage from "./pages/PostPage";
+import HomePage from "./pages/HomePage";
 export default function App() {
   const userQuery = useQuery<User>({
     queryKey: ["user"],
@@ -37,15 +38,7 @@ export default function App() {
       >
         <Navbar />
         <Routes>
-          <Route
-            path="/"
-            element={
-              <h1 className="p-3 text-7xl font-bold">
-                Welcome to petflex!{" "}
-                {userQuery.data && userQuery.data.username}!
-              </h1>
-            }
-          />
+          <Route path="/" element={<HomePage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/post" element={<PostFormPage />} />
