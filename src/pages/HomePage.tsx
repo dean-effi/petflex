@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchApi } from "../fetchApi";
 import { Link } from "react-router-dom";
 import { PostType, QueryError } from "../types";
+import { queryClient } from "../main";
 
 export default function HomePage() {
   const { data: posts, ...postsQuery } = useQuery<
@@ -14,14 +15,20 @@ export default function HomePage() {
     queryFn: () => fetchApi("posts", { method: "GET" }, false),
   });
 
-  console.log(posts);
+  function onLinkClick(id: string, post: PostType) {
+    queryClient.setQueryData(["posts", id], post);
+  }
   const { user } = useContext(appContext).userQuery;
   console.log(user);
   let postsDisplay: ReactElement[] = [];
   if (posts) {
     postsDisplay = posts.map(post => {
       return (
-        <Link to={post.id}>
+        <Link
+          onClick={() => onLinkClick(post.id, post)}
+          to={post.id}
+          key={post.id}
+        >
           <article className="border-3 m-auto grid w-full justify-center gap-4 overflow-hidden border border-blue-700 p-4 text-center shadow-lg">
             <h2>{post.name}</h2>
             <img
