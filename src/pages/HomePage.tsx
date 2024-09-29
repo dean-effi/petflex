@@ -18,7 +18,7 @@ export default function HomePage() {
       );
     },
     initialPageParam: 1,
-    getNextPageParam: (lastPage, allPages, lastPageParam) => {
+    getNextPageParam: (_lastPage, _allPages, lastPageParam) => {
       if (typeof lastPageParam === "number") {
         return lastPageParam + 1;
       } else {
