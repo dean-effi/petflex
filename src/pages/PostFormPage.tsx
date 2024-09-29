@@ -5,6 +5,7 @@ import { postPet } from "../fetchApi";
 import { appContext } from "../appContext";
 import ErrorPage from "./ErrorPage";
 import { useNavigate } from "react-router-dom";
+import { queryClient } from "../main";
 
 export default function PostPetPage() {
   const navigate = useNavigate();
@@ -24,7 +25,9 @@ export default function PostPetPage() {
     onError: (err: QueryError) => err,
     onSuccess: data => {
       console.log("data", data);
-      navigate("/" + data.post.id);
+      queryClient.setQueryData(["posts", data.id], data);
+
+      navigate("/" + data.id);
     },
   });
 
