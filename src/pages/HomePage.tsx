@@ -1,4 +1,4 @@
-import { ReactElement, useContext, useRef } from "react";
+import { ReactElement, useContext } from "react";
 import { appContext } from "../appContext";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { fetchApi } from "../fetchApi";
@@ -7,17 +7,24 @@ import { PostType, QueryError } from "../types";
 import { queryClient } from "../main";
 
 export default function HomePage() {
-  const pageRef = useRef(1);
   const postsQuery = useInfiniteQuery<PostType[], QueryError>({
     queryKey: ["posts"],
-    queryFn: () =>
-      fetchApi(
-        `posts?page=${pageRef.current}`,
+    queryFn: ({ pageParam }) => {
+      console.log("aaaaaa", pageParam);
+      return fetchApi(
+        `posts?page=${pageParam}`,
         { method: "GET" },
         false
-      ),
+      );
+    },
     initialPageParam: 1,
-    getNextPageParam: () => 1,
+    getNextPageParam: (lastPage, allPages, lastPageParam) => {
+      if (typeof lastPageParam === "number") {
+        return lastPageParam + 1;
+      } else {
+        return 1;
+      }
+    },
   });
 
   function onLinkClick(id: string, post: PostType) {
@@ -69,10 +76,7 @@ export default function HomePage() {
         {postsDisplay}
       </div>
       <button
-        onClick={() => {
-          pageRef.current++;
-          postsQuery.fetchNextPage();
-        }}
+        onClick={() => postsQuery.fetchNextPage()}
         className="w-full border-2 border-black p-2 text-xl hover:bg-stone-200"
       >
         load more...
