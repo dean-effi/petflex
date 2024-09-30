@@ -48,28 +48,3 @@ export default function App() {
     </div>
   );
 }
-
-// async function loadUser() {
-//   const token = localStorage.getItem("token");
-//   try {
-//     if (!token) {
-//       return null;
-//     }
-//     console.log("has token!!!!!!!!!");
-//     const response = await fetch(
-//       import.meta.env.VITE_ENDPOINT + "users",
-//       {
-//         method: "GET",
-//         headers: {
-//           authorization: token,
-//         },
-//         body: null,
-//       }
-//     );
-//     const responseJson = await response.json();
-//     return responseJson;
-//     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-//   } catch (error) {
-//     throw new Error("error retreving the user");
-//   }
-// }

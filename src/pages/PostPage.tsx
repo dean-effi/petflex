@@ -6,7 +6,7 @@ import ErrorPage from "./ErrorPage";
 
 export default function PostPage() {
   const { postId } = useParams();
-  console.log("postidddd", postId);
+  // console.log("postidddd", postId);
   const { data: post, ...postQuery } = useQuery<PostType, QueryError>(
     {
       queryKey: ["posts", postId],

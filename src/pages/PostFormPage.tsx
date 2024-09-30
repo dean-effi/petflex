@@ -24,7 +24,6 @@ export default function PostPetPage() {
     mutationFn: (newPet: any) => postPet(newPet),
     onError: (err: QueryError) => err,
     onSuccess: data => {
-      console.log("data", data);
       queryClient.setQueryData(["posts", data.id], data);
 
       navigate("/" + data.id);
@@ -43,8 +42,6 @@ export default function PostPetPage() {
     e.preventDefault();
     postMut.mutate(newPet);
   }
-
-  console.log("post: ", user);
 
   if (!user && !userLoading) {
     return <ErrorPage status={401} />;
@@ -153,43 +150,3 @@ export default function PostPetPage() {
     </form>
   );
 }
-
-// async function postPet(newPet: any) {
-//   console.log("submiting", newPet);
-//   const token = localStorage.getItem("token");
-//   if (!token) {
-//     console.log("no token provided");
-//     throw new Error("no token provided");
-//   }
-//   const data = new FormData();
-//   data.append("name", newPet.name);
-//   data.append("description", newPet.description);
-//   data.append("petType", newPet.petType);
-//   data.append("gender", newPet.gender);
-//   data.append("birthDate", newPet.birthDate);
-//   data.append("image", newPet.image);
-
-//   const response = await fetch(
-//     import.meta.env.VITE_ENDPOINT + "posts",
-//     {
-//       method: "POST",
-//       headers: {
-//         authorization: token,
-//       },
-//       body: data,
-//     }
-//   );
-
-//   const responseJson = await response.json().catch(() => {
-//     throw new Error("Unexpected error, try again");
-//   });
-//   if (!response.ok) {
-//     return Promise.reject({
-//       hello: responseJson.errors[0].msg,
-//       status: response.status,
-//     });
-//   }
-
-//   console.log("response good ", responseJson);
-//   return responseJson;
-// }
