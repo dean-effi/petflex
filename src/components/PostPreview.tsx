@@ -19,7 +19,8 @@ export default function PostPreview({ post }: { post: PostType }) {
         <hr className="border-blue-900" />
         <p className="">
           at:{new Date(post.createdAt).toLocaleString()}, by:
-          {post.user.username}
+          {post.user.username} | he is a {post.petType} | likes:{" "}
+          {post.likesCount}
         </p>
       </article>
     </Link>
