@@ -1,41 +1,49 @@
-import { ReactElement, useContext, useRef } from "react";
+import { FormEvent, ReactElement, useContext, useState } from "react";
 import { appContext } from "../appContext";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { fetchApi } from "../fetchApi";
 import { petsType, PostType, QueryError } from "../types";
 import PostPreview from "../components/PostPreview";
+import { useSearchParams } from "react-router-dom";
 
 type QueryOptionsType = {
-  order: number;
-  sortBy: string;
-  petType: petsType | "";
+  order: "-1" | "1" | null;
+  sortBy: string | null;
+  petType: petsType | "" | null;
 };
 
 export default function HomePage() {
-  const queryOptions = useRef<QueryOptionsType>({
-    order: -1,
-    sortBy: "date",
-    petType: "",
+  const [searchParams, setSearchParams] = useSearchParams();
+  console.log(searchParams.toString(), " searchinggggggg");
+  const [queryOptions, setQueryOptions] = useState<QueryOptionsType>({
+    order: null,
+    sortBy: null,
+    petType: null,
   });
 
-  console.log(queryOptions);
   function handleInputChange(
     e: React.ChangeEvent<HTMLSelectElement>
   ) {
     console.log(e.target.name);
-    queryOptions.current = {
-      ...queryOptions.current,
+    setQueryOptions({
+      ...queryOptions,
       [e.target.name]: e.target.value,
-    };
-    postsQuery.refetch();
+    });
+
     return;
   }
+
+  console.log(queryOptions);
+
   const postsQuery = useInfiniteQuery<PostType[], QueryError>({
-    queryKey: ["posts"],
+    queryKey: ["posts", searchParams.toString()],
+    staleTime: 1000 * 60 * 30,
     queryFn: ({ pageParam }) => {
-      console.log();
+      console.log(
+        `posts?page=${pageParam}&${searchParams.toString()}`
+      );
       return fetchApi(
-        `posts?page=${pageParam}&order=${queryOptions.current.order}&sortBy=${queryOptions.current.sortBy}&petType=${queryOptions.current.petType}`,
+        `posts?page=${pageParam}&${searchParams.toString()}`,
         { method: "GET" },
         false
       );
@@ -52,6 +60,14 @@ export default function HomePage() {
 
   const { user } = useContext(appContext).userQuery;
   const pages = postsQuery.data?.pages;
+
+  function handleFiltersSubmit(e: FormEvent) {
+    e.preventDefault();
+    console.log("submit");
+    setSearchParams(
+      `order=${queryOptions.order || "-1"}&sortBy=${queryOptions.sortBy || "date"}&petType=${queryOptions.petType || ""}`
+    );
+  }
   const postsDisplay: ReactElement[] = [];
   if (pages) {
     pages.forEach(page =>
@@ -64,20 +80,21 @@ export default function HomePage() {
   // console.log("data is here", postsQuery.data);
   return (
     <>
-      {/* <button
-        className="text-3xl"
-        onClick={() => postsQuery.refetch()}
+      <form
+        className="flex items-center gap-5 p-2 text-lg"
+        onSubmit={handleFiltersSubmit}
       >
-        Refetch?
-      </button> */}
-      <div className="flex gap-5 p-2 text-lg">
         filters:
         <br />
         <label>
           Sort By:
           <select
             name="sortBy"
-            value={queryOptions.current.sortBy}
+            value={
+              queryOptions.sortBy ||
+              searchParams.get("sortBy") ||
+              "date"
+            }
             onChange={handleInputChange}
           >
             <option value="date">date</option>
@@ -87,9 +104,14 @@ export default function HomePage() {
         <label>
           Pet Type:
           <select
+            defaultChecked={true}
             name="petType"
-            value={queryOptions.current.petType}
             onChange={handleInputChange}
+            value={
+              queryOptions.petType ||
+              searchParams.get("petType") ||
+              ""
+            }
           >
             <option value="">all</option>
             <option value="dog">dog</option>
@@ -104,14 +126,22 @@ export default function HomePage() {
           Order:
           <select
             name="order"
-            value={queryOptions.current.order}
+            value={
+              queryOptions.order || searchParams.get("order") || "-1"
+            }
             onChange={handleInputChange}
           >
             <option value={-1}>descending</option>
             <option value={1}>ascending</option>
           </select>
         </label>
-      </div>
+        <button
+          type="submit"
+          className="rounded-md border border-blue-800 p-1"
+        >
+          Apply
+        </button>
+      </form>
       <div className="mt-4 text-center text-4xl">
         Welcome homeee, {user?.username || "stranger"}
       </div>
