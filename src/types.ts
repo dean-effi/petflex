@@ -45,3 +45,14 @@ export type petsType =
   | "hamster"
   | "rabbit"
   | "other";
+
+export type Comment = {
+  content: string;
+  user: {
+    username: string;
+  };
+  postId: string;
+  parentId: string | null;
+  hasReplies: boolean;
+  _id: string;
+};

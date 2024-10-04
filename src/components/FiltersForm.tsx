@@ -56,7 +56,7 @@ export default function FiltersForm({
   }
   return (
     <form
-      className="flex items-center gap-5 p-2 text-lg"
+      className="flex items-center justify-center gap-7 p-2 pt-4 text-lg"
       onSubmit={handleFiltersSubmit}
     >
       filters:

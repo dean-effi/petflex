@@ -30,7 +30,6 @@ export async function fetchApi(
       console.log("couldn't reach endpoint");
       throw Error;
     });
-    console.log(response, typeof response.status);
     const responseJson = await response.json().catch(() => {
       throw Error;
     });
