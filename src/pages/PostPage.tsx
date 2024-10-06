@@ -4,6 +4,7 @@ import { fetchApi } from "../fetchApi";
 import { CommentType, PostType, QueryError } from "../types";
 import ErrorPage from "./ErrorPage";
 import { ReactElement } from "react";
+import Comment from "../components/Comment";
 
 export default function PostPage() {
   const { postId } = useParams();
@@ -22,10 +23,7 @@ export default function PostPage() {
     }
   );
 
-  const { data: comments, ...commentsQuery } = useQuery<
-    CommentType[],
-    QueryError
-  >({
+  const { data: comments } = useQuery<CommentType[], QueryError>({
     queryKey: ["comments", postId],
     queryFn: () =>
       fetchApi(
@@ -36,8 +34,6 @@ export default function PostPage() {
         false
       ),
   });
-  console.log("commentsssssss ", comments);
-  console.log(commentsQuery.error);
   if (postQuery.isLoading) {
     return <p>loading...</p>;
   }
@@ -45,17 +41,25 @@ export default function PostPage() {
     return <ErrorPage status={postQuery.error.status} />;
   }
 
+  //if there are comments, assign to reply and top level comments, then generate comment elements,
+  // who will recursivley render their replies
   let commentsElements: ReactElement<any>[] = [];
   if (comments) {
-    const topLevelComments = comments.filter(
-      comment => comment.parentId == null
-    );
+    const topLevelComments: CommentType[] = [];
+    const replyComments: CommentType[] = [];
 
+    comments.forEach(comment => {
+      if (comment.parentId == null) {
+        topLevelComments.push(comment);
+      } else {
+        replyComments.push(comment);
+      }
+    });
     commentsElements = topLevelComments.map(comment => {
       return (
         <Comment
           key={comment._id}
-          allComments={comments}
+          replyComments={replyComments}
           comment={comment}
         />
       );
@@ -84,35 +88,4 @@ export default function PostPage() {
       </>
     );
   }
-}
-
-type CommentProps = {
-  comment: CommentType;
-  allComments: CommentType[];
-};
-function Comment({ comment, allComments }: CommentProps) {
-  const replies = allComments.filter(
-    reply => reply.parentId === comment._id
-  );
-  console.log("replies", replies);
-  return (
-    <>
-      <div className="m-2 mt-0 border-l-2 border-stone-500">
-        <div className="w-full border border-blue-700 p-2 text-xl shadow-lg">
-          <p>{comment.content}</p>
-          <p>by: {comment.user.username}</p>
-          <p className="text-base">
-            at: {new Date(comment.createdAt).toLocaleString()}
-          </p>
-        </div>
-        {replies.map(reply => {
-          return (
-            <div key={comment._id} className="ml-6 mt-1">
-              <Comment comment={reply} allComments={allComments} />
-            </div>
-          );
-        })}
-      </div>
-    </>
-  );
 }
