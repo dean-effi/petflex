@@ -8,7 +8,7 @@ export default function PostPreview({ post }: { post: PostType }) {
   }
   return (
     <Link onClick={() => onLinkClick(post)} to={post.id}>
-      <article className="border-3 m-auto grid w-full justify-center gap-4 overflow-hidden border border-blue-700 p-4 text-center shadow-lg">
+      <article className="border-3 m-auto grid h-full w-full auto-rows-max justify-center gap-4 overflow-hidden rounded-lg border p-4 text-center shadow-[3px_3px_3px_#bfdbfe] hover:bg-stone-200">
         <h2>{post.name}</h2>
         <img
           src={post.image}

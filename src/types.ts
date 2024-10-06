@@ -46,7 +46,7 @@ export type petsType =
   | "rabbit"
   | "other";
 
-export type Comment = {
+export type CommentType = {
   content: string;
   user: {
     username: string;
@@ -55,4 +55,5 @@ export type Comment = {
   parentId: string | null;
   hasReplies: boolean;
   _id: string;
+  createdAt: string;
 };

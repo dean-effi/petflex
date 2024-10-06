@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { fetchApi } from "../fetchApi";
-import { Comment, PostType, QueryError } from "../types";
+import { CommentType, PostType, QueryError } from "../types";
 import ErrorPage from "./ErrorPage";
 import { ReactElement } from "react";
 
@@ -23,7 +23,7 @@ export default function PostPage() {
   );
 
   const { data: comments, ...commentsQuery } = useQuery<
-    any,
+    CommentType[],
     QueryError
   >({
     queryKey: ["comments", postId],
@@ -44,18 +44,30 @@ export default function PostPage() {
   if (postQuery.isError) {
     return <ErrorPage status={postQuery.error.status} />;
   }
+
   let commentsElements: ReactElement<any>[] = [];
   if (comments) {
-    commentsElements = comments.map((comment: Comment) => {
-      return <h1>{comment.content}</h1>;
+    const topLevelComments = comments.filter(
+      comment => comment.parentId == null
+    );
+
+    commentsElements = topLevelComments.map(comment => {
+      return (
+        <Comment
+          key={comment._id}
+          allComments={comments}
+          comment={comment}
+        />
+      );
     });
   }
+
   if (post) {
     return (
       <>
         <div className="p-6 text-xl">
           <h1 className="text-4xl">{post.name}</h1>
-          <img src={post.image}></img>
+          <img className="max-h-[70vh]" src={post.image}></img>
           <p>{post.description}</p>
           <p>{post.age.years} years old!</p>
           <p>created by: {post.user.username}</p>
@@ -72,4 +84,35 @@ export default function PostPage() {
       </>
     );
   }
+}
+
+type CommentProps = {
+  comment: CommentType;
+  allComments: CommentType[];
+};
+function Comment({ comment, allComments }: CommentProps) {
+  const replies = allComments.filter(
+    reply => reply.parentId === comment._id
+  );
+  console.log("replies", replies);
+  return (
+    <>
+      <div className="m-2 mt-0 border-l-2 border-stone-500">
+        <div className="w-full border border-blue-700 p-2 text-xl shadow-lg">
+          <p>{comment.content}</p>
+          <p>by: {comment.user.username}</p>
+          <p className="text-base">
+            at: {new Date(comment.createdAt).toLocaleString()}
+          </p>
+        </div>
+        {replies.map(reply => {
+          return (
+            <div key={comment._id} className="ml-6 mt-1">
+              <Comment comment={reply} allComments={allComments} />
+            </div>
+          );
+        })}
+      </div>
+    </>
+  );
 }
