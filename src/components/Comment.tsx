@@ -1,18 +1,37 @@
 import { useState } from "react";
 import { CommentType } from "../types";
 import PostCommentForm from "./PostCommentForm";
+import { fetchApi } from "../fetchApi";
+import { useMutation } from "@tanstack/react-query";
+import { queryClient } from "../main";
 
 type CommentProps = {
   comment: CommentType;
   replyComments: CommentType[];
   postId: string;
+  userId: string | undefined;
 };
 export default function Comment({
   comment,
   replyComments,
   postId,
+  userId,
 }: CommentProps) {
   const [isReplying, setIsReplying] = useState(false);
+  const { mutate: deleteComment } = useMutation({
+    mutationFn: () => {
+      return fetchApi(
+        "comments" + "/" + postId + "/" + comment._id,
+        {
+          method: "DELETE",
+        },
+        true
+      );
+    },
+    onSuccess: (comments: CommentType) => {
+      queryClient.setQueryData(["comments", postId], comments);
+    },
+  });
   const replies = replyComments.filter(
     reply => reply.parentId === comment._id
   );
@@ -27,7 +46,16 @@ export default function Comment({
           </p>
 
           <button onClick={() => setIsReplying(true)}>Reply</button>
+          {comment.user._id === userId && (
+            <button
+              onClick={() => deleteComment()}
+              className="ml-2 text-red-800"
+            >
+              Delete
+            </button>
+          )}
         </div>
+
         {isReplying && (
           <>
             <PostCommentForm
@@ -44,6 +72,7 @@ export default function Comment({
                 comment={reply}
                 replyComments={replyComments}
                 postId={postId}
+                userId={userId}
               />
             </div>
           );

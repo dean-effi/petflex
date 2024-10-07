@@ -6,10 +6,12 @@ import ErrorPage from "./ErrorPage";
 import { PostType, QueryError } from "../types";
 import { fetchApi } from "../fetchApi";
 import { useQuery } from "@tanstack/react-query";
+import { useContext } from "react";
+import { appContext } from "../appContext";
 
 export default function PostPage() {
   const { postId } = useParams();
-
+  const { user } = useContext(appContext).userQuery;
   const { data: post, ...postQuery } = useQuery<PostType, QueryError>(
     {
       queryKey: ["posts", postId],
@@ -35,7 +37,7 @@ export default function PostPage() {
     return (
       <>
         <PostDetails post={post!} />
-        <CommentsSection postId={postId!} />
+        <CommentsSection userId={user?._id} postId={postId!} />
       </>
     );
   }

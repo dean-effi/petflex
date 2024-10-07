@@ -7,8 +7,10 @@ import Comment from "./Comment";
 
 export default function CommentsSection({
   postId,
+  userId,
 }: {
   postId: string;
+  userId: string | undefined;
 }) {
   const { data: comments } = useQuery<CommentType[], QueryError>({
     queryKey: ["comments", postId],
@@ -40,6 +42,7 @@ export default function CommentsSection({
           replyComments={replyComments}
           comment={comment}
           postId={postId}
+          userId={userId}
         />
       );
     });

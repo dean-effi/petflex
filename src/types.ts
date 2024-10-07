@@ -50,10 +50,12 @@ export type CommentType = {
   content: string;
   user: {
     username: string;
+    _id: string;
   };
   postId: string;
   parentId: string | null;
   hasReplies: boolean;
   _id: string;
   createdAt: string;
+  available: boolean;
 };
