@@ -39,6 +39,7 @@ export default function CommentsSection({
           key={comment._id}
           replyComments={replyComments}
           comment={comment}
+          postId={postId}
         />
       );
     });

@@ -1,13 +1,18 @@
+import { useState } from "react";
 import { CommentType } from "../types";
+import PostCommentForm from "./PostCommentForm";
 
 type CommentProps = {
   comment: CommentType;
   replyComments: CommentType[];
+  postId: string;
 };
 export default function Comment({
   comment,
   replyComments,
+  postId,
 }: CommentProps) {
+  const [isReplying, setIsReplying] = useState(false);
   const replies = replyComments.filter(
     reply => reply.parentId === comment._id
   );
@@ -20,13 +25,27 @@ export default function Comment({
           <p className="text-base">
             at: {new Date(comment.createdAt).toLocaleString()}
           </p>
+
+          <button onClick={() => setIsReplying(true)}>Reply</button>
         </div>
+        {isReplying && (
+          <>
+            <PostCommentForm
+              postId={postId!}
+              parentId={comment._id}
+            />
+            <button onClick={() => setIsReplying(false)}>
+              Cancel
+            </button>
+          </>
+        )}
         {replies.map(reply => {
           return (
             <div key={comment._id} className="ml-6 mt-1">
               <Comment
                 comment={reply}
                 replyComments={replyComments}
+                postId={postId}
               />
             </div>
           );
