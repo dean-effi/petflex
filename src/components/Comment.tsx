@@ -11,7 +11,6 @@ export default function Comment({
   const replies = replyComments.filter(
     reply => reply.parentId === comment._id
   );
-  console.log("replies", replies);
   return (
     <>
       <div className="m-2 mt-0 border-l-2 border-stone-500">
