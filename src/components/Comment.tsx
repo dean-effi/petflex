@@ -33,10 +33,8 @@ export default function Comment({
             <PostCommentForm
               postId={postId!}
               parentId={comment._id}
+              cancelReply={() => setIsReplying(false)}
             />
-            <button onClick={() => setIsReplying(false)}>
-              Cancel
-            </button>
           </>
         )}
         {replies.map(reply => {
