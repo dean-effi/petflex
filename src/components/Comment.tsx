@@ -67,7 +67,7 @@ export default function Comment({
         )}
         {replies.map(reply => {
           return (
-            <div key={comment._id} className="ml-6 mt-1">
+            <div key={reply._id} className="ml-6 mt-1">
               <Comment
                 comment={reply}
                 replyComments={replyComments}

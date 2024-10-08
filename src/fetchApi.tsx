@@ -40,7 +40,7 @@ export async function fetchApi(
       });
     }
 
-    console.log("response good ", responseJson);
+    // console.log("response good ", responseJson);
     return responseJson;
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {

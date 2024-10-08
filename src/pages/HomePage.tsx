@@ -14,9 +14,9 @@ export default function HomePage() {
     queryKey: ["posts", searchParams.toString()],
     staleTime: 1000 * 60 * 30,
     queryFn: ({ pageParam }) => {
-      console.log(
-        `posts?page=${pageParam}&${searchParams.toString()}`
-      );
+      // console.log(
+      //   `posts?page=${pageParam}&${searchParams.toString()}`
+      // );
       return fetchApi(
         `posts?page=${pageParam}&${searchParams.toString()}`,
         { method: "GET" },

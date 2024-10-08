@@ -16,7 +16,13 @@ export default function PostCommentForm({
   cancelReply,
 }: PostCommentFormProps) {
   const [newComment, setNewComment] = useState("");
-  const commentMut = useMutation({
+  const [clientError, setClientError] = useState("");
+
+  const {
+    mutate: postComment,
+    isError,
+    error,
+  } = useMutation({
     mutationFn: (parentId: string | null = null) => {
       return fetchApi(
         "comments" + "/" + postId,
@@ -39,19 +45,38 @@ export default function PostCommentForm({
       if (cancelReply) cancelReply();
     },
   });
-  function postComment(e: React.FormEvent) {
-    e.preventDefault();
-    commentMut.mutate(parentId);
-  }
+
   return (
-    <form className="m-2" onSubmit={postComment}>
+    <form
+      className="m-2"
+      onSubmit={e => {
+        e.preventDefault();
+        if (newComment.length < 3 || newComment.length > 200) {
+          setClientError(
+            "message must contain between 3 and 200 characters"
+          );
+          return;
+        }
+        setClientError("");
+        postComment(parentId);
+      }}
+    >
       <input
         type="text"
         name="content"
+        minLength={3}
+        maxLength={200}
         onChange={e => setNewComment(e.target.value)}
         value={newComment}
         className="mb-2 flex items-start border-2 border-blue-700 p-2 pb-8 pl-1"
       />
+
+      {(Boolean(clientError.length) || isError) && (
+        <p className="m-1 my-2 text-red-900">
+          {clientError || error?.message}
+        </p>
+      )}
+
       <div className="space-x-4">
         <button
           className="rounded-md border-2 border-blue-600 p-1"

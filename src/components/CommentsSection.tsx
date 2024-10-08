@@ -12,6 +12,7 @@ export default function CommentsSection({
   postId: string;
   userId: string | undefined;
 }) {
+  console.log("re-rendering comments");
   const { data: comments } = useQuery<CommentType[], QueryError>({
     queryKey: ["comments", postId],
     queryFn: () =>

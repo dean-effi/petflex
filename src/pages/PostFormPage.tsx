@@ -56,6 +56,7 @@ export default function PostPetPage() {
         Name:
         <input
           value={newPet.name}
+          minLength={3}
           onChange={onInputChange}
           className="border border-black"
           type="text"
