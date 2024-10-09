@@ -1,5 +1,5 @@
-import { ReactElement, useContext } from "react";
-import { appContext } from "../appContext";
+import { ReactElement } from "react";
+
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { fetchApi } from "../fetchApi";
 import { PostType, QueryError } from "../types";
@@ -17,7 +17,7 @@ export default function HomePage() {
     fetchNextPage,
   } = useInfiniteQuery<PostType[], QueryError>({
     queryKey: ["posts", searchParams.toString()],
-    staleTime: 1000 * 60 * 10,
+    // staleTime: 1000 * 60 * 10,
     queryFn: ({ pageParam }) => {
       // console.log(
       //   `posts?page=${pageParam}&${searchParams.toString()}`
@@ -40,7 +40,6 @@ export default function HomePage() {
     },
   });
 
-  const { user } = useContext(appContext).userQuery;
   const pages = posts?.pages;
 
   const postsDisplay: ReactElement[] = [];
@@ -57,9 +56,7 @@ export default function HomePage() {
         searchParams={searchParams}
         setSearchParams={setSearchParams}
       />
-      <div className="mt-4 text-center text-4xl">
-        Welcome homeee, {user?.username || "stranger"}
-      </div>
+      <div className="mt-4 text-center text-4xl">Welcome homeee</div>
       <div className="m-auto mt-4 grid w-[85%] grid-cols-3 gap-4 pb-2 text-lg">
         {isLoading ? <h1>loading...</h1> : postsDisplay}
       </div>

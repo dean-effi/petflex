@@ -12,7 +12,6 @@ type SelectProps = {
 };
 export default function FitlersSelectInput({
   optionsList,
-  searchParams,
   name,
   stateValue,
   handleInputChange,
@@ -21,7 +20,7 @@ export default function FitlersSelectInput({
   return (
     <select
       name={name}
-      value={stateValue || searchParams.get(name) || undefined}
+      value={stateValue || undefined}
       onChange={handleInputChange}
     >
       {children

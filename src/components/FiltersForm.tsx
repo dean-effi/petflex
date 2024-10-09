@@ -1,12 +1,11 @@
 import { FormEvent, useState } from "react";
-import { petsType } from "../types";
 import { SetURLSearchParams } from "react-router-dom";
 import FitlersSelectInput from "./FitlersSelectInput";
 
 type QueryOptionsType = {
-  order: "-1" | "1" | null;
+  order: string | null;
   sortBy: string | null;
-  petType: petsType | null;
+  petType: string | null;
 };
 
 type FilterFormProps = {
@@ -19,9 +18,9 @@ export default function FiltersForm({
   setSearchParams,
 }: FilterFormProps) {
   const [queryOptions, setQueryOptions] = useState<QueryOptionsType>({
-    order: null,
-    sortBy: null,
-    petType: null,
+    order: searchParams.get("order") || null,
+    sortBy: searchParams.get("sortBy") || null,
+    petType: searchParams.get("petType") || null,
   });
 
   function handleInputChange(
@@ -41,6 +40,7 @@ export default function FiltersForm({
     const params: Record<string, string> = {};
     let param: keyof QueryOptionsType;
     for (param in queryOptions) {
+      console.log(param, queryOptions[param]);
       const assign = queryOptions[param];
       if (
         assign != undefined &&
