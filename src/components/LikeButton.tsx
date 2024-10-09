@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchApi } from "../fetchApi";
 import heart from "../assets/heart.svg";
 import heartFilled from "../assets/heart-filled.svg";
@@ -23,6 +23,11 @@ export default function LikeButton({
         true
       ),
   });
+
+  useEffect(() => {
+    setIsLiked(liked);
+    setlikesCount(initialLikes);
+  }, [initialLikes, liked]);
   function likePost(
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) {
@@ -38,6 +43,8 @@ export default function LikeButton({
     sendLike();
     setIsLiked(!isLiked);
   }
+
+  console.log("rendering like", initialLikes);
 
   return (
     <div className="flex items-center gap-1 text-xl">
