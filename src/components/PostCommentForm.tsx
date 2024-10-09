@@ -24,7 +24,7 @@ export default function PostCommentForm({
     error,
   } = useMutation({
     mutationFn: (parentId: string | null = null) => {
-      return fetchApi(
+      return fetchApi<CommentType[]>(
         "comments" + "/" + postId,
         {
           headers: {
@@ -39,7 +39,7 @@ export default function PostCommentForm({
         true
       );
     },
-    onSuccess: (comments: CommentType) => {
+    onSuccess: comments => {
       queryClient.setQueryData(["comments", postId], comments);
       setNewComment("");
       if (cancelReply) cancelReply();

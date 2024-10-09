@@ -1,8 +1,10 @@
-export async function fetchApi(
+import { PostType } from "./types";
+
+export async function fetchApi<DataT>(
   route: string,
   options: RequestInit,
   auth: boolean
-) {
+): Promise<DataT> {
   try {
     const token = localStorage.getItem("token");
     //if needs to be authenticated, check for token, if available, attach to head
@@ -60,7 +62,7 @@ export async function postPet(newPet: any) {
   data.append("birthDate", newPet.birthDate);
   data.append("image", newPet.image);
 
-  return fetchApi(
+  return fetchApi<PostType>(
     "posts",
     {
       method: "POST",

@@ -20,7 +20,7 @@ export default function Comment({
   const [isReplying, setIsReplying] = useState(false);
   const { mutate: deleteComment } = useMutation({
     mutationFn: () => {
-      return fetchApi(
+      return fetchApi<CommentType[]>(
         "comments" + "/" + postId + "/" + comment._id,
         {
           method: "DELETE",
@@ -28,7 +28,7 @@ export default function Comment({
         true
       );
     },
-    onSuccess: (comments: CommentType) => {
+    onSuccess: comments => {
       queryClient.setQueryData(["comments", postId], comments);
     },
   });

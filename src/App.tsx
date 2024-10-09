@@ -10,7 +10,7 @@ import { fetchApi } from "./fetchApi";
 import PostPage from "./pages/PostPage";
 import HomePage from "./pages/HomePage";
 export default function App() {
-  const userQuery = useQuery<User>({
+  const { data: user, isLoading: isUserLoading } = useQuery<User>({
     queryKey: ["user"],
     queryFn: () =>
       fetchApi(
@@ -31,8 +31,8 @@ export default function App() {
       <appContext.Provider
         value={{
           userQuery: {
-            user: userQuery.data,
-            userLoading: userQuery.isLoading,
+            user: user,
+            userLoading: isUserLoading,
           },
         }}
       >

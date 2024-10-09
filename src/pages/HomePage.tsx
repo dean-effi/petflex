@@ -10,20 +10,25 @@ import FiltersForm from "../components/FiltersForm";
 export default function HomePage() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const postsQuery = useInfiniteQuery<PostType[], QueryError>({
+  const {
+    data: posts,
+    isLoading,
+    hasNextPage,
+    fetchNextPage,
+  } = useInfiniteQuery<PostType[], QueryError>({
     queryKey: ["posts", searchParams.toString()],
-    staleTime: 1000 * 60 * 30,
+    staleTime: 1000 * 60 * 10,
     queryFn: ({ pageParam }) => {
       // console.log(
       //   `posts?page=${pageParam}&${searchParams.toString()}`
       // );
+
       return fetchApi(
         `posts?page=${pageParam}&${searchParams.toString()}`,
         { method: "GET" },
         false
       );
     },
-
     initialPageParam: 1,
 
     getNextPageParam: (lastPage, _allPages, lastPageParam) => {
@@ -36,19 +41,16 @@ export default function HomePage() {
   });
 
   const { user } = useContext(appContext).userQuery;
-  const pages = postsQuery.data?.pages;
+  const pages = posts?.pages;
 
   const postsDisplay: ReactElement[] = [];
 
-  if (pages) {
-    pages.forEach(page =>
-      page.forEach(post => {
-        postsDisplay.push(<PostPreview key={post.id} post={post} />);
-      })
-    );
-  }
+  pages?.forEach(page =>
+    page.forEach(post => {
+      postsDisplay.push(<PostPreview key={post.id} post={post} />);
+    })
+  );
 
-  // console.log("data is here", postsQuery.data);
   return (
     <>
       <FiltersForm
@@ -59,11 +61,11 @@ export default function HomePage() {
         Welcome homeee, {user?.username || "stranger"}
       </div>
       <div className="m-auto mt-4 grid w-[85%] grid-cols-3 gap-4 pb-2 text-lg">
-        {postsQuery.isLoading ? <h1>loading...</h1> : postsDisplay}
+        {isLoading ? <h1>loading...</h1> : postsDisplay}
       </div>
-      {postsQuery.hasNextPage && (
+      {hasNextPage && (
         <button
-          onClick={() => postsQuery.fetchNextPage()}
+          onClick={() => fetchNextPage()}
           className="w-full border-2 border-black p-2 text-xl hover:bg-stone-200"
         >
           load more...

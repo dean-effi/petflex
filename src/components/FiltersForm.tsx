@@ -38,7 +38,6 @@ export default function FiltersForm({
 
   function handleFiltersSubmit(e: FormEvent) {
     e.preventDefault();
-    console.log(queryOptions);
     const params: Record<string, string> = {};
     let param: keyof QueryOptionsType;
     for (param in queryOptions) {
