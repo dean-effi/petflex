@@ -50,6 +50,8 @@ export default function HomePage() {
     })
   );
 
+  console.log("HOMEEEEEEEEEEEEEEEEEEEEEEEEE");
+
   return (
     <>
       <FiltersForm

@@ -1,20 +1,25 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import { useMutation } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { fetchApi } from "../fetchApi";
 import heart from "../assets/heart.svg";
 import heartFilled from "../assets/heart-filled.svg";
 
+type LikeButtonProps = {
+  postId: string;
+  liked: boolean;
+  initialLikes: number;
+  isUserLogged: boolean;
+};
+
 export default function LikeButton({
   postId,
   liked,
   initialLikes,
-}: {
-  postId: string;
-  liked: boolean;
-  initialLikes: number;
-}) {
+  isUserLogged,
+}: LikeButtonProps) {
   const [isLiked, setIsLiked] = useState(liked);
-  const [likesCount, setlikesCount] = useState(initialLikes);
+  const [likesCount, setLikesCount] = useState(initialLikes);
   const { mutate: sendLike } = useMutation({
     mutationFn: () =>
       fetchApi(
@@ -26,31 +31,32 @@ export default function LikeButton({
 
   useEffect(() => {
     setIsLiked(liked);
-    setlikesCount(initialLikes);
-  }, [initialLikes, liked]);
+    setLikesCount(initialLikes);
+  }, [initialLikes, liked, isUserLogged]);
+
   function likePost(
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) {
     e.preventDefault();
-    if (isLiked) {
-      console.log("unliked", postId);
-      setlikesCount(likesCount => likesCount - 1);
-    } else {
-      setlikesCount(likesCount => likesCount + 1);
+    e.stopPropagation();
+    if (!isUserLogged) return;
+    isLiked
+      ? setLikesCount(likesCount => likesCount - 1)
+      : setLikesCount(likesCount => likesCount + 1);
 
-      console.log("liked", postId);
-    }
-    sendLike();
     setIsLiked(!isLiked);
+    sendLike();
   }
-
-  console.log("rendering like", initialLikes);
 
   return (
     <div className="flex items-center gap-1 text-xl">
       {likesCount}
-      <button className="" onClick={e => likePost(e)}>
-        <img src={isLiked ? heartFilled : heart} alt="" />
+      <button
+        aria-label="like"
+        className=""
+        onClick={e => likePost(e)}
+      >
+        <img alt="" src={isLiked ? heartFilled : heart} />
       </button>
     </div>
   );

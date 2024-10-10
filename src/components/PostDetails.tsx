@@ -1,6 +1,13 @@
 import { PostType } from "../types";
+import LikeButton from "./LikeButton";
 
-export default function PostDetails({ post }: { post: PostType }) {
+export default function PostDetails({
+  post,
+  userId,
+}: {
+  post: PostType;
+  userId: string | undefined;
+}) {
   if (post) {
     return (
       <section className="p-6 text-xl">
@@ -13,7 +20,12 @@ export default function PostDetails({ post }: { post: PostType }) {
         <br />
         he is a {post.petType}
         <br />
-        and recieved {post.likesCount} likes!
+        <LikeButton
+          initialLikes={post.likesCount}
+          liked={userId ? post.likes.includes(userId) : false}
+          isUserLogged={!!userId}
+          postId={post._id}
+        />
       </section>
     );
   }

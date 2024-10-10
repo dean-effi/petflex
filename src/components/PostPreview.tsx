@@ -19,6 +19,7 @@ export default function PostPreview({ post }: { post: PostType }) {
           <LikeButton
             liked={user?._id ? post.likes.includes(user?._id) : false}
             postId={post._id}
+            isUserLogged={!!user?._id}
             initialLikes={post.likesCount}
           />
         </div>

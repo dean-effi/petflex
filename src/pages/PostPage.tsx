@@ -36,7 +36,7 @@ export default function PostPage() {
   if (post) {
     return (
       <>
-        <PostDetails post={post!} />
+        <PostDetails userId={user?._id} post={post!} />
         <CommentsSection userId={user?._id} postId={postId!} />
       </>
     );
