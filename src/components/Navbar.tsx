@@ -17,6 +17,7 @@ export default function Navbar() {
   function logout() {
     localStorage.removeItem("token");
     queryClient.setQueryData(["user"], null);
+    queryClient.invalidateQueries({ queryKey: ["posts"] });
   }
   const { user } = useContext(appContext).userQuery;
   const smallNavStateClass =

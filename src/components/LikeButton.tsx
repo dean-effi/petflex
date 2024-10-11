@@ -40,6 +40,7 @@ export default function LikeButton({
     e.preventDefault();
     e.stopPropagation();
     if (!isUserLogged) return;
+
     isLiked
       ? setLikesCount(likesCount => likesCount - 1)
       : setLikesCount(likesCount => likesCount + 1);
