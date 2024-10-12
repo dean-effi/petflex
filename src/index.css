@@ -39,4 +39,21 @@
       display: hidden;
     }
   }
+  .active {
+    @apply text-violet-500 !important;
+  }
+  nav > ul > li > a::after {
+    content: "";
+    display: block;
+    width: 0%;
+    margin-top: 2px;
+    height: 2px;
+    @apply bg-violet-800;
+  }
+
+  nav > ul > li > a:not(.active):hover::after {
+    transition: all 0.5s;
+
+    width: 100%;
+  }
 }
