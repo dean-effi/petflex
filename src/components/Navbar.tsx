@@ -68,13 +68,13 @@ export default function Navbar() {
       {/* large menu */}
       <nav className="hidden w-full items-center justify-between p-4 px-6 lg:flex xl:px-8 2xl:px-9">
         <NavLink to={""}>
-          <img src={logo} />
+          <img src={logo} className="" />
         </NavLink>
-        <ul className="flex items-center gap-8 text-2xl font-bold">
+        <ul className="flex gap-8 text-2xl font-bold">
           <NavbarLinks user={user} logout={logout} />
 
-          <button>
-            <img className="h-[32px]" src={moon} alt="moon icon" />
+          <button className="pb-[2px]">
+            <img className="h-[31px]" src={moon} alt="moon icon" />
           </button>
         </ul>
       </nav>
