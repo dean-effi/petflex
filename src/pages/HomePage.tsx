@@ -32,11 +32,14 @@ export default function HomePage() {
     initialPageParam: 1,
 
     getNextPageParam: (lastPage, _allPages, lastPageParam) => {
-      return lastPage.length < 2
-        ? null
-        : typeof lastPageParam === "number"
-          ? lastPageParam + 1
-          : 1;
+      if (typeof lastPageParam === "number") {
+        return lastPageParam === 1 && lastPage.length < 4
+          ? null
+          : lastPage.length < 2
+            ? null
+            : lastPageParam + 1;
+      }
+      return 1;
     },
   });
 
