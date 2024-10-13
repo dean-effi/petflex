@@ -14,12 +14,15 @@ export default function PostPreview({ post }: { post: PostType }) {
   }
   return (
     <Link onClick={() => onLinkClick(post)} to={post.id}>
-      <article className="border-3 m-auto grid h-full max-w-[400px] auto-rows-max justify-center gap-4 overflow-hidden rounded-lg border p-4 shadow-[3px_3px_3px_#bfdbfe] hover:bg-stone-200">
+      <article className="border-3 shadow-3xl bg-card-gray m-auto grid h-full max-w-[400px] auto-rows-max justify-center gap-4 overflow-hidden rounded-xl border p-4 shadow-lg shadow-stone-200 hover:bg-stone-200">
         <div className="flex justify-between px-2 text-xl font-semibold">
           <div>
-            <h2>{post.name}</h2>
+            <h2 className="text-violet-800">{post.name}</h2>
             <p className="text-sm">
-              posted by {" " + post.user.username}
+              posted by
+              <span className="text-violet-800">
+                {" " + post.user.username}
+              </span>
             </p>
           </div>
           <div className="flex gap-2">
@@ -40,13 +43,13 @@ export default function PostPreview({ post }: { post: PostType }) {
         <img
           src={post.image}
           alt={post.name}
-          className="m-auto h-[200px] w-[300px]"
+          className="m-auto h-[220px] w-[400px]"
         />
         <p>{post.description}</p>
-        <p className="text-sm">
-          {post.gender}|created at{" "}
-          {new Date(post.createdAt).toLocaleDateString()}|{" "}
-          {post.petType} | {post.age.years}yo
+        <p className="h-content text-sm md:text-base">
+          {post.gender} | {post.age.years + "yo"} |
+          {" created at " +
+            new Date(post.createdAt).toLocaleDateString()}{" "}
         </p>
       </article>
     </Link>

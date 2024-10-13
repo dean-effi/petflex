@@ -22,6 +22,7 @@ export default function FitlersSelectInput({
       name={name}
       value={stateValue || undefined}
       onChange={handleInputChange}
+      className="cursor-pointer rounded-lg bg-violet-800 px-1.5 text-center text-stone-100"
     >
       {children
         ? children
