@@ -55,4 +55,13 @@
     transition: all 0.5s;
     width: 100%;
   }
+
+  .preview-card:hover {
+    transform: scale(1.05);
+    transition: all 0.5s;
+  }
+
+  .gray-bg {
+    @apply bg-stone-200 bg-opacity-90;
+  }
 }

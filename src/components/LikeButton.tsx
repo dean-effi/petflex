@@ -50,14 +50,18 @@ export default function LikeButton({
   }
 
   return (
-    <div className="flex items-center gap-1 text-xl">
+    <div className="flex items-center gap-[5px]">
       {likesCount}
       <button
         aria-label="like"
         className=""
         onClick={e => likePost(e)}
       >
-        <img alt="" src={isLiked ? heartFilled : heart} />
+        <img
+          alt=""
+          className={`${isLiked ? "w-[22px]" : "w-5"}`}
+          src={isLiked ? heartFilled : heart}
+        />
       </button>
     </div>
   );

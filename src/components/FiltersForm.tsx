@@ -1,6 +1,7 @@
 import { FormEvent, useState } from "react";
 import { SetURLSearchParams } from "react-router-dom";
 import FitlersSelectInput from "./FitlersSelectInput";
+import filtersIcon from "../assets/filters.svg";
 
 type QueryOptionsType = {
   order: string | null;
@@ -17,6 +18,7 @@ export default function FiltersForm({
   searchParams,
   setSearchParams,
 }: FilterFormProps) {
+  const [isOpen, setIsOpen] = useState(false);
   const [queryOptions, setQueryOptions] = useState<QueryOptionsType>({
     order: searchParams.get("order") || null,
     sortBy: searchParams.get("sortBy") || null,
@@ -54,58 +56,72 @@ export default function FiltersForm({
     setSearchParams(params);
   }
   return (
-    <form
-      className="bg-card-gray mt-4 flex items-center justify-between gap-4 p-3 font-semibold text-neutral-950 md:justify-start"
-      onSubmit={handleFiltersSubmit}
-    >
-      <div className="flex flex-col gap-3 md:flex-row">
-        <label className="flex gap-2">
-          Sort By:
-          <FitlersSelectInput
-            handleInputChange={handleInputChange}
-            name="sortBy"
-            optionsList={["date", "likes"]}
-            searchParams={searchParams}
-            stateValue={queryOptions.sortBy}
-          />
-        </label>
-        <label className="flex gap-2">
-          Pet Type:
-          <FitlersSelectInput
-            name="petType"
-            handleInputChange={handleInputChange}
-            stateValue={queryOptions.petType}
-            searchParams={searchParams}
-            optionsList={[
-              "all",
-              "dog",
-              "cat",
-              "rabbit",
-              "hamster",
-              "lizard",
-              "other",
-            ]}
-          />
-        </label>
-        <label className="flex gap-2">
-          Order:
-          <FitlersSelectInput
-            name="order"
-            handleInputChange={handleInputChange}
-            stateValue={queryOptions.order}
-            searchParams={searchParams}
-          >
-            <option value={-1}>descending</option>
-            <option value={1}>ascending</option>
-          </FitlersSelectInput>
-        </label>
-      </div>
+    <>
       <button
-        type="submit"
-        className="rounded-[11px] bg-neutral-950 p-[2px] px-2 text-stone-50"
+        className="mt-8 flex gap-1.5 px-5 text-lg font-bold md:hidden"
+        onClick={() => setIsOpen(!isOpen)}
       >
-        Apply
+        <img src={filtersIcon} alt="" />
+        Filters
       </button>
-    </form>
+
+      <div
+        className={`gray-bg w-full ${isOpen ? "block" : "hidden"} md:block`}
+      >
+        <form
+          className={`mt-4 flex items-center justify-between gap-5 p-3 font-semibold text-neutral-950 sm:mx-4 sm:px-6 md:mx-auto md:justify-start md:px-0 md:text-xl lg:w-[900px] xl:w-[1350px]`}
+          onSubmit={handleFiltersSubmit}
+        >
+          <div className="flex flex-col gap-6 md:flex-row">
+            <label className="flex gap-2">
+              Sort By:
+              <FitlersSelectInput
+                handleInputChange={handleInputChange}
+                name="sortBy"
+                optionsList={["date", "likes"]}
+                searchParams={searchParams}
+                stateValue={queryOptions.sortBy}
+              />
+            </label>
+            <label className="flex gap-2">
+              Pet Type:
+              <FitlersSelectInput
+                name="petType"
+                handleInputChange={handleInputChange}
+                stateValue={queryOptions.petType}
+                searchParams={searchParams}
+                optionsList={[
+                  "all",
+                  "dog",
+                  "cat",
+                  "rabbit",
+                  "hamster",
+                  "lizard",
+                  "other",
+                ]}
+              />
+            </label>
+            <label className="flex gap-2">
+              Order:
+              <FitlersSelectInput
+                name="order"
+                handleInputChange={handleInputChange}
+                stateValue={queryOptions.order}
+                searchParams={searchParams}
+              >
+                <option value={-1}>descending</option>
+                <option value={1}>ascending</option>
+              </FitlersSelectInput>
+            </label>
+          </div>
+          <button
+            type="submit"
+            className="rounded-[11px] bg-neutral-950 p-[2px] px-2 text-stone-50"
+          >
+            Apply
+          </button>
+        </form>
+      </div>
+    </>
   );
 }

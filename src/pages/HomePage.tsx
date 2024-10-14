@@ -61,17 +61,18 @@ export default function HomePage() {
         searchParams={searchParams}
         setSearchParams={setSearchParams}
       />
-      <div className="mt-4 text-center text-4xl">Welcome homeee</div>
-      <div className="m-auto mt-4 grid grid-cols-[350px] justify-center gap-y-4 pb-2 text-lg md:grid-cols-[450px] lg:grid-cols-[450px,450px] xl:grid-cols-[450px_450px_450px]">
+      <div className="mx-auto my-3 mt-4 grid grid-cols-[350px] justify-center gap-x-4 gap-y-9 pb-2 text-lg md:grid-cols-[450px] lg:grid-cols-[450px,450px] xl:grid-cols-[450px_450px_450px] 2xl:space-x-5">
         {isLoading ? <h1>loading...</h1> : postsDisplay}
       </div>
       {hasNextPage && (
-        <button
-          onClick={() => fetchNextPage()}
-          className="w-full border-2 border-black p-2 text-xl hover:bg-stone-200"
-        >
-          load more...
-        </button>
+        <div className="grid justify-center">
+          <button
+            onClick={() => fetchNextPage()}
+            className="my-6 rounded-lg border-2 border-violet-800 px-2 py-0.5 text-xl font-bold text-violet-800 hover:bg-violet-800 hover:text-stone-50 active:bg-violet-500"
+          >
+            load more...
+          </button>
+        </div>
       )}
     </>
   );
