@@ -69,7 +69,7 @@ export default function FiltersForm({
         className={`gray-bg w-full ${isOpen ? "block" : "hidden"} md:block`}
       >
         <form
-          className={`mt-4 flex items-center justify-between gap-5 p-3 font-semibold text-neutral-950 sm:mx-4 sm:px-6 md:mx-auto md:justify-start md:px-0 md:text-xl lg:w-[900px] xl:w-[1350px]`}
+          className={`mx-4 mt-4 flex items-center justify-between gap-5 p-3 font-semibold text-neutral-950 sm:px-6 md:justify-center md:px-0 md:text-lg lg:mx-auto lg:text-xl 2xl:mx-auto 2xl:w-[1350px] 2xl:justify-start`}
           onSubmit={handleFiltersSubmit}
         >
           <div className="flex flex-col gap-6 md:flex-row">

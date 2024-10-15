@@ -14,7 +14,7 @@ export default function PostPreview({ post }: { post: PostType }) {
   }
   return (
     <Link onClick={() => onLinkClick(post)} to={post.id}>
-      <article className="preview-card border-3 gray-bg m-auto grid h-full grid-rows-[max-content_max-content_max-content_1fr] justify-center gap-3 overflow-hidden rounded-xl border p-4 shadow-lg hover:bg-stone-200">
+      <article className="preview-card border-3 gray-bg m-auto grid h-full grid-rows-[max-content_max-content_max-content_1fr] justify-center gap-3 rounded-xl border px-4 py-2 shadow-lg hover:bg-stone-200">
         <div className="flex items-start justify-between text-xl font-semibold">
           <div>
             <h2 className="text-2xl text-violet-800">{post.name}</h2>
@@ -40,11 +40,14 @@ export default function PostPreview({ post }: { post: PostType }) {
             </div>
           </div>
         </div>
-        <img
-          src={post.image}
-          alt={post.name}
-          className="m-auto h-[240px] w-[400px] rounded-sm"
-        />
+
+        <div className="h-[250px] w-[320px] rounded-sm bg-slate-200 sm:w-[400px]">
+          <img
+            className="h-full w-full object-cover object-center"
+            src={post.image}
+            alt={post.name}
+          />
+        </div>
         <p className="line-clamp-2 font-medium">{post.description}</p>
         <div className="self-end">
           <p className="h-content text-sm font-light md:text-base">

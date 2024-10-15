@@ -61,7 +61,7 @@ export default function HomePage() {
         searchParams={searchParams}
         setSearchParams={setSearchParams}
       />
-      <div className="mx-auto my-3 mt-4 grid grid-cols-[350px] justify-center gap-x-4 gap-y-9 pb-2 text-lg md:grid-cols-[450px] lg:grid-cols-[450px,450px] xl:grid-cols-[450px_450px_450px] 2xl:space-x-5">
+      <div className="mx-auto my-3 mt-4 grid grid-cols-[350px] justify-center gap-x-4 gap-y-9 pb-2 text-lg sm:grid-cols-[450px] lg:grid-cols-[450px,450px] 2xl:grid-cols-[450px_450px_450px] 2xl:space-x-5">
         {isLoading ? <h1>loading...</h1> : postsDisplay}
       </div>
       {hasNextPage && (
