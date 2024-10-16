@@ -32,9 +32,9 @@ export default function HomePage() {
 
     getNextPageParam: (lastPage, _allPages, lastPageParam) => {
       if (typeof lastPageParam === "number") {
-        return lastPageParam === 1 && lastPage.length < 4
+        return lastPageParam === 1 && lastPage.length < 3
           ? null
-          : lastPage.length < 2
+          : lastPage.length < 3
             ? null
             : lastPageParam + 1;
       }
