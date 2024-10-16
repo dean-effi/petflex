@@ -50,7 +50,7 @@ export default function LikeBtn({
   }
 
   return (
-    <div className="flex items-center gap-[5px]">
+    <div className="flex items-center gap-2">
       {likesCount}
       <button
         aria-label="like"

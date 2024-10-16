@@ -17,7 +17,11 @@ export default function PostPreview({ post }: { post: PostType }) {
     queryClient.setQueryData(["posts", post.id], post);
   }
   return (
-    <Link onClick={() => onLinkClick(post)} to={post.id}>
+    <Link
+      onClick={() => onLinkClick(post)}
+      to={post.id}
+      aria-label={"read more about " + post.name}
+    >
       <article className="preview-card border-3 gray-bg grid h-full w-full grid-rows-[max-content_max-content_max-content_1fr] justify-center gap-3 rounded-xl px-4 py-2 shadow-lg hover:bg-[#eae9e8]">
         <div className="flex items-start justify-between text-xl font-semibold">
           <div>

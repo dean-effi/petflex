@@ -52,31 +52,33 @@ export default function HomePage() {
     })
   );
 
-  console.log("HOMEEEEEEEEEEEEEEEEEEEEEEEEE");
-
   return (
-    <>
-      <FiltersForm
-        searchParams={searchParams}
-        setSearchParams={setSearchParams}
-      />
-      {isLoading ? (
-        <div className="w- mt-8 flex justify-center">
-          <Loading width={32} />
-        </div>
-      ) : (
-        <div className="mx-auto my-3 mt-4 grid grid-cols-[350px] justify-center gap-x-4 gap-y-9 pb-2 text-lg sm:grid-cols-[450px] lg:grid-cols-[450px_450px] 2xl:grid-cols-[450px_450px_450px]">
-          {postsDisplay}
-        </div>
-      )}
-      {hasNextPage && (
-        <LoadMoreBtn
-          {...{
-            onBtnClick: () => fetchNextPage(),
-            isFetchingNextPage,
-          }}
+    <main>
+      <section aria-label="filtering">
+        <FiltersForm
+          searchParams={searchParams}
+          setSearchParams={setSearchParams}
         />
-      )}
-    </>
+      </section>
+      <section aria-label="pets previews">
+        {isLoading ? (
+          <div className="w- mt-8 flex justify-center">
+            <Loading width={32} />
+          </div>
+        ) : (
+          <div className="mx-auto my-3 mt-4 grid grid-cols-[350px] justify-center gap-x-4 gap-y-9 pb-2 text-lg sm:grid-cols-[450px] lg:grid-cols-[450px_450px] 2xl:grid-cols-[450px_450px_450px]">
+            {postsDisplay}
+          </div>
+        )}
+        {hasNextPage && (
+          <LoadMoreBtn
+            {...{
+              onBtnClick: () => fetchNextPage(),
+              isFetchingNextPage,
+            }}
+          />
+        )}
+      </section>
+    </main>
   );
 }
