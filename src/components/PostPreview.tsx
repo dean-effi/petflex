@@ -1,8 +1,12 @@
 import { Link } from "react-router-dom";
 import { PostType } from "../types";
 import { queryClient } from "../main";
-import LikeButton from "./LikeButton";
+import LikeButton from "./LikeBtn";
 import commentIcon from "../assets/comment.svg";
+import maleIcon from "../assets/male.svg";
+import femaleIcon from "../assets/female.svg";
+import questionIcon from "../assets/question.svg";
+
 import { appContext } from "../appContext";
 import { useContext } from "react";
 
@@ -14,7 +18,7 @@ export default function PostPreview({ post }: { post: PostType }) {
   }
   return (
     <Link onClick={() => onLinkClick(post)} to={post.id}>
-      <article className="preview-card border-3 gray-bg m-auto grid h-full grid-rows-[max-content_max-content_max-content_1fr] justify-center gap-3 rounded-xl border px-4 py-2 shadow-lg hover:bg-stone-200">
+      <article className="preview-card border-3 gray-bg grid h-full w-full grid-rows-[max-content_max-content_max-content_1fr] justify-center gap-3 rounded-xl px-4 py-2 shadow-lg hover:bg-[#eae9e8]">
         <div className="flex items-start justify-between text-xl font-semibold">
           <div>
             <h2 className="text-2xl text-violet-800">{post.name}</h2>
@@ -25,7 +29,7 @@ export default function PostPreview({ post }: { post: PostType }) {
               </span>
             </p>
           </div>
-          <div className="flex gap-4 pt-0.5 text-xl text-violet-800">
+          <div className="mt-1 flex gap-4 text-xl text-violet-800">
             <LikeButton
               liked={
                 user?._id ? post.likes.includes(user?._id) : false
@@ -49,9 +53,24 @@ export default function PostPreview({ post }: { post: PostType }) {
           />
         </div>
         <p className="line-clamp-2 font-medium">{post.description}</p>
+
+        {/* bottom details */}
         <div className="self-end">
-          <p className="h-content text-sm font-light md:text-base">
-            {post.gender} | {post.age.years + "yo"} |
+          <p className="h-content flex items-center gap-0.5 text-sm font-light md:text-base">
+            {
+              <img
+                src={
+                  post.gender == "male"
+                    ? maleIcon
+                    : post.gender === "female"
+                      ? femaleIcon
+                      : questionIcon
+                }
+                className="inline"
+                alt={post.gender}
+              />
+            }
+            | {post.age.years + "yo"} |
             {" created at " +
               new Date(post.createdAt).toLocaleDateString()}{" "}
           </p>

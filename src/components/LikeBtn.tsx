@@ -5,19 +5,19 @@ import { fetchApi } from "../fetchApi";
 import heart from "../assets/heart.svg";
 import heartFilled from "../assets/heart-filled.svg";
 
-type LikeButtonProps = {
+type LikeBtnProps = {
   postId: string;
   liked: boolean;
   initialLikes: number;
   isUserLogged: boolean;
 };
 
-export default function LikeButton({
+export default function LikeBtn({
   postId,
   liked,
   initialLikes,
   isUserLogged,
-}: LikeButtonProps) {
+}: LikeBtnProps) {
   const [isLiked, setIsLiked] = useState(liked);
   const [likesCount, setLikesCount] = useState(initialLikes);
   const { mutate: sendLike } = useMutation({

@@ -1,6 +1,6 @@
 import { PostType } from "../types";
 import DeleteButton from "./DeleteButton";
-import LikeButton from "./LikeButton";
+import LikeButton from "./LikeBtn";
 
 export default function PostDetails({
   post,

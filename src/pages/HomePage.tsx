@@ -6,6 +6,8 @@ import { PostType, QueryError } from "../types";
 import PostPreview from "../components/PostPreview";
 import { useSearchParams } from "react-router-dom";
 import FiltersForm from "../components/FiltersForm";
+import Loading from "../components/Loading";
+import LoadMoreBtn from "../components/LoadMoreBtn";
 
 export default function HomePage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -15,14 +17,11 @@ export default function HomePage() {
     isLoading,
     hasNextPage,
     fetchNextPage,
+    isFetchingNextPage,
   } = useInfiniteQuery<PostType[], QueryError>({
     queryKey: ["posts", searchParams.toString()],
     // staleTime: 1000 * 60 * 10,
     queryFn: ({ pageParam }) => {
-      // console.log(
-      //   `posts?page=${pageParam}&${searchParams.toString()}`
-      // );
-
       return fetchApi(
         `posts?page=${pageParam}&${searchParams.toString()}`,
         { method: "GET" },
@@ -61,18 +60,22 @@ export default function HomePage() {
         searchParams={searchParams}
         setSearchParams={setSearchParams}
       />
-      <div className="mx-auto my-3 mt-4 grid grid-cols-[350px] justify-center gap-x-4 gap-y-9 pb-2 text-lg sm:grid-cols-[450px] lg:grid-cols-[450px,450px] 2xl:grid-cols-[450px_450px_450px] 2xl:space-x-5">
-        {isLoading ? <h1>loading...</h1> : postsDisplay}
-      </div>
-      {hasNextPage && (
-        <div className="grid justify-center">
-          <button
-            onClick={() => fetchNextPage()}
-            className="my-6 rounded-lg border-2 border-violet-800 px-2 py-0.5 text-xl font-bold text-violet-800 hover:bg-violet-800 hover:text-stone-50 active:bg-violet-500"
-          >
-            load more...
-          </button>
+      {isLoading ? (
+        <div className="w- mt-8 flex justify-center">
+          <Loading width={32} />
         </div>
+      ) : (
+        <div className="mx-auto my-3 mt-4 grid grid-cols-[350px] justify-center gap-x-4 gap-y-9 pb-2 text-lg sm:grid-cols-[450px] lg:grid-cols-[450px_450px] 2xl:grid-cols-[450px_450px_450px]">
+          {postsDisplay}
+        </div>
+      )}
+      {hasNextPage && (
+        <LoadMoreBtn
+          {...{
+            onBtnClick: () => fetchNextPage(),
+            isFetchingNextPage,
+          }}
+        />
       )}
     </>
   );
