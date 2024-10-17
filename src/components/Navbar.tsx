@@ -66,7 +66,7 @@ export default function Navbar() {
         </button>
       </nav>
       {/* large menu */}
-      <nav className="hidden w-full items-center justify-between p-4 px-6 lg:flex xl:px-8 2xl:px-9">
+      <nav className="hidden w-full items-start justify-between px-6 pb-3 pt-5 lg:flex xl:px-8 2xl:px-9">
         <NavLink to={""} aria-label="home">
           <img src={logo} alt="petflex logo" />
         </NavLink>

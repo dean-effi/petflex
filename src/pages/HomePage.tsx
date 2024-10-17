@@ -62,7 +62,7 @@ export default function HomePage() {
       </section>
       <section aria-label="pets previews">
         {isLoading ? (
-          <div className="w- mt-8 flex justify-center">
+          <div className="mt-8 flex justify-center">
             <Loading width={32} />
           </div>
         ) : (

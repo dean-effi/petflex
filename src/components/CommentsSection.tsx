@@ -4,6 +4,7 @@ import { CommentType, QueryError } from "../types";
 import { useQuery } from "@tanstack/react-query";
 import { fetchApi } from "../fetchApi";
 import Comment from "./Comment";
+import Loading from "./Loading";
 
 export default function CommentsSection({
   postId,
@@ -13,7 +14,10 @@ export default function CommentsSection({
   userId: string | undefined;
 }) {
   console.log("re-rendering comments");
-  const { data: comments } = useQuery<CommentType[], QueryError>({
+  const { data: comments, isLoading } = useQuery<
+    CommentType[],
+    QueryError
+  >({
     queryKey: ["comments", postId],
     queryFn: () =>
       fetchApi(
@@ -24,6 +28,13 @@ export default function CommentsSection({
         false
       ),
   });
+  if (isLoading) {
+    return (
+      <div className="mt-8 flex justify-center">
+        <Loading width={32} />
+      </div>
+    );
+  }
   let commentsElements: ReactElement<any>[] = [];
   if (comments) {
     const topLevelComments: CommentType[] = [];
@@ -36,6 +47,12 @@ export default function CommentsSection({
         replyComments.push(comment);
       }
     });
+
+    replyComments.sort(
+      (a, b) =>
+        new Date(a.createdAt).getTime() -
+        new Date(b.createdAt).getTime()
+    );
     commentsElements = topLevelComments.map(comment => {
       return (
         <Comment
@@ -50,11 +67,9 @@ export default function CommentsSection({
   }
 
   return (
-    <section className="mt-20 text-lg">
-      <h1 className="text-5xl">Comments:</h1>
-      {commentsElements}
-
+    <section className="mt-20 text-lg" aria-label="comments">
       <PostCommentForm postId={postId!} />
+      {commentsElements}
     </section>
   );
 }

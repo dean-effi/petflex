@@ -14,8 +14,8 @@ export default function ErrorPage({
   return (
     <div className="p-6 text-3xl">
       <p>
-        {text} go back{" "}
-        <NavLink className={"underline"} to={"/"}>
+        {text}, go back{" "}
+        <NavLink className={"text-violet-800 underline"} to={"/"}>
           home
         </NavLink>{" "}
       </p>

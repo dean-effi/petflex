@@ -8,6 +8,7 @@ import { fetchApi } from "../fetchApi";
 import { useQuery } from "@tanstack/react-query";
 import { useContext } from "react";
 import { appContext } from "../appContext";
+import Loading from "../components/Loading";
 
 export default function PostPage() {
   const { postId } = useParams();
@@ -27,12 +28,15 @@ export default function PostPage() {
   );
 
   if (postQuery.isLoading) {
-    return <p>loading...</p>;
+    return (
+      <div className="mt-8 flex justify-center">
+        <Loading width={32} />
+      </div>
+    );
   }
   if (postQuery.isError) {
     return <ErrorPage status={postQuery.error.status} />;
   }
-  console.log("rerendering post page");
   if (post) {
     return (
       <>

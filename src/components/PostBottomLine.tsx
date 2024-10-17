@@ -5,8 +5,9 @@ import questionIcon from "../assets/question.svg";
 
 export default function PetDetails({ post }: { post: PostType }) {
   return (
-    <div className="self-end">
-      <p className="h-content flex items-center gap-0.5 text-sm font-light md:text-base">
+    <div className="self-end capitalize">
+      <p className="h-content flex items-center gap-0.5 text-xs font-light sm:text-sm md:text-base">
+        {post.petType + " "}|
         {
           <img
             src={
@@ -20,7 +21,7 @@ export default function PetDetails({ post }: { post: PostType }) {
             alt={post.gender}
           />
         }
-        | {post.age.years + "yo"} |
+        | {post.age.years + " years old"} |
         {" created at " +
           new Date(post.createdAt).toLocaleDateString()}{" "}
       </p>
