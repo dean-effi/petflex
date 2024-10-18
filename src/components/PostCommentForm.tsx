@@ -48,7 +48,7 @@ export default function PostCommentForm({
 
   return (
     <form
-      className="m-2"
+      className="mt-2 md:mt-3 lg:mt-4"
       onSubmit={e => {
         e.preventDefault();
         if (newComment.length < 3 || newComment.length > 200) {
@@ -68,18 +68,18 @@ export default function PostCommentForm({
         maxLength={200}
         onChange={e => setNewComment(e.target.value)}
         value={newComment}
-        className="mb-2 flex items-start border-2 border-blue-700 p-2 pb-8 pl-1"
+        className="mb-2 w-full break-all rounded-lg border-[2px] border-violet-800 pb-[4ch] pl-1 text-base lg:text-lg"
       />
 
       {(Boolean(clientError.length) || isError) && (
-        <p className="m-1 my-2 text-red-900">
+        <p className="text-semibold my-1 text-red-900">
           {clientError || error?.message}
         </p>
       )}
 
-      <div className="space-x-4">
+      <div className="space-x-1.5 lg:text-lg xl:text-[20px]">
         <button
-          className="rounded-md border-2 border-blue-600 p-1"
+          className="normal-btn rounded-lg px-1.5 py-0.5"
           type="submit"
         >
           Submit
@@ -87,7 +87,7 @@ export default function PostCommentForm({
 
         {cancelReply && (
           <button
-            className="rounded-md border-2 border-blue-600 p-1"
+            className="rounded-lg border-2 border-stone-800 px-1.5 text-stone-800 hover:border-stone-700 hover:text-stone-700 active:bg-stone-400"
             onClick={cancelReply}
           >
             Cancel

@@ -35,21 +35,26 @@ export default function Comment({
   const replies = replyComments.filter(
     reply => reply.parentId === comment._id
   );
+  console.log(comment.available, "is ittt");
   return (
     <>
-      <div className="gray-bg mt-2 w-full space-y-1.5 overflow-scroll rounded-md p-2 text-base">
-        <p className="w-[95%] lg:w-[90%]">{comment.content}</p>
-        <p className="text-sm font-light italic">
+      <div className="gray-bg mt-2 w-full space-y-1.5 overflow-scroll rounded-md p-2 text-base lg:space-y-2">
+        <p
+          className={`w-[95%] text-base font-normal lg:w-[90%] lg:text-lg ${!comment.available && "font-light italic"}`}
+        >
+          {comment.content}
+        </p>
+        <p className="text-xs font-light italic sm:text-sm">
           posted by{" "}
-          <span className="font-semibold">
+          <span className="font-medium">
             {comment.user.username + " "}
           </span>
           at: {new Date(comment.createdAt).toLocaleString()}
         </p>
 
-        <div className="flex items-center gap-1 text-xs">
+        <div className="mb-1 flex items-center gap-1 text-sm">
           <button
-            className="normal-btn rounded-lg px-1.5 py-0.5 font-semibold"
+            className="normal-btn rounded-md px-1.5 py-0.5 font-semibold"
             onClick={() => setIsReplying(true)}
           >
             Reply
@@ -57,7 +62,7 @@ export default function Comment({
           {comment.user._id === userId && (
             <button
               onClick={() => deleteComment()}
-              className="rounded-lg border-2 border-stone-700 px-1 py-[1px] text-stone-900 hover:border-red-500 hover:text-red-500 active:bg-red-200"
+              className="rounded-md border-2 border-stone-700 px-1 py-[1px] text-stone-900 hover:border-red-500 hover:text-red-500 active:bg-red-200"
             >
               Delete
             </button>

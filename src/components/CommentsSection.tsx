@@ -67,10 +67,10 @@ export default function CommentsSection({
   }
 
   return (
-    <section
-      className="p-4 pt-6 text-lg lg:px-0"
-      aria-label="comments"
-    >
+    <section className="p-4 pt-6 lg:px-0" aria-label="comments">
+      <h2 className="2x:text-[24px] text-base font-bold text-violet-800 sm:text-lg md:text-xl xl:text-[22px]">
+        Add a comment
+      </h2>
       <PostCommentForm postId={postId!} />
       {commentsElements}
     </section>

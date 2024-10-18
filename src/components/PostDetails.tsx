@@ -51,8 +51,7 @@ export default function PostDetails({
             </div>
           )}
         </div>
-
-        <p className="my-2 lg:text-xl 2xl:text-2xl">
+        <p className="my-2 sm:mb-3 lg:mb-4 lg:text-xl xl:mb-5 xl:mt-3 xl:text-[22px]">
           {post.description}
         </p>
         <PostBottomLine post={post} inPage={true} />
