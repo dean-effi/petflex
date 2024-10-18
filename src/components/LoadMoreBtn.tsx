@@ -16,7 +16,7 @@ export default function LoadMoreBtn({
       ) : (
         <button
           onClick={onBtnClick}
-          className="my-6 rounded-lg border-2 border-violet-800 px-2 py-1 text-xl font-bold text-violet-800 hover:bg-violet-800 hover:text-stone-50 active:bg-violet-500"
+          className="my-6 rounded-lg border-2 border-violet-800 px-2 py-1 text-xl font-bold text-violet-800 transition-all hover:bg-violet-800 hover:text-stone-50 active:bg-violet-500"
         >
           load more...
         </button>

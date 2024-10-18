@@ -3,10 +3,21 @@ import maleIcon from "../assets/male.svg";
 import femaleIcon from "../assets/female.svg";
 import questionIcon from "../assets/question.svg";
 
-export default function PetDetails({ post }: { post: PostType }) {
+export default function PostBottomLine({
+  post,
+  inPage = false,
+}: {
+  post: PostType;
+  inPage?: boolean;
+}) {
   return (
     <div className="self-end capitalize">
-      <p className="h-content flex items-center gap-0.5 text-xs font-light sm:text-sm md:text-base">
+      <p
+        className={
+          "h-content flex items-center gap-0.5 text-xs font-light sm:text-sm md:text-base " +
+          (inPage ? " lg:text-lg" : "")
+        }
+      >
         {post.petType + " "}|
         {
           <img

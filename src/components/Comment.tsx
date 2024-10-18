@@ -38,7 +38,7 @@ export default function Comment({
   return (
     <>
       <div className="m-2 mt-0 border-l-2 border-stone-500">
-        <div className="w-full border border-blue-700 p-2 text-xl shadow-lg">
+        <div className="w-full overflow-scroll border border-blue-700 p-2 text-base shadow-lg">
           <p>{comment.content}</p>
           <p>by: {comment.user.username}</p>
           <p className="text-base">

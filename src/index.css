@@ -40,7 +40,7 @@
     }
   }
   .active {
-    @apply text-violet-500 !important;
+    @apply font-extrabold text-violet-950 !important;
   }
 
   nav > ul > li > a::after {

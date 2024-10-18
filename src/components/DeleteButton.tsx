@@ -37,7 +37,7 @@ export default function DeleteButton({ postId }: { postId: string }) {
       ) : (
         <button
           onClick={() => setIsDeleting(true)}
-          className="rounded-lg border border-red-500 p-1 text-xl text-red-700"
+          className="rounded-lg border-2 border-stone-900 px-1.5 py-0.5 text-stone-900 hover:bg-red-200"
         >
           Delete
         </button>

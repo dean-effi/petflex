@@ -39,11 +39,11 @@ export default function PostPage() {
   }
   if (post) {
     return (
-      <>
+      <div className="m-auto lg:w-[1000px] xl:w-[1200px]">
         <PostDetails userId={user?._id} post={post} />
         <hr />
         <CommentsSection userId={user?._id} postId={post._id} />
-      </>
+      </div>
     );
   }
 }

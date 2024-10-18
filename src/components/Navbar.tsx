@@ -28,7 +28,7 @@ export default function Navbar() {
         : " nav-close";
 
   return (
-    <div className="sticky top-0 z-10 flex gap-4 bg-gradient-to-b from-stone-50 to-stone-200 text-violet-800 shadow-md">
+    <div className="sticky top-0 z-50 flex gap-4 bg-gradient-to-b from-stone-50 to-stone-200 text-violet-800 shadow-md">
       <button
         onClick={() => {
           if (!everOpened.current) everOpened.current = true;

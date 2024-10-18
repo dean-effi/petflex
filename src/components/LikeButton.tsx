@@ -10,6 +10,7 @@ type LikeButtonProps = {
   liked: boolean;
   initialLikes: number;
   isUserLogged: boolean;
+  inPage?: boolean;
 };
 
 export default function LikeButton({
@@ -17,6 +18,7 @@ export default function LikeButton({
   liked,
   initialLikes,
   isUserLogged,
+  inPage = false,
 }: LikeButtonProps) {
   const [isLiked, setIsLiked] = useState(liked);
   const [likesCount, setLikesCount] = useState(initialLikes);
@@ -59,7 +61,7 @@ export default function LikeButton({
       >
         <img
           alt=""
-          className={`${isLiked ? "w-[22px]" : "w-5"}`}
+          className={`${isLiked ? "w-[22px]" : "w-5"} ${inPage ? (isLiked ? "lg:w-[26px]" : "lg:w-6") : ""}`}
           src={isLiked ? heartFilled : heart}
         />
       </button>
