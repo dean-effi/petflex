@@ -67,7 +67,10 @@ export default function CommentsSection({
   }
 
   return (
-    <section className="mt-20 text-lg" aria-label="comments">
+    <section
+      className="p-4 pt-6 text-lg lg:px-0"
+      aria-label="comments"
+    >
       <PostCommentForm postId={postId!} />
       {commentsElements}
     </section>

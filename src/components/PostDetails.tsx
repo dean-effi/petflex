@@ -44,7 +44,7 @@ export default function PostDetails({
           />
           {post.user._id === userId && (
             <div className="space-x-2 text-base font-semibold md:text-lg xl:text-xl">
-              <button className="rounded-lg bg-violet-800 px-1.5 py-[3px] text-stone-50 hover:bg-violet-900 xl:px-2">
+              <button className="normal-btn rounded-lg px-1.5 py-[3px] text-stone-50 xl:px-2">
                 Edit
               </button>
               <DeleteButton postId={post._id} />{" "}
