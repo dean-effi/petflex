@@ -33,7 +33,7 @@ export default function UserForm({
     return;
   }
   return (
-    <main className="relative m-auto w-[300px] overflow-visible p-8 py-10 text-blue-800 sm:w-[400px] sm:text-xl lg:w-[455px] lg:text-xl">
+    <main className="relative m-auto w-[300px] overflow-visible p-8 py-10 text-violet-800 sm:w-[400px] sm:text-xl lg:w-[455px] lg:text-xl">
       <section
         aria-label="header"
         className="header text-center font-extrabold"
@@ -69,7 +69,7 @@ export default function UserForm({
               onChange={onInputChange}
               value={userDetails.username}
               type="text"
-              className="rounded-lg bg-stone-300 p-2 font-normal text-stone-800"
+              className="gray-bg rounded-md bg-stone-200 p-2 font-normal text-stone-800"
             />
           </label>
           <label className="grid gap-3 font-bold sm:gap-4">
@@ -81,7 +81,7 @@ export default function UserForm({
               onChange={onInputChange}
               value={userDetails.password}
               type="password"
-              className="rounded-lg bg-stone-300 p-2 font-normal text-stone-800"
+              className="gray-bg rounded-md bg-stone-200 p-2 font-normal text-stone-800"
             />
           </label>
           {errorMsg && (
@@ -94,7 +94,7 @@ export default function UserForm({
             <button
               type="submit"
               disabled={isPending}
-              className="m-auto rounded-[20px] bg-blue-800 p-1.5 px-[14px] text-lg font-semibold text-stone-100 hover:bg-blue-950 active:bg-blue-600 disabled:bg-slate-700 sm:text-xl lg:text-2xl xl:mt-2 xl:p-2 xl:px-4"
+              className="normal-btn m-auto rounded-[20px] p-1.5 px-[14px] text-lg sm:text-xl lg:text-2xl xl:mt-2 xl:p-2 xl:px-4"
             >
               {formType === "signup" ? "Sign up" : "Log in"}
             </button>
