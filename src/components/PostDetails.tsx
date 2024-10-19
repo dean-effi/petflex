@@ -30,6 +30,7 @@ export default function PostDetails({
         <img
           className="relative z-30 mx-auto max-h-[70vh] min-w-[45%] max-w-full object-contain md:max-h-[60vh]"
           src={post.image}
+          alt={post.name}
         />
       </div>
       <div className="p-4 py-2 lg:px-0">

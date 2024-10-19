@@ -68,9 +68,11 @@ export default function CommentsSection({
 
   return (
     <section className="p-4 pt-6 lg:px-0" aria-label="comments">
-      <h2 className="2x:text-[24px] text-base font-bold text-violet-800 sm:text-lg md:text-xl xl:text-[22px]">
-        Add a comment
-      </h2>
+      {!userId && (
+        <h2 className="2x:text-[24px] mb-2 text-base font-bold text-violet-800 sm:text-lg md:mb-3 md:text-xl lg:mb-4 xl:text-[22px]">
+          log in to comment
+        </h2>
+      )}
       <PostCommentForm postId={postId!} />
       {commentsElements}
     </section>

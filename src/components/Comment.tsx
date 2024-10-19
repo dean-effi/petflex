@@ -35,12 +35,11 @@ export default function Comment({
   const replies = replyComments.filter(
     reply => reply.parentId === comment._id
   );
-  console.log(comment.available, "is ittt");
   return (
     <>
-      <div className="gray-bg mt-2 w-full space-y-1.5 overflow-scroll rounded-md p-2 text-base lg:space-y-2">
+      <article className="gray-bg mt-2 w-full space-y-1.5 overflow-scroll rounded-md p-2 text-base lg:space-y-2">
         <p
-          className={`w-[95%] text-base font-normal lg:w-[90%] lg:text-lg ${!comment.available && "font-light italic"}`}
+          className={`w-[95%] text-base font-normal lg:w-[90%] lg:text-lg xl:w-[85%] xl:text-[20px] ${!comment.available && "font-light italic"}`}
         >
           {comment.content}
         </p>
@@ -78,7 +77,7 @@ export default function Comment({
             />
           </>
         )}
-      </div>
+      </article>
 
       {replies.map(reply => {
         return (

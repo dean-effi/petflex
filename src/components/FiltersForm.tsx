@@ -116,7 +116,7 @@ export default function FiltersForm({
           </div>
           <button
             type="submit"
-            className="rounded-[11px] bg-neutral-950 p-[2px] px-2 text-stone-50"
+            className="rounded-[11px] bg-neutral-950 p-[2px] px-2 text-stone-50 hover:bg-neutral-800 active:bg-neutral-500"
           >
             Apply
           </button>

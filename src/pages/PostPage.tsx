@@ -6,13 +6,16 @@ import ErrorPage from "./ErrorPage";
 import { PostType, QueryError } from "../types";
 import { fetchApi } from "../fetchApi";
 import { useQuery } from "@tanstack/react-query";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { appContext } from "../appContext";
 import Loading from "../components/Loading";
 
 export default function PostPage() {
   const { postId } = useParams();
   const { user } = useContext(appContext).userQuery;
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const { data: post, ...postQuery } = useQuery<PostType, QueryError>(
     {
       queryKey: ["posts", postId],

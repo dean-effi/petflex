@@ -23,6 +23,7 @@ export default function App() {
       ),
     // refetchInterval: 1000 * 60 * 60,
     staleTime: 1000 * 60 * 30,
+    retry: false,
     // refetchInterval: 1000 * 3,
   });
 
