@@ -21,8 +21,8 @@ export default function CommentsLikesCounts({
   return (
     <div
       className={
-        "mt-1 flex gap-4 text-xl text-violet-800 " +
-        (inPage ? " lg:font-semibold" : "")
+        "flex items-center gap-4 text-lg text-violet-800 lg:pt-0.5 lg:text-xl " +
+        (inPage ? " lg:font-medium" : "")
       }
     >
       <LikeButton

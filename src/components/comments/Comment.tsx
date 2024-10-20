@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { CommentType } from "../types";
+import { CommentType } from "../../types";
 import PostCommentForm from "./PostCommentForm";
-import { fetchApi } from "../fetchApi";
+import { fetchApi } from "../../fetchApi";
 import { useMutation } from "@tanstack/react-query";
-import { queryClient } from "../main";
+import { queryClient } from "../../main";
 
 type CommentProps = {
   comment: CommentType;

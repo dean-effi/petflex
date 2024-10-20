@@ -1,4 +1,4 @@
-import Loading from "./Loading";
+import Spinner from "../Spinner";
 
 export default function LoadMoreBtn({
   isFetchingNextPage,
@@ -11,7 +11,7 @@ export default function LoadMoreBtn({
     <div className="grid justify-center">
       {isFetchingNextPage ? (
         <div className="my-6 flex min-w-20 justify-center rounded-lg border-2 border-violet-800 px-2 py-1 text-xl text-violet-800">
-          <Loading width={26} />
+          <Spinner width={26} />
         </div>
       ) : (
         <button

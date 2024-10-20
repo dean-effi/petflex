@@ -55,7 +55,7 @@ export default function LikeButton({
     <div className="flex items-center gap-2">
       {likesCount}
       <button
-        aria-label="like"
+        aria-label="like post"
         className=""
         onClick={e => likePost(e)}
       >

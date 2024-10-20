@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 
-import CommentsSection from "../components/CommentsSection";
+import CommentsSection from "../components/comments/CommentsSection";
 import PostDetails from "../components/PostDetails";
 import ErrorPage from "./ErrorPage";
 import { PostType, QueryError } from "../types";
@@ -8,7 +8,7 @@ import { fetchApi } from "../fetchApi";
 import { useQuery } from "@tanstack/react-query";
 import { useContext, useEffect } from "react";
 import { appContext } from "../appContext";
-import Loading from "../components/Loading";
+import Loading from "../components/Spinner";
 
 export default function PostPage() {
   const { postId } = useParams();

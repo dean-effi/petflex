@@ -11,31 +11,28 @@ export default function PostBottomLine({
   inPage?: boolean;
 }) {
   return (
-    <div className="self-end capitalize">
-      <p
-        className={
-          "h-content flex items-center gap-0.5 text-xs font-light sm:text-sm md:text-base " +
-          (inPage ? " lg:text-lg" : "")
-        }
-      >
-        {post.petType + " "}|
-        {
-          <img
-            src={
-              post.gender == "male"
-                ? maleIcon
-                : post.gender === "female"
-                  ? femaleIcon
-                  : questionIcon
-            }
-            className="inline"
-            alt={post.gender}
-          />
-        }
-        | {post.age.years + " years old"} |
-        {" created at " +
-          new Date(post.createdAt).toLocaleDateString()}{" "}
-      </p>
-    </div>
+    <p
+      className={
+        "h-content flex items-center gap-0.5 self-end text-xs font-light capitalize sm:text-sm md:text-base" +
+        (inPage ? " lg:text-lg" : "")
+      }
+    >
+      {post.petType + " "}|
+      {
+        <img
+          src={
+            post.gender == "male"
+              ? maleIcon
+              : post.gender === "female"
+                ? femaleIcon
+                : questionIcon
+          }
+          className="inline"
+          alt={post.gender}
+        />
+      }
+      | {post.age.years + " years old"} |
+      {" created at " + new Date(post.createdAt).toLocaleDateString()}
+    </p>
   );
 }

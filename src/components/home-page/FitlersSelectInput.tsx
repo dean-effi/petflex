@@ -2,7 +2,6 @@ import { ReactNode } from "react";
 
 type SelectProps = {
   optionsList?: string[];
-  searchParams: URLSearchParams;
   children?: ReactNode;
   name: string;
   stateValue: string | null;

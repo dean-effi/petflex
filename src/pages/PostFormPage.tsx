@@ -88,10 +88,11 @@ export default function PostPetPage() {
           <option defaultChecked value={""}>
             select a type
           </option>
-
           <option value="dog">dog</option>
           <option value="cat">cat</option>
           <option value="hamster">hamster</option>
+          <option value="bird">bird</option>
+          <option value="fish">fish</option>
           <option value="lizard">lizard</option>
           <option value="other">other</option>
         </select>

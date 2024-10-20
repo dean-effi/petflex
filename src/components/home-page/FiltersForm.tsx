@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react";
 import { SetURLSearchParams } from "react-router-dom";
 import FitlersSelectInput from "./FitlersSelectInput";
-import filtersIcon from "../assets/filters.svg";
+import filtersIcon from "../../assets/filters.svg";
 
 type QueryOptionsType = {
   order: string | null;
@@ -28,13 +28,10 @@ export default function FiltersForm({
   function handleInputChange(
     e: React.ChangeEvent<HTMLSelectElement>
   ) {
-    console.log("value", e.target.value);
     setQueryOptions({
       ...queryOptions,
       [e.target.name]: e.target.value,
     });
-
-    return;
   }
 
   function handleFiltersSubmit(e: FormEvent) {
@@ -42,7 +39,6 @@ export default function FiltersForm({
     const params: Record<string, string> = {};
     let param: keyof QueryOptionsType;
     for (param in queryOptions) {
-      console.log(param, queryOptions[param]);
       const assign = queryOptions[param];
       if (
         assign != undefined &&
@@ -79,7 +75,6 @@ export default function FiltersForm({
                 handleInputChange={handleInputChange}
                 name="sortBy"
                 optionsList={["date", "likes"]}
-                searchParams={searchParams}
                 stateValue={queryOptions.sortBy}
               />
             </label>
@@ -89,13 +84,14 @@ export default function FiltersForm({
                 name="petType"
                 handleInputChange={handleInputChange}
                 stateValue={queryOptions.petType}
-                searchParams={searchParams}
                 optionsList={[
                   "all",
                   "dog",
                   "cat",
-                  "rabbit",
                   "hamster",
+                  "bird",
+                  "rabbit",
+                  "fish",
                   "lizard",
                   "other",
                 ]}
@@ -107,7 +103,6 @@ export default function FiltersForm({
                 name="order"
                 handleInputChange={handleInputChange}
                 stateValue={queryOptions.order}
-                searchParams={searchParams}
               >
                 <option value={-1}>descending</option>
                 <option value={1}>ascending</option>

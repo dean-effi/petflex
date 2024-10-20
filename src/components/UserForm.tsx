@@ -30,14 +30,10 @@ export default function UserForm({
       ...userDetails,
       [e.target.name]: e.target.value,
     });
-    return;
   }
   return (
     <main className="relative m-auto w-[300px] overflow-visible p-8 py-10 text-violet-800 sm:w-[400px] sm:text-xl lg:w-[455px] lg:text-xl">
-      <section
-        aria-label="header"
-        className="header text-center font-extrabold"
-      >
+      <header className="header text-center font-extrabold">
         <h1 className="grid">
           {formType === "signup" ? "Sign up to" : "Log in to"}
           <span className="text-4xl tracking-widest sm:text-5xl">
@@ -50,8 +46,8 @@ export default function UserForm({
           src="/logo.svg"
           alt="petflex logo"
         />
-      </section>
-      <section className="registeration mt-10">
+      </header>
+      <section className="registeration mt-8 lg:mt-10">
         <form
           action=""
           onSubmit={e => {

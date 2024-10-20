@@ -1,9 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
 import { useContext, useEffect, useRef, useState } from "react";
-import { fetchApi } from "../fetchApi";
-import { queryClient } from "../main";
-import { CommentType } from "../types";
-import { appContext } from "../appContext";
+import { fetchApi } from "../../fetchApi";
+import { queryClient } from "../../main";
+import { CommentType } from "../../types";
+import { appContext } from "../../appContext";
 
 type PostCommentFormProps = {
   postId: string;

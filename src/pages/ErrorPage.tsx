@@ -16,8 +16,9 @@ export default function ErrorPage({
       <p>
         {text}, go back{" "}
         <NavLink className={"text-violet-800 underline"} to={"/"}>
-          home
+          home,
         </NavLink>{" "}
+        refresh or try later
       </p>
     </div>
   );

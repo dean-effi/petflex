@@ -1,10 +1,10 @@
 import { ReactElement } from "react";
 import PostCommentForm from "./PostCommentForm";
-import { CommentType, QueryError } from "../types";
+import { CommentType, QueryError } from "../../types";
 import { useQuery } from "@tanstack/react-query";
-import { fetchApi } from "../fetchApi";
+import { fetchApi } from "../../fetchApi";
 import Comment from "./Comment";
-import Loading from "./Loading";
+import Loading from "../Spinner";
 
 export default function CommentsSection({
   postId,
