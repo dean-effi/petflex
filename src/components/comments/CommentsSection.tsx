@@ -13,7 +13,6 @@ export default function CommentsSection({
   postId: string;
   userId: string | undefined;
 }) {
-  console.log("re-rendering comments");
   const { data: comments, isLoading } = useQuery<
     CommentType[],
     QueryError
@@ -27,6 +26,7 @@ export default function CommentsSection({
         },
         false
       ),
+    staleTime: 1000 * 60 * 20,
   });
   if (isLoading) {
     return (

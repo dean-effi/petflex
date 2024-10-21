@@ -5,9 +5,11 @@ import PostBottomLine from "./PostBottomLine";
 export default function PostDetails({
   post,
   userId,
+  edit,
 }: {
   post: PostType;
   userId: string | undefined;
+  edit: () => void;
 }) {
   return (
     <section
@@ -45,7 +47,10 @@ export default function PostDetails({
           />
           {post.user._id === userId && (
             <div className="space-x-2 text-base font-semibold md:text-lg xl:text-xl">
-              <button className="normal-btn rounded-lg px-1.5 py-[3px] text-stone-50 xl:px-2">
+              <button
+                onClick={edit}
+                className="normal-btn rounded-lg px-1.5 py-[3px] text-stone-50 xl:px-2"
+              >
                 Edit
               </button>
               <DeleteButton postId={post._id} />{" "}

@@ -20,17 +20,23 @@ type PostFormProps = {
 export default function PostForm({
   submitPost,
   mutation,
+  formType,
+  post,
 }: PostFormProps) {
-  const { isError, error } = mutation;
+  const { isPending, isError, error } = mutation;
+
   const [newPet, setNewPet] = useState<PostSubmitionObject>({
-    name: "",
-    description: "",
-    birthDate: "",
-    petType: "",
-    gender: "male",
+    name: post?.name || "",
+    description: post?.description || "",
+    birthDate: post ? getDateInputString(post?.birthDate) : "",
+    petType: post?.petType || "",
+    gender: post?.gender || "male",
     image: null,
   });
+  console.log("original ", post?.birthDate);
+
   function onInputChange(e: React.ChangeEvent<any>) {
+    console.log("changed", e.target.value);
     setNewPet({
       ...newPet,
       [e.target.name]: e.target.value,
@@ -73,7 +79,12 @@ export default function PostForm({
       </label>
       <label>
         Pet Type:
-        <select onChange={onInputChange} name="petType" id="petType">
+        <select
+          onChange={onInputChange}
+          value={newPet.petType}
+          name="petType"
+          id="petType"
+        >
           <option defaultChecked value={""}>
             select a type
           </option>
@@ -90,31 +101,40 @@ export default function PostForm({
       <div>
         <label>
           Gender:
-          <select onChange={onInputChange} name="gender" id="gender">
+          <select
+            onChange={onInputChange}
+            value={newPet.gender}
+            name="gender"
+            id="gender"
+          >
             <option value="male">male</option>
             <option value="female">female</option>
-            <option value="other">hamster</option>
+            <option value="unknown">unknown</option>
           </select>
         </label>
       </div>
-      <label>
-        Image:
-        <input
-          required
-          onChange={e =>
-            setNewPet({
-              ...newPet,
-              image: e.target?.files ? e.target?.files[0] : null,
-            })
-          }
-          className="border border-black"
-          type="file"
-          name="image"
-        />
-      </label>
+      {formType === "posting" && (
+        <label>
+          Image:
+          <input
+            required
+            onChange={e =>
+              setNewPet({
+                ...newPet,
+                image: e.target?.files ? e.target?.files[0] : null,
+              })
+            }
+            className="border border-black"
+            type="file"
+            name="image"
+          />
+        </label>
+      )}
+
       <button
         type="submit"
         className="normal-btn w-min rounded-md px-2 py-1"
+        disabled={isPending}
       >
         Submit
       </button>
@@ -123,4 +143,10 @@ export default function PostForm({
       </div>
     </form>
   );
+}
+
+function getDateInputString(birthDate: string) {
+  const currentDate = new Date(birthDate);
+  const formatted = currentDate.toISOString().split("T")[0];
+  return formatted;
 }

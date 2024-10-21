@@ -5,6 +5,7 @@ export async function fetchApi<DataT>(
   options: RequestInit,
   auth: boolean
 ): Promise<DataT> {
+  console.log("fetching something");
   try {
     const token = localStorage.getItem("token");
     //if needs to be authenticated, check for token, if available, attach to head

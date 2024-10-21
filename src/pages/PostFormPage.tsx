@@ -22,7 +22,6 @@ export default function PostPetPage() {
   });
 
   function onFormSubmit(e: FormEvent, newPet: PostSubmitionObject) {
-    console.log("submitting", newPet);
     e.preventDefault();
     postMut.mutate(newPet);
   }
@@ -32,10 +31,12 @@ export default function PostPetPage() {
   }
 
   return (
-    <PostForm
-      formType="posting"
-      mutation={postMut}
-      submitPost={onFormSubmit}
-    />
+    <main>
+      <PostForm
+        formType="posting"
+        mutation={postMut}
+        submitPost={onFormSubmit}
+      />
+    </main>
   );
 }
