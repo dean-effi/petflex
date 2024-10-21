@@ -59,3 +59,12 @@ export type CommentType = {
   createdAt: string;
   available: boolean;
 };
+
+export type PostSubmitionObject = {
+  name: string;
+  description: string;
+  birthDate: string;
+  petType: string;
+  gender: string;
+  image?: null | File;
+};
