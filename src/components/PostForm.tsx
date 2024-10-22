@@ -1,6 +1,7 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { PostSubmitionObject, PostType, QueryError } from "../types";
 import { UseMutationResult } from "@tanstack/react-query";
+import ImageInput from "./ImageInput";
 
 type PostFormProps = {
   submitPost: (
@@ -33,10 +34,15 @@ export default function PostForm({
     gender: post?.gender || "male",
     image: null,
   });
-  console.log("original ", post?.birthDate);
-
+  const [clientError, setClientError] = useState("");
+  const formRef = useRef<HTMLFormElement>(null);
+  console.log(formRef.current, "refff");
   function onInputChange(e: React.ChangeEvent<any>) {
     console.log("changed", e.target.value);
+    console.log(e.target.checkValidity());
+    if (!e.target.checkValidity()) {
+      setClientError("hey");
+    }
     setNewPet({
       ...newPet,
       [e.target.name]: e.target.value,
@@ -46,7 +52,9 @@ export default function PostForm({
     <form
       onSubmit={e => submitPost(e, newPet)}
       className="grid justify-start gap-6 p-6 text-xl"
+      ref={formRef}
     >
+      {clientError}
       <label>
         Name:
         <input
@@ -121,25 +129,27 @@ export default function PostForm({
       {formType === "posting" && (
         <label>
           Image:
-          <input
+          {/* <input
             required
-            onChange={e =>
+            onChange={e => {
               setNewPet({
                 ...newPet,
                 image: e.target?.files ? e.target?.files[0] : null,
-              })
-            }
+              });
+
+            }}
             className="border border-black"
             type="file"
             name="image"
-          />
+          /> */}
+          <ImageInput setNewPet={setNewPet} />
         </label>
       )}
 
       <button
         type="submit"
         className="normal-btn w-min rounded-md px-2 py-1"
-        disabled={isPending}
+        disabled={isPending || !formRef?.current?.checkValidity()}
       >
         Submit
       </button>

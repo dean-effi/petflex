@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { UseMutateFunction } from "@tanstack/react-query";
 import { QueryError, UserDetails } from "../types";
@@ -21,11 +21,25 @@ export default function UserForm({
   errorMsg,
   isPending,
 }: UserFormProps) {
+  const [clientError, setClientError] = useState("");
   const [userDetails, setUserDetails] = useState({
     username: "",
     password: "",
   });
+  const formRef = useRef<HTMLFormElement>(null);
+  const isFormValid = formRef.current?.checkValidity();
+  console.log("isFormValid", isFormValid, formRef.current);
   function onInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    if (!e.target.validity.valid) {
+      const errorMsg =
+        e.target.name +
+        (e.target.validity.tooShort
+          ? " is too short"
+          : " is too long");
+      setClientError(errorMsg);
+    } else {
+      setClientError("");
+    }
     setUserDetails({
       ...userDetails,
       [e.target.name]: e.target.value,
@@ -49,6 +63,7 @@ export default function UserForm({
       </header>
       <section className="registeration mt-8 lg:mt-10">
         <form
+          ref={formRef}
           action=""
           onSubmit={e => {
             // console.log(e.target.checkValidity(), " is it valid");
@@ -83,16 +98,16 @@ export default function UserForm({
               className="gray-bg rounded-md bg-stone-200 p-2 font-normal text-stone-800"
             />
           </label>
-          {errorMsg && (
+          {(clientError || errorMsg) && (
             <p className="text-center font-bold text-red-800">
-              {errorMsg}
+              {clientError || errorMsg}
             </p>
           )}
 
           <div className="m-auto grid w-full gap-4 text-center">
             <button
               type="submit"
-              disabled={isPending}
+              disabled={isPending || !isFormValid}
               className="normal-btn m-auto rounded-[20px] p-1.5 px-[14px] text-lg sm:text-xl lg:text-2xl xl:mt-2 xl:p-2 xl:px-4"
             >
               {formType === "signup" ? "Sign up" : "Log in"}
