@@ -50,6 +50,7 @@ export default function PostForm({
       <label>
         Name:
         <input
+          required={true}
           value={newPet.name}
           minLength={3}
           onChange={onInputChange}
@@ -65,11 +66,13 @@ export default function PostForm({
           onChange={onInputChange}
           className="border border-black"
           name="description"
+          required={true}
         />
       </label>
       <label>
         BirthDate:
         <input
+          required={true}
           value={newPet.birthDate}
           onChange={onInputChange}
           className="border border-black"
@@ -84,6 +87,7 @@ export default function PostForm({
           value={newPet.petType}
           name="petType"
           id="petType"
+          required={true}
         >
           <option defaultChecked value={""}>
             select a type
@@ -106,6 +110,7 @@ export default function PostForm({
             value={newPet.gender}
             name="gender"
             id="gender"
+            required={true}
           >
             <option value="male">male</option>
             <option value="female">female</option>

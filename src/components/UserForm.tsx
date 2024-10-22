@@ -51,6 +51,7 @@ export default function UserForm({
         <form
           action=""
           onSubmit={e => {
+            // console.log(e.target.checkValidity(), " is it valid");
             e.preventDefault();
             onFormSubmit(userDetails);
           }}
@@ -60,6 +61,7 @@ export default function UserForm({
             Username:
             <input
               name="username"
+              required={true}
               minLength={3}
               maxLength={20}
               onChange={onInputChange}
@@ -72,6 +74,7 @@ export default function UserForm({
             Password:
             <input
               name="password"
+              required={true}
               minLength={5}
               maxLength={40}
               onChange={onInputChange}

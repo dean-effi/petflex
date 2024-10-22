@@ -17,7 +17,6 @@ export default function PostCommentForm({
   cancelReply,
 }: PostCommentFormProps) {
   const [newComment, setNewComment] = useState("");
-  const [clientError, setClientError] = useState("");
 
   const {
     mutate: postComment,
@@ -58,13 +57,6 @@ export default function PostCommentForm({
         className=""
         onSubmit={e => {
           e.preventDefault();
-          if (newComment.length < 3 || newComment.length > 200) {
-            setClientError(
-              "message must contain between 3 and 200 characters"
-            );
-            return;
-          }
-          setClientError("");
           postComment(parentId);
         }}
       >
@@ -80,6 +72,7 @@ export default function PostCommentForm({
             type="text"
             name="content"
             id="content"
+            required={true}
             minLength={3}
             maxLength={200}
             onChange={e => setNewComment(e.target.value)}
@@ -88,9 +81,9 @@ export default function PostCommentForm({
           />
         </label>
 
-        {(Boolean(clientError.length) || isError) && (
+        {isError && (
           <p className="mb-2 font-semibold text-red-900">
-            {clientError || error?.message}
+            {error?.message}
           </p>
         )}
 
