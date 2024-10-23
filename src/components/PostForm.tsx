@@ -34,15 +34,12 @@ export default function PostForm({
     gender: post?.gender || "male",
     image: null,
   });
-  const [clientError, setClientError] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
   console.log(formRef.current, "refff");
   function onInputChange(e: React.ChangeEvent<any>) {
     console.log("changed", e.target.value);
     console.log(e.target.checkValidity());
-    if (!e.target.checkValidity()) {
-      setClientError("hey");
-    }
+
     setNewPet({
       ...newPet,
       [e.target.name]: e.target.value,
@@ -54,13 +51,13 @@ export default function PostForm({
       className="grid justify-start gap-6 p-6 text-xl"
       ref={formRef}
     >
-      {clientError}
       <label>
         Name:
         <input
-          required={true}
+          required
           value={newPet.name}
           minLength={3}
+          maxLength={30}
           onChange={onInputChange}
           className="border border-black"
           type="text"
@@ -74,13 +71,15 @@ export default function PostForm({
           onChange={onInputChange}
           className="border border-black"
           name="description"
-          required={true}
+          required
+          minLength={3}
+          maxLength={1000}
         />
       </label>
       <label>
         BirthDate:
         <input
-          required={true}
+          required
           value={newPet.birthDate}
           onChange={onInputChange}
           className="border border-black"
@@ -95,7 +94,7 @@ export default function PostForm({
           value={newPet.petType}
           name="petType"
           id="petType"
-          required={true}
+          required
         >
           <option defaultChecked value={""}>
             select a type
@@ -118,7 +117,7 @@ export default function PostForm({
             value={newPet.gender}
             name="gender"
             id="gender"
-            required={true}
+            required
           >
             <option value="male">male</option>
             <option value="female">female</option>
@@ -149,7 +148,7 @@ export default function PostForm({
       <button
         type="submit"
         className="normal-btn w-min rounded-md px-2 py-1"
-        disabled={isPending || !formRef?.current?.checkValidity()}
+        disabled={isPending}
       >
         Submit
       </button>
