@@ -1,4 +1,4 @@
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, useState } from "react";
 import { PostSubmitionObject, PostType, QueryError } from "../types";
 import { UseMutationResult } from "@tanstack/react-query";
 import ImageInput from "./ImageInput";
@@ -34,12 +34,7 @@ export default function PostForm({
     gender: post?.gender || "male",
     image: null,
   });
-  const formRef = useRef<HTMLFormElement>(null);
-  console.log(formRef.current, "refff");
   function onInputChange(e: React.ChangeEvent<any>) {
-    console.log("changed", e.target.value);
-    console.log(e.target.checkValidity());
-
     setNewPet({
       ...newPet,
       [e.target.name]: e.target.value,
@@ -49,7 +44,6 @@ export default function PostForm({
     <form
       onSubmit={e => submitPost(e, newPet)}
       className="grid justify-start gap-6 p-6 text-xl"
-      ref={formRef}
     >
       <label>
         Name:
@@ -144,7 +138,9 @@ export default function PostForm({
           <ImageInput setNewPet={setNewPet} />
         </label>
       )}
-
+      <div className="pb-2 font-bold text-red-800 xl:text-2xl">
+        {isError && <p className="">{error.message}</p>}
+      </div>
       <button
         type="submit"
         className="normal-btn w-min rounded-md px-2 py-1"
@@ -152,9 +148,6 @@ export default function PostForm({
       >
         Submit
       </button>
-      <div className="pb-2 text-center font-bold text-red-800 xl:text-2xl">
-        {isError && <p className="">{error.message}</p>}
-      </div>
     </form>
   );
 }

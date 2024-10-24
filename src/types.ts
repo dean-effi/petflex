@@ -66,5 +66,5 @@ export type PostSubmitionObject = {
   birthDate: string;
   petType: string;
   gender: string;
-  image?: null | File;
+  image?: null | File | Blob;
 };
