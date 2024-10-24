@@ -19,10 +19,10 @@ export default function PostPreview({ post }: { post: PostType }) {
       to={post.id}
       aria-label={"read more about " + post.name}
     >
-      <article className="preview-card gray-bg grid h-full w-full grid-rows-[max-content_max-content_max-content_1fr] justify-center gap-3 rounded-xl px-4 py-2 shadow-lg hover:bg-[#eae9e8]">
+      <article className="preview-card gray-bg grid h-full w-full grid-rows-[max-content_max-content_max-content_1fr] justify-center gap-3 overflow-hidden rounded-xl px-4 py-2 shadow-lg hover:bg-[#eae9e8]">
         <div className="flex items-start justify-between text-xl">
           <div>
-            <h2 className="text-1xl font-semibold text-violet-800 md:text-2xl">
+            <h2 className="text-1xl max-w-[20ch] overflow-hidden font-semibold text-violet-800 md:text-2xl">
               {post.name}
             </h2>
             <p className="text-sm font-medium">

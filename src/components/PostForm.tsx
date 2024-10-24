@@ -51,7 +51,7 @@ export default function PostForm({
           required
           value={newPet.name}
           minLength={3}
-          maxLength={30}
+          maxLength={20}
           onChange={onInputChange}
           className="border border-black"
           type="text"

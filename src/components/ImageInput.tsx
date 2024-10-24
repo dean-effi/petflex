@@ -1,5 +1,6 @@
 import Compressor from "compressorjs";
 import { PostSubmitionObject } from "../types";
+import { useState } from "react";
 export default function ImageInput({
   setNewPet,
 }: {
@@ -7,6 +8,18 @@ export default function ImageInput({
     React.SetStateAction<PostSubmitionObject>
   >;
 }) {
+  const [imgPreview, setImgPreview] = useState("");
+
+  function setPreview(file: File) {
+    if (!file) return;
+    const reader = new FileReader();
+
+    reader.readAsDataURL(file!);
+    reader.onload = () => {
+      console.log(typeof reader.result);
+      setImgPreview(reader.result as string);
+    };
+  }
   async function onImageChange(
     e: React.ChangeEvent<HTMLInputElement>
   ) {
@@ -22,6 +35,8 @@ export default function ImageInput({
         setNewPet(newPet => {
           return { ...newPet, image: result };
         });
+
+        setPreview(result);
         console.log(
           "size before: ",
           file.size / 1024 / 1024 + "mb",
@@ -34,18 +49,26 @@ export default function ImageInput({
         setNewPet(newPet => {
           return { ...newPet, image: file };
         });
+        setPreview(file);
       },
     });
   }
 
   return (
-    <input
-      required
-      accept="image/*"
-      onChange={onImageChange}
-      className="border border-black"
-      type="file"
-      name="image"
-    />
+    <>
+      <input
+        required
+        accept="image/*"
+        onChange={onImageChange}
+        className="border border-black"
+        type="file"
+        name="image"
+      />
+      <img
+        className="mt-4 h-[250px] w-[320px] rounded-sm bg-slate-200 object-cover object-center sm:w-[400px]"
+        src={imgPreview}
+        alt=""
+      />
+    </>
   );
 }
