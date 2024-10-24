@@ -12,9 +12,11 @@ export default function ImageInput({
   ) {
     if (!e.target.files) return;
     const file = e.target.files[0];
+    const fileSize = file.size / 1024 / 1024 > 3 ? 0.5 : 0.8;
     console.log("starting image compression");
     new Compressor(file, {
-      quality: file.size / 1024 / 1024 > 3 ? 0.4 : 0.7,
+      mimeType: "image/webp",
+      quality: fileSize > 3 ? 0.5 : fileSize > 1 ? 0.7 : 0.8,
       strict: true,
       success(result: File) {
         setNewPet(newPet => {
@@ -26,6 +28,7 @@ export default function ImageInput({
           "size after: ",
           result.size / 1024 / 1024 + "mb"
         );
+        console.log(result);
       },
       error() {
         setNewPet(newPet => {
