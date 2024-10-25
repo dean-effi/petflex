@@ -25,7 +25,7 @@ export default function PostForm({
   post,
 }: PostFormProps) {
   const { isPending, isError, error } = mutation;
-
+  const [clientError, setClientError] = useState("");
   const [newPet, setNewPet] = useState<PostSubmitionObject>({
     name: post?.name || "",
     description: post?.description || "",
@@ -34,15 +34,24 @@ export default function PostForm({
     gender: post?.gender || "male",
     image: null,
   });
+
   function onInputChange(e: React.ChangeEvent<any>) {
     setNewPet({
       ...newPet,
       [e.target.name]: e.target.value,
     });
   }
+  function onFormSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (newPet.image == null) {
+      setClientError("Please provide an image");
+      return;
+    }
+    submitPost(e, newPet);
+  }
   return (
     <form
-      onSubmit={e => submitPost(e, newPet)}
+      onSubmit={onFormSubmit}
       className="grid justify-start gap-6 p-6 text-xl"
     >
       <label>
@@ -122,7 +131,9 @@ export default function PostForm({
       {formType === "posting" && <ImageInput setNewPet={setNewPet} />}
 
       <div className="pb-2 font-bold text-red-800 xl:text-2xl">
-        {isError && <p className="">{error.message}</p>}
+        {(isError || clientError) && (
+          <p className="">{error?.message || clientError}</p>
+        )}
       </div>
       <button
         type="submit"

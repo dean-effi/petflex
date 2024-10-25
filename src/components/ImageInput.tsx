@@ -1,6 +1,6 @@
 import Compressor from "compressorjs";
 import { PostSubmitionObject } from "../types";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { FileRejection, useDropzone } from "react-dropzone";
 
 export default function ImageInput({
@@ -12,7 +12,7 @@ export default function ImageInput({
 }) {
   const [imgPreview, setImgPreview] = useState("");
   const [fileError, SetFileError] = useState("");
-
+  const inputRef = useRef(null);
   //react drop zone
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop: onImageChange,
@@ -40,6 +40,7 @@ export default function ImageInput({
     }
     const file = files[0];
     const fileSize = file.size / 1000 / 1000;
+
     console.log("starting image compression");
     new Compressor(file, {
       mimeType: "image/webp",
@@ -48,10 +49,14 @@ export default function ImageInput({
       success(result: File) {
         if (result.size / 1000 / 1000 > 2.9) {
           SetFileError("image is too large");
+          return;
         }
+
+        SetFileError("");
         setNewPet(newPet => {
           return { ...newPet, image: result };
         });
+        console.log(inputRef.current);
 
         setPreview(result);
         console.log(
@@ -71,13 +76,10 @@ export default function ImageInput({
   }
 
   return (
-    <div {...getRootProps()}>
+    <label aria-label="image" {...getRootProps()}>
       <input
+        ref={inputRef}
         {...getInputProps({
-          required: true,
-          accept: "image/*",
-          className: "border border-black",
-          type: "file",
           name: "image",
         })}
       />
@@ -91,8 +93,20 @@ export default function ImageInput({
         src={imgPreview}
         alt=""
       />
+      <button
+        type="button"
+        onClick={e => {
+          e.stopPropagation();
+          setImgPreview("");
+          setNewPet(newPet => {
+            return { ...newPet, image: null };
+          });
+        }}
+        className="border border-black"
+      >
+        remove image
+      </button>
       <div className="text-xl text-red-800">{fileError}</div>
-      {/* <MyDropzone /> */}
-    </div>
+    </label>
   );
 }
