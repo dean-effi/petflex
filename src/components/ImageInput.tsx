@@ -111,20 +111,22 @@ export default function ImageInput({
       <p className="text-sm">
         *image ratio will preserve for the full pet's page
       </p>
-      <button
-        type="button"
-        aria-label="remove image"
-        onClick={e => {
-          e.stopPropagation();
-          setPreview("");
-          setNewPet(newPet => {
-            return { ...newPet, image: null };
-          });
-        }}
-        className="normal-btn absolute left-2 top-2 rounded-[50%] border border-white px-1.5 text-base"
-      >
-        X
-      </button>
+      {!loading && preview && (
+        <button
+          type="button"
+          aria-label="remove image"
+          onClick={e => {
+            e.stopPropagation();
+            setPreview("");
+            setNewPet(newPet => {
+              return { ...newPet, image: null };
+            });
+          }}
+          className="normal-btn absolute left-2 top-2 rounded-[50%] border border-white px-1.5 text-base"
+        >
+          X
+        </button>
+      )}
     </div>
   );
 }
