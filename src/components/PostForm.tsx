@@ -119,25 +119,8 @@ export default function PostForm({
           </select>
         </label>
       </div>
-      {formType === "posting" && (
-        <label>
-          Image:
-          {/* <input
-            required
-            onChange={e => {
-              setNewPet({
-                ...newPet,
-                image: e.target?.files ? e.target?.files[0] : null,
-              });
+      {formType === "posting" && <ImageInput setNewPet={setNewPet} />}
 
-            }}
-            className="border border-black"
-            type="file"
-            name="image"
-          /> */}
-          <ImageInput setNewPet={setNewPet} />
-        </label>
-      )}
       <div className="pb-2 font-bold text-red-800 xl:text-2xl">
         {isError && <p className="">{error.message}</p>}
       </div>

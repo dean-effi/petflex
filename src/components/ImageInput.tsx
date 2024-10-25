@@ -1,6 +1,8 @@
 import Compressor from "compressorjs";
 import { PostSubmitionObject } from "../types";
 import { useState } from "react";
+import { FileRejection, useDropzone } from "react-dropzone";
+
 export default function ImageInput({
   setNewPet,
 }: {
@@ -9,6 +11,14 @@ export default function ImageInput({
   >;
 }) {
   const [imgPreview, setImgPreview] = useState("");
+  const [fileError, SetFileError] = useState("");
+
+  //react drop zone
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop: onImageChange,
+    maxFiles: 1,
+    accept: { "image/*": [] },
+  });
 
   function setPreview(file: File) {
     if (!file) return;
@@ -16,22 +26,29 @@ export default function ImageInput({
 
     reader.readAsDataURL(file!);
     reader.onload = () => {
-      console.log(typeof reader.result);
       setImgPreview(reader.result as string);
     };
   }
   async function onImageChange(
-    e: React.ChangeEvent<HTMLInputElement>
+    files: File[] | null,
+    rejectedFiles?: FileRejection[] | null
   ) {
-    if (!e.target.files) return;
-    const file = e.target.files[0];
-    const fileSize = file.size / 1024 / 1024 > 3 ? 0.5 : 0.8;
+    if (!files) return;
+    if (rejectedFiles?.length) {
+      SetFileError(rejectedFiles[0].errors[0].message);
+      return;
+    }
+    const file = files[0];
+    const fileSize = file.size / 1000 / 1000;
     console.log("starting image compression");
     new Compressor(file, {
       mimeType: "image/webp",
       quality: fileSize > 3 ? 0.5 : fileSize > 1 ? 0.7 : 0.8,
       strict: true,
       success(result: File) {
+        if (result.size / 1000 / 1000 > 2.9) {
+          SetFileError("image is too large");
+        }
         setNewPet(newPet => {
           return { ...newPet, image: result };
         });
@@ -39,11 +56,10 @@ export default function ImageInput({
         setPreview(result);
         console.log(
           "size before: ",
-          file.size / 1024 / 1024 + "mb",
+          file.size / 1000 / 1000 + "mb",
           "size after: ",
-          result.size / 1024 / 1024 + "mb"
+          result.size / 1000 / 1000 + "mb"
         );
-        console.log(result);
       },
       error() {
         setNewPet(newPet => {
@@ -55,20 +71,28 @@ export default function ImageInput({
   }
 
   return (
-    <>
+    <div {...getRootProps()}>
       <input
-        required
-        accept="image/*"
-        onChange={onImageChange}
-        className="border border-black"
-        type="file"
-        name="image"
+        {...getInputProps({
+          required: true,
+          accept: "image/*",
+          className: "border border-black",
+          type: "file",
+          name: "image",
+        })}
       />
+      {isDragActive ? (
+        <p>Drop the files here ...</p>
+      ) : (
+        <p>Drag 'n' drop some files here, or click to select files</p>
+      )}
       <img
         className="mt-4 h-[250px] w-[320px] rounded-sm bg-slate-200 object-cover object-center sm:w-[400px]"
         src={imgPreview}
         alt=""
       />
-    </>
+      <div className="text-xl text-red-800">{fileError}</div>
+      {/* <MyDropzone /> */}
+    </div>
   );
 }
