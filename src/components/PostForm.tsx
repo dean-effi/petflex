@@ -50,10 +50,7 @@ export default function PostForm({
     submitPost(e, newPet);
   }
   return (
-    <form
-      onSubmit={onFormSubmit}
-      className="grid justify-start gap-6 p-6 text-xl"
-    >
+    <form onSubmit={onFormSubmit} className="grid gap-6 p-6 text-lg">
       <label>
         Name:
         <input
@@ -112,22 +109,20 @@ export default function PostForm({
         </select>
       </label>
 
-      <div>
-        <label>
-          Gender:
-          <select
-            onChange={onInputChange}
-            value={newPet.gender}
-            name="gender"
-            id="gender"
-            required
-          >
-            <option value="male">male</option>
-            <option value="female">female</option>
-            <option value="unknown">unknown</option>
-          </select>
-        </label>
-      </div>
+      <label>
+        Gender:
+        <select
+          onChange={onInputChange}
+          value={newPet.gender}
+          name="gender"
+          id="gender"
+          required
+        >
+          <option value="male">male</option>
+          <option value="female">female</option>
+          <option value="unknown">unknown</option>
+        </select>
+      </label>
       {formType === "posting" && <ImageInput setNewPet={setNewPet} />}
 
       <div className="pb-2 font-bold text-red-800 xl:text-2xl">

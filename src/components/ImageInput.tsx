@@ -1,7 +1,8 @@
 import Compressor from "compressorjs";
 import { PostSubmitionObject } from "../types";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { FileRejection, useDropzone } from "react-dropzone";
+import Spinner from "./Spinner";
 
 export default function ImageInput({
   setNewPet,
@@ -10,9 +11,10 @@ export default function ImageInput({
     React.SetStateAction<PostSubmitionObject>
   >;
 }) {
-  const [imgPreview, setImgPreview] = useState("");
+  const [preview, setPreview] = useState("");
   const [fileError, SetFileError] = useState("");
-  const inputRef = useRef(null);
+  const [loading, setLoading] = useState(false);
+
   //react drop zone
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop: onImageChange,
@@ -20,33 +22,34 @@ export default function ImageInput({
     accept: { "image/*": [] },
   });
 
-  function setPreview(file: File) {
+  function getPreview(file: File) {
     if (!file) return;
     const reader = new FileReader();
 
     reader.readAsDataURL(file!);
     reader.onload = () => {
-      setImgPreview(reader.result as string);
+      setPreview(reader.result as string);
     };
   }
   async function onImageChange(
     files: File[] | null,
     rejectedFiles?: FileRejection[] | null
   ) {
-    if (!files) return;
     if (rejectedFiles?.length) {
       SetFileError(rejectedFiles[0].errors[0].message);
       return;
     }
+    if (!files) return;
     const file = files[0];
     const fileSize = file.size / 1000 / 1000;
 
-    console.log("starting image compression");
+    setLoading(true);
     new Compressor(file, {
       mimeType: "image/webp",
       quality: fileSize > 3 ? 0.5 : fileSize > 1 ? 0.7 : 0.8,
       strict: true,
       success(result: File) {
+        setLoading(false);
         if (result.size / 1000 / 1000 > 2.9) {
           SetFileError("image is too large");
           return;
@@ -56,57 +59,72 @@ export default function ImageInput({
         setNewPet(newPet => {
           return { ...newPet, image: result };
         });
-        console.log(inputRef.current);
 
-        setPreview(result);
+        getPreview(result);
         console.log(
-          "size before: ",
+          "original size: ",
           file.size / 1000 / 1000 + "mb",
           "size after: ",
           result.size / 1000 / 1000 + "mb"
         );
       },
       error() {
+        setLoading(false);
         setNewPet(newPet => {
           return { ...newPet, image: file };
         });
-        setPreview(file);
+        getPreview(file);
       },
     });
   }
 
   return (
-    <label aria-label="image" {...getRootProps()}>
-      <input
-        ref={inputRef}
-        {...getInputProps({
-          name: "image",
-        })}
-      />
-      {isDragActive ? (
-        <p>Drop the files here ...</p>
-      ) : (
-        <p>Drag 'n' drop some files here, or click to select files</p>
+    <div className="relative">
+      <label aria-label="add image" {...getRootProps()}>
+        <input
+          {...getInputProps({
+            name: "image",
+          })}
+        />
+        <div className="gray-bg relative flex h-[250px] w-[320px] items-center justify-center rounded-md sm:w-[400px]">
+          {isDragActive ? (
+            <p>Image ready to drop!</p>
+          ) : loading ? (
+            <Spinner width={24} />
+          ) : preview ? (
+            <img
+              className="h-full w-full object-cover object-center"
+              src={preview}
+              alt=""
+            />
+          ) : (
+            <p className="text-center">
+              Drag and drop some image here <br />{" "}
+              <span>or click to select</span>
+            </p>
+          )}
+        </div>
+      </label>
+      {fileError && (
+        <p className="text-xl text-red-800">{fileError}</p>
       )}
-      <img
-        className="mt-4 h-[250px] w-[320px] rounded-sm bg-slate-200 object-cover object-center sm:w-[400px]"
-        src={imgPreview}
-        alt=""
-      />
+      <p className="text-sm">
+        *image ratio will preserve for the full pet's page
+      </p>
       <button
         type="button"
+        aria-label="remove image"
         onClick={e => {
           e.stopPropagation();
-          setImgPreview("");
+          setPreview("");
           setNewPet(newPet => {
             return { ...newPet, image: null };
           });
         }}
-        className="border border-black"
+        className="normal-btn absolute left-2 top-2 rounded-[50%] border border-white px-1.5 text-base"
       >
-        remove image
+        X
       </button>
-      <div className="text-xl text-red-800">{fileError}</div>
-    </label>
+    </div>
   );
 }
