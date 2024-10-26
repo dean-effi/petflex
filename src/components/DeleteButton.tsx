@@ -17,7 +17,7 @@ export default function DeleteButton({ postId }: { postId: string }) {
   return (
     <>
       {isDeleting ? (
-        <div className="fixed right-[50%] top-[25%] z-[100] w-[300px] translate-x-[50%] gap-2 rounded-md border-[10px] bg-slate-200 p-2 text-center font-semibold text-violet-800 shadow-[3px_4px_2px] shadow-violet-300 sm:w-[350px] sm:p-4 md:w-[400px] lg:w-[500px] lg:p-6">
+        <div className="fixed right-[50%] top-[25%] z-[100] w-[300px] translate-x-[50%] gap-2 rounded-md border-[10px] bg-stone-200 p-2 text-center font-semibold text-violet-800 shadow-[3px_4px_2px] shadow-violet-300 sm:w-[350px] sm:p-4 md:w-[400px] lg:w-[500px] lg:p-6">
           <p>Are you sure you want to delete this post?</p>
           <div className="mt-5 flex items-center justify-center gap-4">
             <button

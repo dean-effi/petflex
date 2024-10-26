@@ -7,7 +7,13 @@ import { queryClient } from "../main";
 import { fetchApi } from "../fetchApi";
 import ErrorPage from "../pages/ErrorPage";
 
-export default function PostEdit({ post, cancelEdit }: any) {
+export default function PostEdit({
+  post,
+  cancelEdit,
+}: {
+  post: PostType;
+  cancelEdit: () => void;
+}) {
   const { user, userLoading } = useContext(appContext).userQuery;
 
   const editMut = useMutation({
@@ -39,14 +45,9 @@ export default function PostEdit({ post, cancelEdit }: any) {
     return <ErrorPage status={401} />;
   }
   return (
-    <main className="mt-4 p-6">
-      <button
-        className="normal-btn rounded-lg p-1.5"
-        onClick={cancelEdit}
-      >
-        Go back to post
-      </button>
+    <main>
       <PostForm
+        cancelEdit={cancelEdit}
         formType="editing"
         post={post}
         submitPost={onFormSubmit}
