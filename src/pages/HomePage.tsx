@@ -4,13 +4,17 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { fetchApi } from "../fetchApi";
 import { PostType, QueryError } from "../types";
 import PostPreview from "../components/home-page/PostPreview";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import FiltersForm from "../components/home-page/FiltersForm";
 import Spinner from "../components/Spinner";
 import LoadMoreBtn from "../components/home-page/LoadMoreBtn";
 import ErrorPage from "./ErrorPage";
 
-export default function HomePage() {
+export default function HomePage({
+  isLogged,
+}: {
+  isLogged: boolean;
+}) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const {
@@ -34,9 +38,9 @@ export default function HomePage() {
 
     getNextPageParam: (lastPage, _allPages, lastPageParam) => {
       if (typeof lastPageParam === "number") {
-        return lastPageParam === 1 && lastPage.length < 3
+        return lastPageParam === 1 && lastPage.length < 9
           ? null
-          : lastPage.length < 3
+          : lastPage.length < 6
             ? null
             : lastPageParam + 1;
       }
@@ -64,15 +68,33 @@ export default function HomePage() {
       </section>
       <section
         className="mt-4 lg:mt-5 xl:mt-6"
-        aria-label="pets previews"
-      >
+        aria-label="pets previews">
         {isLoading ? (
           <div className="flex justify-center">
             <Spinner width={32} />
           </div>
         ) : (
-          <div className="mx-auto my-3 grid grid-cols-[350px] justify-center gap-x-4 gap-y-9 pb-2 text-lg sm:grid-cols-[450px] lg:grid-cols-[450px_450px] 2xl:grid-cols-[450px_450px_450px]">
-            {postsDisplay}
+          <div className="mx-auto w-min">
+            {!isLogged && (
+              <p className="2x:text-[24px] pl-2 text-base font-medium text-violet-800 sm:text-lg md:mb-3 md:text-xl lg:mb-6 xl:text-[22px]">
+                <Link
+                  to={"/login"}
+                  className="font-bold text-violet-900 hover:text-violet-600">
+                  Log in
+                </Link>{" "}
+                or
+                <Link
+                  to={"/signup"}
+                  className="font-bold text-violet-900 hover:text-violet-600">
+                  {" Sign up "}
+                </Link>
+                to like and comment
+              </p>
+            )}
+
+            <div className="mx-auto my-3 grid grid-cols-[350px] justify-center gap-x-4 gap-y-9 pb-2 text-lg sm:grid-cols-[450px] lg:grid-cols-[450px_450px] 2xl:grid-cols-[450px_450px_450px]">
+              {postsDisplay}
+            </div>
           </div>
         )}
         {hasNextPage && (

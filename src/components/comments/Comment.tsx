@@ -52,12 +52,14 @@ export default function Comment({
         </p>
 
         <div className="mb-1 flex items-center gap-1 text-sm">
-          <button
-            className="normal-btn rounded-md px-1.5 py-0.5 font-semibold"
-            onClick={() => setIsReplying(true)}
-          >
-            Reply
-          </button>
+          {userId && (
+            <button
+              className="normal-btn rounded-md px-1.5 py-0.5 font-semibold"
+              onClick={() => setIsReplying(true)}
+            >
+              Reply
+            </button>
+          )}
           {comment.user._id === userId && (
             <button
               onClick={() => deleteComment()}

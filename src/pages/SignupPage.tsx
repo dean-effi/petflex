@@ -1,15 +1,16 @@
 import { useMutation } from "@tanstack/react-query";
 import UserForm from "../components/UserForm";
-import { QueryError, UserDetails } from "../types";
+import { QueryError, User, UserDetails } from "../types";
 import { useNavigate } from "react-router-dom";
 import { fetchApi } from "../fetchApi";
+import { queryClient } from "../main";
 
 export default function SignupPage() {
   const navigate = useNavigate();
 
   const signupMut = useMutation({
     mutationFn: (userDetails: UserDetails) =>
-      fetchApi(
+      fetchApi<{ user: User; token: string }>(
         "users",
         {
           method: "POST",
@@ -20,8 +21,10 @@ export default function SignupPage() {
         },
         false
       ),
-    onSuccess: () => {
-      return navigate("/login");
+    onSuccess: ({ user, token }) => {
+      localStorage.setItem("token", "bearer " + token);
+      queryClient.setQueryData(["user"], { ...user });
+      navigate("/");
     },
     onError: (err: QueryError) => err,
   });

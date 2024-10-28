@@ -78,14 +78,14 @@ export default function ImageInput({
     <div className="relative">
       <label
         aria-label="add image"
-        {...getRootProps({ className: "relative" })}
-      >
+        {...getRootProps()}
+        className="cursor-pointer">
         <input
           {...getInputProps({
             name: "image",
           })}
         />
-        <div className="gray-bg flex h-[250px] w-[320px] items-center justify-center rounded-md sm:w-[400px]">
+        <div className="gray-bg active:stone-100 flex h-[250px] w-[320px] items-center justify-center rounded-md hover:bg-stone-300 sm:w-[400px]">
           {isDragActive ? (
             <p>Image ready to drop!</p>
           ) : image.loading ? (
@@ -122,8 +122,7 @@ export default function ImageInput({
               return { ...newPet, image: null };
             });
           }}
-          className="normal-btn absolute left-2 top-2 flex items-center rounded-[50%] px-[6px] py-[1px] text-sm"
-        >
+          className="normal-btn absolute left-2 top-2 flex items-center rounded-[50%] px-[6px] py-[1px] text-sm">
           X
         </button>
       )}

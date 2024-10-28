@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchApi } from "../../fetchApi";
 import Comment from "./Comment";
 import Loading from "../Spinner";
+import { Link } from "react-router-dom";
 
 export default function CommentsSection({
   postId,
@@ -70,7 +71,13 @@ export default function CommentsSection({
     <section className="p-4 pt-6 lg:px-0" aria-label="comments">
       {!userId && (
         <h2 className="2x:text-[24px] mb-2 text-base font-bold text-violet-800 sm:text-lg md:mb-3 md:text-xl lg:mb-4 xl:text-[22px]">
-          log in to comment
+          <Link
+            to={"/login"}
+            className="underline hover:text-violet-600"
+          >
+            log in
+          </Link>{" "}
+          to comment
         </h2>
       )}
       <PostCommentForm postId={postId!} />

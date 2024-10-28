@@ -35,11 +35,17 @@ export default function App() {
             user: user,
             userLoading: isUserLoading,
           },
-        }}
-      >
+        }}>
         <Navbar />
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route
+            path="/"
+            element={
+              <HomePage
+                isLogged={Boolean(isUserLoading === false && user)}
+              />
+            }
+          />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/post" element={<PostFormPage />} />

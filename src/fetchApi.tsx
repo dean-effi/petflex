@@ -5,7 +5,7 @@ export async function fetchApi<DataT>(
   options: RequestInit,
   auth: boolean
 ): Promise<DataT> {
-  console.log("fetching something");
+  // console.log("fetching something");
   try {
     const token = localStorage.getItem("token");
     //if needs to be authenticated, check for token, if available, attach to head
@@ -25,12 +25,12 @@ export async function fetchApi<DataT>(
         };
       }
     }
-    console.log(import.meta.env.VITE_ENDPOINT + route);
+    // console.log(import.meta.env.VITE_ENDPOINT + route);
     const response = await fetch(
       import.meta.env.VITE_ENDPOINT + route,
       options
     ).catch(() => {
-      console.log("couldn't reach endpoint");
+      // console.log("couldn't reach endpoint");
       throw Error;
     });
     const responseJson = await response.json().catch(() => {
