@@ -56,7 +56,7 @@ export default function ImageInput({
       quality: fileSize > 3 ? 0.5 : fileSize > 1 ? 0.7 : 0.8,
       strict: true,
       success(result: File) {
-        if (result.size / 1000 / 1000 > 2.9) {
+        if (result.size / 1000 / 1000 > 4.9) {
           setImage({ ...image, error: "image is too large" });
           return;
         }
