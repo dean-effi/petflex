@@ -37,10 +37,9 @@ export default function Comment({
   );
   return (
     <>
-      <article className="gray-bg mt-2 w-full space-y-1.5 overflow-scroll rounded-md p-2 text-base lg:space-y-2">
+      <article className="gray-bg mt-2 w-full space-y-1.5 overflow-hidden rounded-md p-2 text-base lg:space-y-2">
         <p
-          className={`w-[95%] text-base font-normal lg:w-[90%] lg:text-lg xl:w-[85%] xl:text-[20px] ${!comment.available && "font-light italic"}`}
-        >
+          className={`w-[95%] text-base font-normal lg:w-[90%] lg:text-lg xl:w-[85%] xl:text-[20px] ${!comment.available && "font-light italic"}`}>
           {comment.content}
         </p>
         <p className="text-xs font-light italic sm:text-sm">
@@ -55,16 +54,14 @@ export default function Comment({
           {userId && (
             <button
               className="normal-btn rounded-md px-1.5 py-0.5 font-semibold"
-              onClick={() => setIsReplying(true)}
-            >
+              onClick={() => setIsReplying(true)}>
               Reply
             </button>
           )}
           {comment.user._id === userId && (
             <button
               onClick={() => deleteComment()}
-              className="rounded-md border-2 border-stone-700 px-1 py-[1px] text-stone-900 hover:border-red-500 hover:text-red-500 active:bg-red-200"
-            >
+              className="rounded-md border-2 border-stone-700 px-1 py-[1px] text-stone-900 hover:border-red-500 hover:text-red-500 active:bg-red-200">
               Delete
             </button>
           )}
