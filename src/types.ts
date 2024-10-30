@@ -6,6 +6,7 @@ export type User = {
   _id: string;
   username: string;
   notifications: any[];
+  admin?: boolean;
 };
 
 export type QueryError = {

@@ -1,21 +1,21 @@
-import { PostType } from "../types";
+import { PostType, User } from "../types";
 import CommentsLikesCounts from "./CommentsLikesCounts";
 import DeleteButton from "./DeleteButton";
 import PostBottomLine from "./PostBottomLine";
 export default function PostDetails({
   post,
-  userId,
+  user,
   edit,
 }: {
   post: PostType;
-  userId: string | undefined;
+  user: User | undefined;
   edit: () => void;
 }) {
+  const userId = user?._id;
   return (
     <section
       className="mx-auto w-full text-xl"
-      aria-label="post details"
-    >
+      aria-label="post details">
       <div className="space-y-1 p-4 lg:px-0 lg:pt-6 xl:pt-7">
         <h1 className="text-4xl font-bold text-violet-800 lg:text-5xl">
           {post.name}
@@ -45,12 +45,11 @@ export default function PostDetails({
             postId={post._id}
             inPage={true}
           />
-          {post.user._id === userId && (
+          {(post.user._id === userId || user?.admin === true) && (
             <div className="space-x-2 text-base font-semibold md:text-lg xl:text-xl">
               <button
                 onClick={edit}
-                className="normal-btn rounded-lg px-1.5 py-[3px] text-stone-50 xl:px-2"
-              >
+                className="normal-btn rounded-lg px-1.5 py-[3px] text-stone-50 xl:px-2">
                 Edit
               </button>
               <DeleteButton postId={post._id} />{" "}

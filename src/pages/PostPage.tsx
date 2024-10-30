@@ -55,7 +55,7 @@ export default function PostPage() {
       <div className="m-auto lg:w-[1000px] xl:w-[1200px]">
         <PostDetails
           edit={() => setIsEditing(true)}
-          userId={user?._id}
+          user={user}
           post={post}
         />
         <hr />
