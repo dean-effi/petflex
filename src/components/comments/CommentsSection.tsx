@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 import PostCommentForm from "./PostCommentForm";
-import { CommentType, QueryError } from "../../types";
+import { CommentType, QueryError, User } from "../../types";
 import { useQuery } from "@tanstack/react-query";
 import { fetchApi } from "../../fetchApi";
 import Comment from "./Comment";
@@ -9,10 +9,10 @@ import { Link } from "react-router-dom";
 
 export default function CommentsSection({
   postId,
-  userId,
+  user,
 }: {
   postId: string;
-  userId: string | undefined;
+  user: User | undefined;
 }) {
   const { data: comments, isLoading } = useQuery<
     CommentType[],
@@ -61,7 +61,7 @@ export default function CommentsSection({
           replyComments={replyComments}
           comment={comment}
           postId={postId}
-          userId={userId}
+          user={user}
         />
       );
     });
@@ -69,7 +69,7 @@ export default function CommentsSection({
 
   return (
     <section className="p-4 pt-6 lg:px-0" aria-label="comments">
-      {!userId && (
+      {!user && (
         <h2 className="2x:text-[24px] mb-2 text-base font-medium text-violet-800 sm:text-lg md:mb-3 md:text-xl lg:mb-4 xl:text-[22px]">
           <Link
             to={"/login"}

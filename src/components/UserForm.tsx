@@ -54,8 +54,7 @@ export default function UserForm({
           e.preventDefault();
           onFormSubmit(userDetails);
         }}
-        className="mt-8 grid gap-5 lg:mt-10"
-      >
+        className="mt-8 grid gap-5 lg:mt-10">
         <label className="grid gap-3 font-bold sm:gap-4">
           Username:
           <input
@@ -92,8 +91,7 @@ export default function UserForm({
           <button
             type="submit"
             disabled={isPending}
-            className="normal-btn m-auto rounded-[20px] p-1.5 px-[14px] text-lg sm:text-xl lg:text-2xl xl:mt-2 xl:p-2 xl:px-4"
-          >
+            className="normal-btn m-auto rounded-[20px] p-1.5 px-[14px] text-lg sm:text-xl lg:text-2xl xl:mt-2 xl:p-2 xl:px-4">
             {formType === "signup" ? "Sign up" : "Log in"}
           </button>
           {formType === "signup" ? (

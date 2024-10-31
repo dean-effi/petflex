@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CommentType } from "../../types";
+import { CommentType, User } from "../../types";
 import PostCommentForm from "./PostCommentForm";
 import { fetchApi } from "../../fetchApi";
 import { useMutation } from "@tanstack/react-query";
@@ -9,13 +9,13 @@ type CommentProps = {
   comment: CommentType;
   replyComments: CommentType[];
   postId: string;
-  userId: string | undefined;
+  user: User | undefined;
 };
 export default function Comment({
   comment,
   replyComments,
   postId,
-  userId,
+  user,
 }: CommentProps) {
   const [isReplying, setIsReplying] = useState(false);
   const { mutate: deleteComment } = useMutation({
@@ -51,14 +51,14 @@ export default function Comment({
         </p>
 
         <div className="mb-1 flex items-center gap-1 text-sm">
-          {userId && (
+          {user?._id && (
             <button
               className="normal-btn rounded-md px-1.5 py-0.5 font-semibold"
               onClick={() => setIsReplying(true)}>
               Reply
             </button>
           )}
-          {comment.user._id === userId && (
+          {(comment.user._id === user?._id || user?.admin) && (
             <button
               onClick={() => deleteComment()}
               className="rounded-md border-2 border-stone-700 px-1 py-[1px] text-stone-900 hover:border-red-500 hover:text-red-500 active:bg-red-200">
@@ -85,7 +85,7 @@ export default function Comment({
               comment={reply}
               replyComments={replyComments}
               postId={postId}
-              userId={userId}
+              user={user}
             />
           </div>
         );

@@ -59,7 +59,7 @@ export default function PostPage() {
           post={post}
         />
         <hr />
-        <CommentsSection userId={user?._id} postId={post._id} />
+        <CommentsSection user={user} postId={post._id} />
       </div>
     );
   }
