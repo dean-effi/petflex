@@ -5,25 +5,22 @@ import moon from "../assets/moon.svg";
 import sun from "../assets/sun.svg";
 
 import logo from "../assets/logo.svg";
+import logoWhite from "../assets/logo-white.svg";
 
 import { queryClient } from "../main";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { appContext } from "../appContext";
 import NavbarLinks from "./NavbarLinks";
 
-export default function Navbar() {
-  useEffect(() => {
-    document.documentElement.classList.toggle(
-      "dark",
-      localStorage.getItem("theme") === "dark" ||
-        (!("theme" in localStorage) &&
-          window.matchMedia("(prefers-color-scheme: dark)").matches)
-    );
-    setIsDark(document.documentElement!.classList[0] === "dark");
-  }, []);
+export default function Navbar({
+  isDark,
+  setIsDark,
+}: {
+  isDark: boolean;
+  setIsDark: any;
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const everOpened = useRef(false);
-  const [isDark, setIsDark] = useState(true);
 
   function changeTheme() {
     setIsDark(!isDark);
@@ -86,7 +83,7 @@ export default function Navbar() {
       {/* large menu */}
       <nav className="hidden w-full items-start justify-between px-6 pb-3 pt-5 lg:flex xl:px-8 2xl:px-9">
         <NavLink to={""} aria-label="home">
-          <img src={logo} alt="petflex logo" />
+          <img src={isDark ? logoWhite : logo} alt="petflex logo" />
         </NavLink>
         <ul className="flex gap-8 text-2xl font-bold">
           <NavbarLinks user={user} logout={logout} />

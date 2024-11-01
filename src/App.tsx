@@ -9,7 +9,20 @@ import PostFormPage from "./pages/PostFormPage";
 import { fetchApi } from "./fetchApi";
 import PostPage from "./pages/PostPage";
 import HomePage from "./pages/HomePage";
+import { useEffect, useState } from "react";
 export default function App() {
+  useEffect(() => {
+    document.documentElement.classList.toggle(
+      "dark",
+      localStorage.getItem("theme") === "dark" ||
+        (!("theme" in localStorage) &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+    );
+    setIsDark(document.documentElement!.classList[0] === "dark");
+  }, []);
+
+  const [isDark, setIsDark] = useState(true);
+
   const { data: user, isLoading: isUserLoading } = useQuery<User>({
     queryKey: ["user"],
     queryFn: () =>
@@ -35,8 +48,9 @@ export default function App() {
             user: user,
             userLoading: isUserLoading,
           },
+          isDark: isDark,
         }}>
-        <Navbar />
+        <Navbar {...{ isDark, setIsDark }} />
         <Routes>
           <Route
             path="/"

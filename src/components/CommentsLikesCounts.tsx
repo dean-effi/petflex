@@ -1,5 +1,5 @@
 import LikeButton from "./LikeButton";
-import commentIcon from "../assets/comment.svg";
+import CommentIcon from "../assets/CommentIcon.tsx";
 
 type CommentsLikesCountsPromps = {
   postId: string;
@@ -21,21 +21,17 @@ export default function CommentsLikesCounts({
   return (
     <div
       className={
-        "flex items-center gap-4 text-lg text-violet-800 lg:pt-0.5 lg:text-xl " +
+        "flex items-center gap-4 text-lg text-violet-800 lg:pt-0.5 lg:text-xl dark:text-stone-50 " +
         (inPage ? " lg:font-medium" : "")
-      }
-    >
+      }>
       <LikeButton
         {...{ postId, liked, initialLikes, isUserLogged }}
         inPage={inPage}
       />
       <div className="flex items-center gap-2">
         {commentsCount}
-        <img
-          className={"w-5 " + (inPage ? "lg:w-6" : "")}
-          src={commentIcon}
-          alt=""
-        />
+
+        <CommentIcon inPage={inPage} />
       </div>
     </div>
   );

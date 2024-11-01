@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import { useMutation } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { fetchApi } from "../fetchApi";
-import heart from "../assets/heart.svg";
-import heartFilled from "../assets/heart-filled.svg";
+import HeartIcon from "../assets/HeartIcon";
+import { appContext } from "../appContext";
 
 type LikeButtonProps = {
   postId: string;
@@ -22,6 +22,7 @@ export default function LikeButton({
 }: LikeButtonProps) {
   const [isLiked, setIsLiked] = useState(liked);
   const [likesCount, setLikesCount] = useState(initialLikes);
+  const isDark = useContext(appContext).isDark;
   const { mutate: sendLike } = useMutation({
     mutationFn: () =>
       fetchApi(
@@ -57,13 +58,16 @@ export default function LikeButton({
       <button
         aria-label="like post"
         className=""
-        onClick={e => likePost(e)}
-      >
-        <img
+        onClick={e => likePost(e)}>
+        {/* <img
           alt=""
           className={`${isLiked ? "w-[22px]" : "w-5"} ${inPage ? (isLiked ? "lg:w-[26px]" : "lg:w-6") : ""}`}
           src={isLiked ? heartFilled : heart}
-        />
+        /> */}
+        <div
+          className={`${isLiked ? "w-[22px]" : "w-5"} ${inPage ? (isLiked ? "lg:w-[26px]" : "lg:w-6") : ""}`}>
+          <HeartIcon isLiked={isLiked} isDark={isDark} />
+        </div>
       </button>
     </div>
   );

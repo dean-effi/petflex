@@ -6,8 +6,10 @@ type AppContextType = {
     user: User | undefined;
     userLoading: boolean;
   };
+  isDark: boolean;
 };
 
 export const appContext = createContext<AppContextType>({
   userQuery: { user: undefined, userLoading: false },
+  isDark: false,
 });

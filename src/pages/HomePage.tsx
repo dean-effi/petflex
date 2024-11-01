@@ -76,16 +76,16 @@ export default function HomePage({
         ) : (
           <div className="mx-auto w-min">
             {!isLogged && (
-              <p className="2x:text-[24px] pl-2 text-base font-medium text-violet-800 sm:text-lg md:mb-3 md:text-xl lg:mb-6 xl:text-[22px]">
+              <p className="2x:text-[24px] pl-2 text-base font-medium text-violet-800 sm:text-lg md:mb-3 md:text-xl lg:mb-6 xl:text-[22px] dark:text-stone-50">
                 <Link
                   to={"/login"}
-                  className="font-bold text-violet-900 hover:text-violet-600">
+                  className="font-bold text-violet-900 hover:text-violet-600 dark:text-stone-50 dark:hover:text-stone-300">
                   Log in
                 </Link>{" "}
                 or
                 <Link
                   to={"/signup"}
-                  className="font-bold text-violet-900 hover:text-violet-600">
+                  className="font-bold text-violet-900 hover:text-violet-600 dark:text-stone-50 dark:hover:text-stone-300">
                   {" Sign up "}
                 </Link>
                 to like and comment

@@ -1,7 +1,8 @@
 import { PostType } from "../types";
-import maleIcon from "../assets/male.svg";
-import femaleIcon from "../assets/female.svg";
-import questionIcon from "../assets/question.svg";
+
+import GenderIcons from "../assets/GenderIcons";
+import { useContext } from "react";
+import { appContext } from "../appContext";
 
 export default function PostBottomLine({
   post,
@@ -10,28 +11,16 @@ export default function PostBottomLine({
   post: PostType;
   inPage?: boolean;
 }) {
+  const isDark = useContext(appContext).isDark;
   return (
     <p
       className={
         "h-content flex items-center gap-0.5 self-end text-xs font-light capitalize sm:text-sm md:text-base" +
         (inPage ? " lg:text-lg" : "")
-      }
-    >
+      }>
       {post.petType + " "}|
-      {
-        <img
-          src={
-            post.gender == "male"
-              ? maleIcon
-              : post.gender === "female"
-                ? femaleIcon
-                : questionIcon
-          }
-          className="inline"
-          alt={post.gender}
-        />
-      }
-      | {post.age.years + " years old"} |
+      <GenderIcons gender={post.gender} isDark={isDark} />|{" "}
+      {post.age.years + " years old"} |
       {" created at " + new Date(post.createdAt).toLocaleDateString()}
     </p>
   );
