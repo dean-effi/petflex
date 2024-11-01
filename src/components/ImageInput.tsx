@@ -3,7 +3,7 @@ import { PostSubmitionObject } from "../types";
 import { useState } from "react";
 import { FileRejection, useDropzone } from "react-dropzone";
 import Spinner from "../assets/spinner.svg?react";
-import uploadIcon from "../assets/upload.svg";
+import UploadIcon from "../assets/upload.svg?react";
 export default function ImageInput({
   setNewPet,
 }: {
@@ -85,7 +85,7 @@ export default function ImageInput({
             name: "image",
           })}
         />
-        <div className="gray-bg active:stone-100 flex h-[250px] w-[320px] items-center justify-center rounded-md hover:bg-stone-300 sm:w-[400px]">
+        <div className="gray-bg active:stone-100 flex h-[250px] w-[320px] items-center justify-center rounded-md hover:bg-stone-300 sm:w-[400px] dark:bg-zinc-800 dark:hover:bg-zinc-700">
           {isDragActive ? (
             <p>Image ready to drop!</p>
           ) : image.loading ? (
@@ -102,7 +102,7 @@ export default function ImageInput({
                 Drag and drop some image here <br />{" "}
                 <span>or click to select</span>
               </p>
-              <img src={uploadIcon} alt="" />
+              <UploadIcon />
             </div>
           )}
         </div>

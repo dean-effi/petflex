@@ -57,20 +57,18 @@ export default function PostForm({
       {formType === "editing" && (
         <button
           onClick={cancelEdit}
-          className="gray-bg mb-4 mt-2 rounded-lg px-2 py-1 hover:bg-stone-300 active:bg-stone-100 sm:mt-4 md:mb-5"
-        >
+          className="gray-bg mb-4 mt-2 rounded-lg px-2 py-1 hover:bg-stone-300 active:bg-stone-100 sm:mt-4 md:mb-5 dark:bg-zinc-800 dark:hover:bg-zinc-700">
           {"<- " + "Go back to page"}
         </button>
       )}
-      <h1 className="text-xl font-semibold text-violet-800 md:mt-5 md:text-2xl lg:text-3xl">
+      <h1 className="text-xl font-semibold text-violet-800 md:mt-5 md:text-2xl lg:text-3xl dark:text-stone-50">
         {formType === "posting"
           ? "Create a post"
           : "Edit " + newPet.name}
       </h1>
       <form
         onSubmit={onFormSubmit}
-        className="mt-4 grid gap-6 font-medium md:mt-6 md:gap-8 md:text-lg lg:text-xl"
-      >
+        className="mt-4 grid gap-6 font-medium md:mt-6 md:gap-8 md:text-lg lg:text-xl">
         <label className="flex items-center gap-2">
           Name:
           <input
@@ -79,7 +77,7 @@ export default function PostForm({
             minLength={3}
             maxLength={20}
             onChange={onInputChange}
-            className="gray-bg rounded-md pl-2"
+            className="gray-bg rounded-md pl-2 dark:bg-zinc-800"
             type="text"
             name="name"
           />
@@ -90,7 +88,7 @@ export default function PostForm({
             required
             value={newPet.birthDate}
             onChange={onInputChange}
-            className="gray-bg rounded-md px-2 py-[1px]"
+            className="gray-bg rounded-md px-2 py-[1px] dark:bg-zinc-800"
             type="date"
             name="birthDate"
           />
@@ -104,8 +102,7 @@ export default function PostForm({
             name="petType"
             id="petType"
             className="normal-btn cursor-pointer rounded-md py-[1px] pl-2"
-            required
-          >
+            required>
             <option defaultChecked value={""}>
               select a type
             </option>
@@ -127,8 +124,7 @@ export default function PostForm({
             name="gender"
             id="gender"
             className="normal-btn cursor-pointer rounded-md py-[1px] pl-2"
-            required
-          >
+            required>
             <option value="male">male</option>
             <option value="female">female</option>
             <option value="unknown">unknown</option>
@@ -139,7 +135,7 @@ export default function PostForm({
           <textarea
             value={newPet.description}
             onChange={onInputChange}
-            className="gray-bg rounded-md py-[1px] pl-1"
+            className="gray-bg rounded-md py-[1px] pl-1 dark:bg-zinc-800"
             name="description"
             required
             rows={3}
@@ -160,8 +156,7 @@ export default function PostForm({
           <button
             type="submit"
             className="normal-btn mt-1 w-min rounded-md px-2 py-1 md:mt-2"
-            disabled={isPending}
-          >
+            disabled={isPending}>
             Submit
           </button>
         </div>
