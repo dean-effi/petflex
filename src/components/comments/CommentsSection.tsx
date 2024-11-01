@@ -4,7 +4,7 @@ import { CommentType, QueryError, User } from "../../types";
 import { useQuery } from "@tanstack/react-query";
 import { fetchApi } from "../../fetchApi";
 import Comment from "./Comment";
-import Loading from "../Spinner";
+import Spinner from "../../assets/spinner.svg?react";
 import { Link } from "react-router-dom";
 
 export default function CommentsSection({
@@ -32,7 +32,7 @@ export default function CommentsSection({
   if (isLoading) {
     return (
       <div className="mt-8 flex justify-center">
-        <Loading width={32} />
+        <Spinner className="w-[32px] animate-spin text-violet-800 dark:text-stone-50" />
       </div>
     );
   }

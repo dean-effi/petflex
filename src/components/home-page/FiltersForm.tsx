@@ -55,7 +55,7 @@ export default function FiltersForm({
       <button
         className="mt-8 flex gap-1.5 px-5 text-lg font-bold md:hidden"
         onClick={() => setIsOpen(!isOpen)}>
-        <FiltersIcon className="text-blue-800" />
+        <FiltersIcon className="text-neutral-950 dark:text-stone-50" />
         Filters
       </button>
 
@@ -106,7 +106,7 @@ export default function FiltersForm({
           </div>
           <button
             type="submit"
-            className="rounded-[11px] bg-neutral-950 p-[2px] px-2 text-stone-50 hover:bg-neutral-800 active:bg-neutral-500">
+            className="rounded-[11px] bg-neutral-950 p-[2px] px-2 text-stone-50 hover:bg-neutral-800 active:bg-neutral-500 dark:bg-violet-300 dark:text-neutral-950 dark:hover:bg-violet-200">
             Apply
           </button>
         </form>

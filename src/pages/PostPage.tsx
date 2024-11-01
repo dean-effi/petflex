@@ -8,7 +8,7 @@ import { fetchApi } from "../fetchApi";
 import { useQuery } from "@tanstack/react-query";
 import { useContext, useEffect, useState } from "react";
 import { appContext } from "../appContext";
-import Loading from "../components/Spinner";
+import Spinner from "../assets/spinner.svg?react";
 import PostEdit from "../components/PostEdit";
 
 export default function PostPage() {
@@ -35,7 +35,7 @@ export default function PostPage() {
   if (postQuery.isLoading) {
     return (
       <div className="mt-8 flex justify-center">
-        <Loading width={32} />
+        <Spinner className="w-[32px] animate-spin text-violet-800 dark:text-stone-50" />
       </div>
     );
   }

@@ -2,7 +2,7 @@ import Compressor from "compressorjs";
 import { PostSubmitionObject } from "../types";
 import { useState } from "react";
 import { FileRejection, useDropzone } from "react-dropzone";
-import Spinner from "./Spinner";
+import Spinner from "../assets/spinner.svg?react";
 import uploadIcon from "../assets/upload.svg";
 export default function ImageInput({
   setNewPet,
@@ -89,7 +89,7 @@ export default function ImageInput({
           {isDragActive ? (
             <p>Image ready to drop!</p>
           ) : image.loading ? (
-            <Spinner width={24} />
+            <Spinner className="w-[24px] text-red-800" />
           ) : image.preview ? (
             <img
               className="h-full w-full object-cover object-center"
