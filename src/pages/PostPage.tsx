@@ -58,7 +58,7 @@ export default function PostPage() {
           user={user}
           post={post}
         />
-        <hr />
+        <hr className="dark:border-zinc-700" />
         <CommentsSection user={user} postId={post._id} />
       </div>
     );

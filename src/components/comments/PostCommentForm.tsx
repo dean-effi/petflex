@@ -54,19 +54,20 @@ export default function PostCommentForm({
   return (
     user && (
       <form
-        className=""
+        className="mb-2 md:mb-3 lg:mb-4"
         onSubmit={e => {
           e.preventDefault();
           postComment(parentId);
-        }}
-      >
+        }}>
         <label
           htmlFor="content"
-          className="grid gap-2 md:gap-3 md:text-xl lg:gap-4"
-        >
-          <span className="2x:text-[24px] text-base font-bold text-violet-800 sm:text-lg xl:text-[22px]">
-            Add a comment
-          </span>
+          aria-label="add a comment"
+          className="grid gap-2 md:gap-3 md:text-xl lg:gap-4">
+          {!cancelReply && (
+            <span className="2x:text-[24px] text-base font-bold text-violet-800 sm:text-lg xl:text-[22px] dark:text-violet-400">
+              Add a comment
+            </span>
+          )}
           <input
             ref={inputRef}
             type="text"
@@ -77,7 +78,7 @@ export default function PostCommentForm({
             maxLength={200}
             onChange={e => setNewComment(e.target.value)}
             value={newComment}
-            className="mb-2 w-full break-all rounded-lg border-[2px] border-violet-800 pb-[4ch] pl-1 text-base lg:text-lg xl:text-[20px]"
+            className="mb-2 w-full break-all rounded-lg border-[2px] border-violet-800 pb-[4ch] pl-1 text-base lg:text-lg xl:text-[20px] dark:border-violet-400 dark:bg-zinc-800"
           />
         </label>
 
@@ -91,16 +92,14 @@ export default function PostCommentForm({
           <button
             className="normal-btn rounded-lg px-1.5 py-0.5"
             type="submit"
-            disabled={isPending}
-          >
+            disabled={isPending}>
             Submit
           </button>
 
           {cancelReply && (
             <button
               className="rounded-lg border-2 border-stone-800 px-1.5 text-stone-800 hover:border-stone-700 hover:text-stone-700 active:bg-stone-400"
-              onClick={cancelReply}
-            >
+              onClick={cancelReply}>
               Cancel
             </button>
           )}

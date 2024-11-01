@@ -70,10 +70,10 @@ export default function CommentsSection({
   return (
     <section className="p-4 pt-6 lg:px-0" aria-label="comments">
       {!user && (
-        <h2 className="2x:text-[24px] mb-2 text-base font-medium text-violet-800 sm:text-lg md:mb-3 md:text-xl lg:mb-4 xl:text-[22px]">
+        <h2 className="2x:text-[24px] mb-2 text-base font-medium text-violet-800 sm:text-lg md:mb-3 md:text-xl lg:mb-4 xl:text-[22px] dark:text-violet-400">
           <Link
             to={"/login"}
-            className="font-bold text-violet-900 hover:text-violet-600">
+            className="font-bold text-violet-900 hover:text-violet-600 dark:text-violet-300 dark:hover:text-violet-200">
             Log in
           </Link>{" "}
           to comment

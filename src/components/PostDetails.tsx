@@ -17,18 +17,18 @@ export default function PostDetails({
       className="mx-auto w-full text-xl"
       aria-label="post details">
       <div className="space-y-1 p-4 lg:px-0 lg:pt-6 xl:pt-7">
-        <h1 className="text-4xl font-bold text-violet-800 lg:text-5xl">
+        <h1 className="text-4xl font-bold text-violet-800 lg:text-5xl dark:text-violet-400">
           {post.name}
         </h1>
         <p className="text-sm font-medium lg:text-base">
           posted by
-          <span className="text-violet-800">
+          <span className="text-violet-800 dark:text-violet-400">
             {" " + post.user.username}
           </span>
         </p>
       </div>
-      <div className="w-content relative z-10 rounded-lg border">
-        <div className="absolute top-0 z-10 h-full w-full bg-stone-300 opacity-60 blur-sm"></div>
+      <div className="w-content relative z-10 rounded-lg border dark:border-zinc-700">
+        <div className="absolute top-0 z-10 h-full w-full bg-stone-300 opacity-60 blur-sm dark:bg-stone-700"></div>
         <img
           className="relative z-30 mx-auto max-h-[70vh] min-w-[45%] max-w-full object-contain md:max-h-[60vh]"
           src={post.image}
