@@ -28,7 +28,7 @@ export default function App() {
   });
 
   return (
-    <div className="h-full min-h-screen w-full bg-stone-50 text-neutral-950">
+    <div className="h-full min-h-screen w-full bg-stone-50 text-neutral-950 dark:bg-zinc-900 dark:text-stone-50">
       <appContext.Provider
         value={{
           userQuery: {

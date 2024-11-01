@@ -6,4 +6,5 @@ export default {
   },
   plugins: [],
   safelist: [".active"],
+  darkMode: "selector",
 };

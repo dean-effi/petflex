@@ -2,17 +2,34 @@ import { NavLink } from "react-router-dom";
 import burger from "../assets/burger.svg";
 
 import moon from "../assets/moon.svg";
+import sun from "../assets/sun.svg";
 
 import logo from "../assets/logo.svg";
 
 import { queryClient } from "../main";
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { appContext } from "../appContext";
 import NavbarLinks from "./NavbarLinks";
 
 export default function Navbar() {
+  useEffect(() => {
+    document.documentElement.classList.toggle(
+      "dark",
+      localStorage.getItem("theme") === "dark" ||
+        (!("theme" in localStorage) &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+    );
+    setIsDark(document.documentElement!.classList[0] === "dark");
+  }, []);
   const [isOpen, setIsOpen] = useState(false);
   const everOpened = useRef(false);
+  const [isDark, setIsDark] = useState(true);
+
+  function changeTheme() {
+    setIsDark(!isDark);
+    localStorage.setItem("theme", !isDark ? "dark" : "light");
+    document.documentElement.classList.toggle("dark");
+  }
 
   function logout() {
     localStorage.removeItem("token");
@@ -28,14 +45,13 @@ export default function Navbar() {
         : " nav-close";
 
   return (
-    <div className="sticky top-0 z-50 flex gap-4 bg-gradient-to-b from-stone-50 to-stone-200 text-violet-800 shadow-md">
+    <div className="sticky top-0 z-50 flex gap-4 bg-gradient-to-b from-stone-50 to-stone-200 text-violet-800 shadow-md dark:from-zinc-900 dark:to-zinc-800 dark:text-stone-50">
       <button
         onClick={() => {
           if (!everOpened.current) everOpened.current = true;
           setIsOpen(!isOpen);
         }}
-        className="ml-2 rounded-md py-1 hover:bg-stone-300 lg:hidden"
-      >
+        className="ml-2 rounded-md py-1 hover:bg-stone-300 lg:hidden">
         <img src={burger} alt="open menu" />
       </button>
       {/* small screen collapseable Nav */}
@@ -43,15 +59,13 @@ export default function Navbar() {
         className={
           "absolute left-0 grid h-[100vh] w-[40%] min-w-[270px] grid-rows-[100px,1fr,100px] justify-between border-r bg-stone-100 p-2 shadow-lg lg:hidden" +
           smallNavStateClass
-        }
-      >
+        }>
         <button
           onClick={e => {
             e.stopPropagation();
             setIsOpen(!isOpen);
           }}
-          className="self-start justify-self-start rounded-md hover:bg-stone-300"
-        >
+          className="self-start justify-self-start rounded-md hover:bg-stone-300">
           <img src={burger} alt="close menu " />
         </button>
         <ul className="flex flex-col gap-6 p-4 pt-0 text-2xl font-bold md:gap-8 md:text-3xl">
@@ -61,8 +75,12 @@ export default function Navbar() {
             logout={logout}
           />
         </ul>
-        <button className="self-start p-4 pt-0">
-          <img src={moon} className="w-10 md:w-12" alt="moon icon" />
+        <button onClick={changeTheme} className="self-start p-4 pt-0">
+          <img
+            src={isDark ? sun : moon}
+            className="w-10 md:w-12"
+            alt="moon icon"
+          />
         </button>
       </nav>
       {/* large menu */}
@@ -73,8 +91,12 @@ export default function Navbar() {
         <ul className="flex gap-8 text-2xl font-bold">
           <NavbarLinks user={user} logout={logout} />
           <li>
-            <button className="pb-[2px]">
-              <img className="h-[31px]" src={moon} alt="moon icon" />
+            <button className="pb-[2px]" onClick={changeTheme}>
+              <img
+                className="h-[31px]"
+                src={isDark ? sun : moon}
+                alt="moon icon"
+              />
             </button>
           </li>
         </ul>
