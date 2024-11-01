@@ -66,6 +66,6 @@
   }
 
   .normal-btn {
-    @apply bg-violet-800 font-semibold text-stone-50 hover:bg-violet-900 active:bg-violet-700 disabled:bg-stone-700 dark:bg-violet-400 dark:text-neutral-950;
+    @apply bg-violet-800 font-semibold text-stone-50 hover:bg-violet-900 active:bg-violet-700 disabled:bg-stone-700 dark:bg-violet-400 dark:text-neutral-950 dark:hover:bg-violet-300 dark:active:bg-violet-100;
   }
 }

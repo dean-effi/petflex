@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { UseMutateFunction } from "@tanstack/react-query";
 import { QueryError, UserDetails } from "../types";
-
+import DogLogo from "../assets/dog-logo.svg?react";
 type UserFormProps = {
   onFormSubmit: UseMutateFunction<
     any,
@@ -33,7 +33,7 @@ export default function UserForm({
   }
 
   return (
-    <main className="relative m-auto w-[300px] overflow-visible p-8 py-10 text-violet-800 sm:w-[400px] sm:text-xl lg:w-[455px] lg:text-xl">
+    <main className="relative m-auto w-[300px] overflow-visible p-8 py-10 text-violet-800 sm:w-[400px] sm:text-xl lg:w-[455px] lg:text-xl dark:text-stone-50">
       <header className="header text-center font-extrabold">
         <h1 className="grid">
           {formType === "signup" ? "Sign up to" : "Log in to"}
@@ -42,10 +42,10 @@ export default function UserForm({
             petflex
           </span>
         </h1>
-        <img
-          className="m-auto mt-2 w-[125px] sm:w-[143px]"
-          src="/logo.svg"
-          alt="petflex logo"
+        <DogLogo
+          width={"max"}
+          height={"auto"}
+          className="m-auto mt-2 w-[130px] sm:w-[150px] dark:text-violet-400"
         />
       </header>
       <form
@@ -65,7 +65,7 @@ export default function UserForm({
             onChange={onInputChange}
             value={userDetails.username}
             type="text"
-            className="gray-bg rounded-md bg-stone-200 p-2 font-normal text-stone-800"
+            className="gray-bg rounded-md bg-stone-200 p-2 font-normal text-stone-800 dark:bg-zinc-800 dark:text-stone-50"
           />
         </label>
         <label className="grid gap-3 font-bold sm:gap-4">
@@ -78,11 +78,11 @@ export default function UserForm({
             onChange={onInputChange}
             value={userDetails.password}
             type="password"
-            className="gray-bg rounded-md bg-stone-200 p-2 font-normal text-stone-800"
+            className="gray-bg rounded-md bg-stone-200 p-2 font-normal text-stone-800 dark:bg-zinc-800 dark:text-stone-50"
           />
         </label>
         {errorMsg && (
-          <p className="text-center font-bold text-red-800">
+          <p className="text-center font-bold text-red-800 dark:text-red-500">
             {errorMsg}
           </p>
         )}
