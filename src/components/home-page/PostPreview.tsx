@@ -18,7 +18,7 @@ export default function PostPreview({ post }: { post: PostType }) {
       onClick={() => onLinkClick(post)}
       to={post.id}
       aria-label={"read more about " + post.name}>
-      <article className="preview-card gray-bg grid h-full w-full grid-rows-[max-content_max-content_max-content_1fr] justify-center gap-3 overflow-hidden rounded-xl px-4 py-2 shadow-lg hover:bg-[#eae9e8] dark:bg-zinc-800 dark:shadow-[#141419] dark:hover:bg-[#29292d]">
+      <article className="preview-card gray-bg grid h-full w-full grid-rows-[max-content_max-content_5ch_1fr] justify-center gap-3 overflow-hidden rounded-xl px-4 py-2 shadow-lg hover:bg-[#eae9e8] sm:py-3 dark:bg-zinc-800 dark:shadow-[#141419] dark:hover:bg-[#29292d]">
         <div className="flex items-start justify-between text-xl">
           <div>
             <div className="text-1xl max-w-[17ch] overflow-hidden sm:max-w-[20ch]">
@@ -43,7 +43,7 @@ export default function PostPreview({ post }: { post: PostType }) {
         </div>
 
         <img
-          className="h-[250px] w-[320px] rounded-sm bg-slate-200 object-cover object-center sm:w-[400px]"
+          className="h-[250px] w-[320px] rounded-[3px] bg-slate-200 object-cover object-center sm:w-[400px]"
           src={post.image}
           alt={post.name}
         />

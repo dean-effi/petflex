@@ -83,7 +83,7 @@ export default function PostCommentForm({
         </label>
 
         {isError && (
-          <p className="mb-2 font-semibold text-red-900">
+          <p className="mb-2 font-semibold text-red-900 dark:text-red-500">
             {error?.message}
           </p>
         )}

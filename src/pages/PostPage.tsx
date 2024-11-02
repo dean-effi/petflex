@@ -14,7 +14,7 @@ import PostEdit from "../components/PostEdit";
 export default function PostPage() {
   const { postId } = useParams();
   const { user } = useContext(appContext).userQuery;
-
+  console.log("origin userrr", user);
   const [isEditing, setIsEditing] = useState(false);
   useEffect(() => {
     window.scrollTo(0, 0);

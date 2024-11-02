@@ -36,7 +36,7 @@ export default function PostDetails({
         />
       </div>
       <div className="p-4 py-2 lg:px-0">
-        <div className="flex items-start justify-between lg:mt-1">
+        <div className="flex items-start justify-between lg:mt-2">
           <CommentsLikesCounts
             commentsCount={post.commentsCount}
             initialLikes={post.likesCount}
@@ -56,7 +56,7 @@ export default function PostDetails({
             </div>
           )}
         </div>
-        <p className="my-2 sm:mb-3 lg:mb-4 lg:text-xl xl:mb-5 xl:mt-3 xl:text-[22px]">
+        <p className="my-3 font-medium sm:mb-3 lg:mb-4 lg:text-xl xl:my-5 xl:text-[22px]">
           {post.description}
         </p>
         <PostBottomLine post={post} inPage={true} />

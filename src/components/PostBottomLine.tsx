@@ -1,8 +1,6 @@
 import { PostType } from "../types";
 
 import GenderIcons from "../assets/GenderIcons";
-import { useContext } from "react";
-import { appContext } from "../appContext";
 
 export default function PostBottomLine({
   post,
@@ -11,7 +9,6 @@ export default function PostBottomLine({
   post: PostType;
   inPage?: boolean;
 }) {
-  const isDark = useContext(appContext).isDark;
   return (
     <p
       className={
@@ -19,7 +16,7 @@ export default function PostBottomLine({
         (inPage ? " lg:text-lg" : "")
       }>
       {post.petType + " "}|
-      <GenderIcons gender={post.gender} isDark={isDark} />|{" "}
+      <GenderIcons gender={post.gender} />|{" "}
       {post.age.years + " years old"} |
       {" created at " + new Date(post.createdAt).toLocaleDateString()}
     </p>

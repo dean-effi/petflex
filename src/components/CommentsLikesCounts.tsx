@@ -1,6 +1,5 @@
 import LikeButton from "./LikeButton";
-import CommentIcon from "../assets/CommentIcon.tsx";
-
+import Comment from "../assets/comment.svg?react";
 type CommentsLikesCountsPromps = {
   postId: string;
   liked: boolean;
@@ -18,20 +17,21 @@ export default function CommentsLikesCounts({
   commentsCount,
   inPage = false,
 }: CommentsLikesCountsPromps) {
+  console.log("in pageee", inPage);
   return (
     <div
-      className={
-        "flex items-center gap-4 text-lg text-violet-800 lg:pt-0.5 lg:text-xl dark:text-stone-50 " +
-        (inPage ? " lg:font-medium" : "")
-      }>
+      className={`flex items-center font-medium text-violet-800 lg:pt-0.5 dark:text-stone-50 ${
+        inPage ? "gap-5 lg:text-2xl" : "gap-4 lg:text-xl"
+      } `}>
       <LikeButton
-        {...{ postId, liked, initialLikes, isUserLogged }}
+        {...{ postId, liked, initialLikes, isUserLogged, inPage }}
         inPage={inPage}
       />
       <div className="flex items-center gap-2">
         {commentsCount}
-
-        <CommentIcon inPage={inPage} />
+        <Comment
+          className={inPage ? "lg:h-[22px] lg:w-[22px]" : ""}
+        />
       </div>
     </div>
   );
