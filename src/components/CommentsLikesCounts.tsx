@@ -17,7 +17,6 @@ export default function CommentsLikesCounts({
   commentsCount,
   inPage = false,
 }: CommentsLikesCountsPromps) {
-  console.log("in pageee", inPage);
   return (
     <div
       className={`flex items-center font-medium text-violet-800 lg:pt-0.5 dark:text-stone-50 ${

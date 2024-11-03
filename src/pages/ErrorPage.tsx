@@ -12,7 +12,7 @@ export default function ErrorPage({
         ? "Page Not found"
         : "Unexpected error";
   return (
-    <div className="p-6 text-3xl">
+    <main className="p-6 text-3xl">
       <p>
         {text}, go back{" "}
         <NavLink className={"text-violet-800 underline"} to={"/"}>
@@ -20,6 +20,6 @@ export default function ErrorPage({
         </NavLink>{" "}
         refresh or try later
       </p>
-    </div>
+    </main>
   );
 }
