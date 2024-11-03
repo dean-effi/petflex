@@ -42,7 +42,7 @@ export default function App() {
   });
 
   return (
-    <div className="0 h-full min-h-screen w-full bg-stone-50 text-neutral-950 dark:bg-gradient-to-b dark:from-zinc-900 dark:to-[#181826] dark:text-stone-50">
+    <div className="h-full min-h-screen w-full bg-stone-50 text-neutral-950 dark:bg-gradient-to-b dark:from-zinc-900 dark:to-[#181826] dark:text-stone-50">
       <appContext.Provider
         value={{
           userQuery: {

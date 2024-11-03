@@ -7,6 +7,7 @@ export async function fetchApi<DataT>(
 ): Promise<DataT> {
   // console.log("fetching something");
   try {
+    // console.log("fetching", options);
     const token = localStorage.getItem("token");
     //if needs to be authenticated, check for token, if available, attach to head
     if (auth) {
@@ -54,14 +55,24 @@ export async function fetchApi<DataT>(
   }
 }
 
+//TODO Type - problem with image
+
 export async function postPet(newPet: any) {
   const data = new FormData();
   data.append("name", newPet.name);
   data.append("description", newPet.description);
   data.append("petType", newPet.petType);
   data.append("gender", newPet.gender);
-  data.append("birthDate", newPet.birthDate);
   data.append("image", newPet.image);
+
+  data.append("isDead", newPet.isDead);
+
+  data.append(
+    "birthDate",
+    newPet.isDead
+      ? newPet.birthDate || new Date().getFullYear()
+      : newPet.birthDate
+  );
 
   return fetchApi<PostType>(
     "posts",

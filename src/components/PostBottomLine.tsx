@@ -17,7 +17,7 @@ export default function PostBottomLine({
       }>
       {post.petType + " "}|
       <GenderIcons gender={post.gender} />|{" "}
-      {post.age.years + " years old"} |
+      {post.isDead ? "dead" : post.age.years + " years old"} |
       {" created at " + new Date(post.createdAt).toLocaleDateString()}
     </p>
   );

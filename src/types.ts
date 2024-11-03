@@ -37,6 +37,7 @@ export type PostType = {
     days: number;
   };
   id: string;
+  isDead: boolean;
 };
 
 export type petsType =
@@ -67,5 +68,6 @@ export type PostSubmitionObject = {
   birthDate: string;
   petType: string;
   gender: string;
+  isDead: boolean;
   image?: null | File | Blob;
 };

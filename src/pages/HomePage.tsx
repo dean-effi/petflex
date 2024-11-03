@@ -92,7 +92,7 @@ export default function HomePage({
               </p>
             )}
 
-            <div className="mx-auto my-3 grid grid-cols-[350px] justify-center gap-x-4 gap-y-9 pb-2 text-lg sm:grid-cols-[450px] lg:grid-cols-[450px_450px] 2xl:grid-cols-[450px_450px_450px] 2xl:gap-x-6">
+            <div className="mx-auto grid grid-cols-[350px] justify-center gap-x-4 gap-y-9 pb-5 text-lg sm:grid-cols-[450px] lg:grid-cols-[450px_450px] 2xl:grid-cols-[450px_450px_450px] 2xl:gap-x-6">
               {postsDisplay}
             </div>
           </div>

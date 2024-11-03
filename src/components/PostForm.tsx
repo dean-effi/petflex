@@ -35,6 +35,7 @@ export default function PostForm({
     petType: post?.petType || "",
     gender: post?.gender || "male",
     image: null,
+    isDead: post?.isDead || false,
   });
 
   function onInputChange(e: React.ChangeEvent<any>) {
@@ -53,7 +54,7 @@ export default function PostForm({
     submitPost(e, newPet);
   }
   return (
-    <div className="mx-auto mt-4 w-[320px] sm:w-[400px] md:mt-6">
+    <div className="mx-auto mt-4 w-[330px] sm:w-[410px] md:mt-6">
       {formType === "editing" && (
         <button
           onClick={cancelEdit}
@@ -82,17 +83,33 @@ export default function PostForm({
             name="name"
           />
         </label>
-        <label className="flex items-center gap-2">
-          Birth Date:
-          <input
-            required
-            value={newPet.birthDate}
-            onChange={onInputChange}
-            className="gray-bg rounded-md px-2 py-[1px] dark:bg-zinc-800"
-            type="date"
-            name="birthDate"
-          />
-        </label>
+        <div className="flex gap-3">
+          <label className="flex items-center gap-1.5">
+            Birth Date:
+            <input
+              required
+              disabled={newPet.isDead}
+              value={newPet.birthDate}
+              onChange={onInputChange}
+              className="gray-bg rounded-md px-1 py-[1px] dark:bg-zinc-800"
+              type="date"
+              name="birthDate"
+            />
+          </label>
+
+          <label className="flex items-center gap-1.5">
+            <input
+              onChange={() => {
+                setNewPet({ ...newPet, isDead: !newPet.isDead });
+              }}
+              name="isDead"
+              type="checkBox"
+              className="h-4 w-4 cursor-pointer accent-violet-800 dark:accent-violet-400"
+              checked={newPet.isDead}
+            />
+            Is dead
+          </label>
+        </div>
 
         <label className="flex items-center gap-2">
           Pet Type:
@@ -135,7 +152,7 @@ export default function PostForm({
           <textarea
             value={newPet.description}
             onChange={onInputChange}
-            className="gray-bg rounded-md py-[1px] pl-1 dark:bg-zinc-800"
+            className="gray-bg max-w-[320px] rounded-md py-[1px] pl-1 sm:max-w-[400px] dark:bg-zinc-800"
             name="description"
             required
             rows={3}
