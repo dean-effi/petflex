@@ -35,6 +35,10 @@ export default function Comment({
   const replies = replyComments.filter(
     reply => reply.parentId === comment._id
   );
+  comment.user = comment.user || {
+    id: "whaterver",
+    username: "123",
+  };
   return (
     <>
       <article className="gray-bg mt-2 w-full space-y-1.5 overflow-hidden rounded-md p-2 text-base lg:space-y-2 dark:bg-zinc-800">
@@ -45,7 +49,7 @@ export default function Comment({
         <p className="text-xs font-light italic sm:text-sm">
           posted by{" "}
           <span className="font-medium">
-            {comment.user.username + " "}
+            {(comment.user?.username || "unknown") + " "}
           </span>
           at: {new Date(comment.createdAt).toLocaleString()}
         </p>

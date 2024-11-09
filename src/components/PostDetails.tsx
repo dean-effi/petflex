@@ -11,6 +11,10 @@ export default function PostDetails({
   user: User | undefined;
   edit: () => void;
 }) {
+  post.user = post.user || {
+    id: "123",
+    username: "unknown",
+  };
   const userId = user?._id;
   return (
     <section
@@ -23,7 +27,7 @@ export default function PostDetails({
         <p className="text-sm font-medium lg:text-base">
           posted by
           <span className="text-violet-800 dark:text-violet-400">
-            {" " + post.user.username}
+            {" " + (post.user?.username || "unknown")}
           </span>
         </p>
       </div>

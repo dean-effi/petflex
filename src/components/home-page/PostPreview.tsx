@@ -29,7 +29,7 @@ export default function PostPreview({ post }: { post: PostType }) {
             <p className="text-sm font-medium">
               posted by
               <span className="font-semibold text-violet-800 dark:text-violet-400">
-                {" " + post.user.username}
+                {" " + (post.user?.username || "unknown")}
               </span>
             </p>
           </div>
