@@ -12,7 +12,6 @@ export default function PostDetails({
   edit: () => void;
 }) {
   const userId = user?._id;
-  console.log(user, userId);
   //due to some initial users being deleted
   post.user = post.user || {
     _id: "unknown",

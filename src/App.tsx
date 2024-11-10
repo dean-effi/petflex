@@ -10,6 +10,7 @@ import { fetchApi } from "./fetchApi";
 import PostPage from "./pages/PostPage";
 import HomePage from "./pages/HomePage";
 import { useEffect, useState } from "react";
+import OnHold from "./pages/OnHold";
 export default function App() {
   useEffect(() => {
     document.documentElement.classList.toggle(
@@ -64,6 +65,8 @@ export default function App() {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/post" element={<PostFormPage />} />
+          <Route path="/onhold" element={<OnHold />} />
+
           <Route path="/:postId" element={<PostPage />} />
         </Routes>
       </appContext.Provider>
