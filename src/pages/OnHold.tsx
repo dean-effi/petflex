@@ -43,8 +43,10 @@ export default function OnHold() {
   }
   posts?.forEach(post =>
     postsDisplay.push(
-      <div className="border-2 border-black pb-20 dark:border-white">
-        <PostPreview key={post.id} post={post} />
+      <div
+        key={post.id}
+        className="border-2 border-black pb-20 dark:border-white">
+        <PostPreview post={post} />
         <div className="mt-4 flex gap-12 text-2xl">
           <button
             className="ml-4 border border-green-500 p-2 font-bold text-green-500"

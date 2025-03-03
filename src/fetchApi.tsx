@@ -1,4 +1,4 @@
-import { PostType } from "./types";
+import { PostSubmitionObject, PostType } from "./types";
 
 export async function fetchApi<DataT>(
   route: string,
@@ -55,23 +55,21 @@ export async function fetchApi<DataT>(
   }
 }
 
-//TODO Type - problem with image
-
-export async function postPet(newPet: any) {
+export async function postPet(newPet: PostSubmitionObject) {
   const data = new FormData();
   data.append("name", newPet.name);
   data.append("description", newPet.description);
   data.append("petType", newPet.petType);
   data.append("gender", newPet.gender);
-  data.append("image", newPet.image);
+  data.append("image", newPet.image as any);
 
-  data.append("isDead", newPet.isDead);
+  data.append("isDead", String(newPet.isDead));
 
   data.append(
     "birthDate",
     newPet.isDead
       ? newPet.birthDate || new Date().getFullYear()
-      : newPet.birthDate
+      : (newPet.birthDate as any)
   );
 
   return fetchApi<PostType>(

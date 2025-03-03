@@ -98,7 +98,7 @@ export default function PostCommentForm({
 
           {cancelReply && (
             <button
-              className="rounded-lg border-2 border-stone-800 px-1.5 text-stone-800 hover:border-stone-700 hover:text-stone-700 active:bg-stone-400"
+              className="rounded-lg border-2 border-stone-800 px-1.5 text-stone-800 hover:border-stone-700 hover:text-stone-700 active:bg-stone-400 dark:border-stone-400 dark:text-stone-400 dark:hover:border-stone-200 dark:hover:text-stone-200 dark:active:bg-stone-200 dark:active:text-stone-600"
               onClick={cancelReply}>
               Cancel
             </button>

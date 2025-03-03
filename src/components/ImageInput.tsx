@@ -48,7 +48,8 @@ export default function ImageInput({
     }
     if (!files) return;
     const file = files[0];
-    const fileSize = file.size / 1000 / 1000;
+    const fileSize = file.size / 1024 / 1024;
+    // console.log("before compression:", fileSize);
 
     setImage({ ...image, loading: true });
     new Compressor(file, {
@@ -56,7 +57,8 @@ export default function ImageInput({
       quality: fileSize > 3 ? 0.5 : fileSize > 1 ? 0.7 : 0.8,
       strict: true,
       success(result: File) {
-        if (result.size / 1000 / 1000 > 4.9) {
+        // console.log("after compression:", result.size / 1024 / 1024);
+        if (result.size / 1024 / 1024 > 4.9) {
           setImage({ ...image, error: "image is too large" });
           return;
         }
@@ -89,7 +91,7 @@ export default function ImageInput({
           {isDragActive ? (
             <p>Image ready to drop!</p>
           ) : image.loading ? (
-            <Spinner className="w-[24px] text-red-800" />
+            <Spinner className="w-[24px] animate-spin" />
           ) : image.preview ? (
             <img
               className="h-full w-full object-cover object-center"

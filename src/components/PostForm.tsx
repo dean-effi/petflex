@@ -2,6 +2,7 @@ import { FormEvent, useState } from "react";
 import { PostSubmitionObject, PostType, QueryError } from "../types";
 import { UseMutationResult } from "@tanstack/react-query";
 import ImageInput from "./ImageInput";
+import getDateInputString from "../helpers/getDateInputString";
 
 type PostFormProps = {
   submitPost: (
@@ -180,10 +181,4 @@ export default function PostForm({
       </form>
     </div>
   );
-}
-
-function getDateInputString(birthDate: string) {
-  const currentDate = new Date(birthDate);
-  const formatted = currentDate.toISOString().split("T")[0];
-  return formatted;
 }
