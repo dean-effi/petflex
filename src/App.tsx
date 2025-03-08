@@ -41,7 +41,6 @@ export default function App() {
     retry: false,
     // refetchInterval: 1000 * 3,
   });
-
   return (
     <div className="h-full min-h-screen w-full bg-stone-50 text-neutral-950 dark:bg-gradient-to-b dark:from-zinc-900 dark:to-[#181826] dark:text-stone-50">
       <appContext.Provider
@@ -62,6 +61,7 @@ export default function App() {
               />
             }
           />
+          <Route path="/profile" element={<h1>Profile here</h1>} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/post" element={<PostFormPage />} />

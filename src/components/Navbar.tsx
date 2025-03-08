@@ -10,7 +10,7 @@ import { queryClient } from "../main";
 import { useContext, useRef, useState } from "react";
 import { appContext } from "../appContext";
 import NavbarLinks from "./NavbarLinks";
-
+import Profile from "../assets/profile.svg?react";
 export default function Navbar({
   isDark,
   setIsDark,
@@ -54,7 +54,7 @@ export default function Navbar({
       {/* small screen collapseable Nav */}
       <nav
         className={
-          "absolute left-0 grid h-[100vh] w-[40%] min-w-[270px] grid-rows-[100px,1fr,100px] justify-between border-r bg-stone-100 p-2 shadow-lg lg:hidden dark:border-r-zinc-700 dark:bg-gradient-to-br dark:from-zinc-900 dark:to-zinc-800 dark:shadow-[#141419]" +
+          "absolute left-0 grid h-[100vh] w-[40%] min-w-[270px] grid-rows-[100px,1fr,180px] justify-between border-r bg-stone-100 p-2 shadow-lg lg:hidden dark:border-r-zinc-700 dark:bg-gradient-to-br dark:from-zinc-900 dark:to-zinc-800 dark:shadow-[#141419]" +
           smallNavStateClass
         }>
         <button
@@ -73,21 +73,25 @@ export default function Navbar({
             logout={logout}
           />
         </ul>
-        <button
-          aria-label={
-            "Change color theme to " + isDark ? "dark" : "light"
-          }
-          onClick={changeTheme}
-          className="self-start p-4 pt-0">
-          <img
-            src={isDark ? sun : moon}
-            className="w-10 md:w-12"
-            alt=""
-          />
-        </button>
+        <div className="flex items-start">
+          <button
+            aria-label={
+              "Change color theme to " + isDark ? "dark" : "light"
+            }
+            onClick={changeTheme}
+            className="p-4 pt-0">
+            <img src={isDark ? sun : moon} className="w-12" alt="" />
+          </button>
+          <NavLink
+            onClick={() => setIsOpen(false)}
+            to={"/profile"}
+            aria-label="profile">
+            <Profile className="relative -top-0.5 h-14 w-14 fill-violet-800 dark:fill-stone-50" />
+          </NavLink>
+        </div>
       </nav>
       {/* large menu */}
-      <nav className="hidden w-full items-start justify-between px-6 pb-3 pt-5 lg:flex xl:px-8 2xl:px-9">
+      <nav className="hidden w-full items-start justify-between px-6 pb-2 pt-5 lg:flex xl:px-8 2xl:px-9">
         <NavLink to={""} aria-label="home">
           <Logo className="text-violet-800 dark:text-stone-50" />
         </NavLink>
@@ -106,6 +110,14 @@ export default function Navbar({
                 alt=""
               />
             </button>
+          </li>
+          <li>
+            <NavLink
+              to={"/profile"}
+              className="relative -left-[10px] -top-[6px]"
+              aria-label="profile">
+              <Profile className="h-11 w-11 fill-violet-800 dark:fill-stone-50" />
+            </NavLink>
           </li>
         </ul>
       </nav>
