@@ -82,16 +82,19 @@ export default function Navbar({
             className="p-4 pt-0">
             <img src={isDark ? sun : moon} className="w-12" alt="" />
           </button>
-          <NavLink
-            onClick={() => setIsOpen(false)}
-            to={"/profile"}
-            aria-label="profile">
-            <Profile className="relative -top-0.5 h-14 w-14 fill-violet-800 dark:fill-stone-50" />
-          </NavLink>
+          {user && (
+            <NavLink
+              onClick={() => setIsOpen(false)}
+              to={"/profile"}
+              aria-label="profile">
+              <Profile className="relative -top-0.5 h-14 w-14 fill-violet-800 dark:fill-stone-50" />
+            </NavLink>
+          )}
         </div>
       </nav>
       {/* large menu */}
-      <nav className="hidden w-full items-start justify-between px-6 pb-2 pt-5 lg:flex xl:px-8 2xl:px-9">
+      <nav
+        className={`hidden w-full items-start justify-between px-6 pt-5 lg:flex xl:px-8 2xl:px-9 ${user ? "pb-1" : "pb-3"}`}>
         <NavLink to={""} aria-label="home">
           <Logo className="text-violet-800 dark:text-stone-50" />
         </NavLink>
@@ -99,9 +102,7 @@ export default function Navbar({
           <NavbarLinks user={user} logout={logout} />
           <li>
             <button
-              aria-label={
-                "Change color theme to " + isDark ? "dark" : "light"
-              }
+              aria-label={`Change color theme to ${isDark ? "light" : "dark"}`}
               className="pb-[2px]"
               onClick={changeTheme}>
               <img
@@ -111,14 +112,13 @@ export default function Navbar({
               />
             </button>
           </li>
-          <li>
-            <NavLink
-              to={"/profile"}
-              className="relative -left-[10px] -top-[6px]"
-              aria-label="profile">
-              <Profile className="h-11 w-11 fill-violet-800 dark:fill-stone-50" />
-            </NavLink>
-          </li>
+          {user && (
+            <li className="relative -left-[10px] -top-[6px]">
+              <NavLink to={"/profile"} aria-label="profile">
+                <Profile className="h-11 w-11 fill-violet-800 dark:fill-stone-50" />
+              </NavLink>
+            </li>
+          )}
         </ul>
       </nav>
     </div>

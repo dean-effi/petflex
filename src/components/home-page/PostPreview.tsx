@@ -16,7 +16,7 @@ export default function PostPreview({ post }: { post: PostType }) {
   return (
     <Link
       onClick={() => onLinkClick(post)}
-      to={post.id}
+      to={"/" + post.id}
       aria-label={"read more about " + post.name}>
       <article className="preview-card gray-bg grid h-full w-full grid-rows-[max-content_max-content_5ch_1fr] justify-center gap-3 overflow-hidden rounded-xl px-4 py-2 shadow-lg hover:bg-[#eae9e8] sm:py-3 dark:bg-zinc-800 dark:shadow-[#141419] dark:hover:bg-[#29292d]">
         <div className="flex items-start justify-between text-xl">

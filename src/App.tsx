@@ -11,6 +11,7 @@ import PostPage from "./pages/PostPage";
 import HomePage from "./pages/HomePage";
 import { useEffect, useState } from "react";
 import OnHold from "./pages/OnHold";
+import ProfilePage from "./pages/ProfilePage";
 export default function App() {
   useEffect(() => {
     document.documentElement.classList.toggle(
@@ -61,7 +62,7 @@ export default function App() {
               />
             }
           />
-          <Route path="/profile" element={<h1>Profile here</h1>} />
+          <Route path="/profile" element={<ProfilePage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/post" element={<PostFormPage />} />

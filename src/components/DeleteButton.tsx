@@ -1,19 +1,15 @@
-import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { fetchApi } from "../fetchApi";
 
-export default function DeleteButton({ postId }: { postId: string }) {
-  const navigate = useNavigate();
+export default function DeleteButton({
+  deleteFn,
+  children,
+}: {
+  deleteFn: () => void;
+  children: React.ReactNode;
+}) {
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const { mutate: deletePost } = useMutation({
-    mutationFn: () =>
-      fetchApi("posts/" + postId, { method: "DELETE" }, true),
-    onSuccess: () => {
-      navigate("/");
-    },
-  });
+  //a "generic" delete btn with a prompt when pressed, just to run a function when accepted
   return (
     <>
       {isDeleting ? (
@@ -21,7 +17,10 @@ export default function DeleteButton({ postId }: { postId: string }) {
           <p>Are you sure you want to delete this post?</p>
           <div className="mt-5 flex items-center justify-center gap-4">
             <button
-              onClick={() => deletePost()}
+              onClick={() => {
+                deleteFn();
+                setIsDeleting(false);
+              }}
               className="normal-btn rounded-lg px-1.5 py-[2px]">
               Delete
             </button>
@@ -33,12 +32,13 @@ export default function DeleteButton({ postId }: { postId: string }) {
           </div>
         </div>
       ) : (
-        <button
-          onClick={() => setIsDeleting(true)}
-          className="rounded-lg border-2 border-stone-800 px-1.5 py-0.5 text-stone-800 hover:border-red-500 hover:text-red-500 active:bg-red-200 dark:border-stone-400 dark:text-stone-300">
-          Delete
-        </button>
+        ""
       )}
+      <div
+        className="inline-block"
+        onClick={() => setIsDeleting(true)}>
+        {children}
+      </div>
     </>
   );
 }
