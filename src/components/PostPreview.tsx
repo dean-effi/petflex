@@ -1,13 +1,18 @@
 import { Link } from "react-router-dom";
-import { PostType } from "../../types";
-import { queryClient } from "../../main";
-
-import { appContext } from "../../appContext";
+import { PostType } from "../types";
+import { queryClient } from "../main";
+import { appContext } from "../appContext";
 import { useContext } from "react";
-import PostBottomLine from "../PostBottomLine";
-import CommentsLikesCounts from "../CommentsLikesCounts";
+import PostBottomLine from "./PostBottomLine";
+import CommentsLikesCounts from "./CommentsLikesCounts";
 
-export default function PostPreview({ post }: { post: PostType }) {
+export default function PostPreview({
+  post,
+  inProfile = false,
+}: {
+  post: PostType;
+  inProfile?: boolean;
+}) {
   const { user } = useContext(appContext).userQuery;
 
   function onLinkClick(post: PostType) {
@@ -26,12 +31,14 @@ export default function PostPreview({ post }: { post: PostType }) {
                 {post.name}
               </h2>
             </div>
-            <p className="text-sm font-medium">
-              posted by
-              <span className="font-semibold text-violet-800 dark:text-violet-400">
-                {" " + (post.user?.username || "unknown")}
-              </span>
-            </p>
+            {!inProfile && (
+              <p className="text-sm font-medium">
+                posted by
+                <span className="font-semibold text-violet-800 dark:text-violet-400">
+                  {" " + (post.user?.username || "unknown")}
+                </span>
+              </p>
+            )}
           </div>
           <CommentsLikesCounts
             commentsCount={post.commentsCount}

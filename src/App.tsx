@@ -67,7 +67,6 @@ export default function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/post" element={<PostFormPage />} />
           <Route path="/onhold" element={<OnHold />} />
-
           <Route path="/:postId" element={<PostPage />} />
         </Routes>
       </appContext.Provider>

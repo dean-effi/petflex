@@ -3,7 +3,7 @@ import { ReactElement } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { fetchApi } from "../fetchApi";
 import { PostType, QueryError } from "../types";
-import PostPreview from "../components/home-page/PostPreview";
+import PostPreview from "../components/PostPreview";
 import { Link, useSearchParams } from "react-router-dom";
 import FiltersForm from "../components/home-page/FiltersForm";
 import Spinner from "../assets/spinner.svg?react";

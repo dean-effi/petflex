@@ -2,7 +2,7 @@ import { ReactElement, useContext } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { fetchApi } from "../fetchApi";
 import { PostType, QueryError } from "../types";
-import PostPreview from "../components/home-page/PostPreview";
+import PostPreview from "../components/PostPreview";
 import Spinner from "../assets/spinner.svg?react";
 import ErrorPage from "./ErrorPage";
 import { appContext } from "../appContext";
