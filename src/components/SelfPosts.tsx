@@ -5,6 +5,7 @@ import ErrorPage from "../pages/ErrorPage";
 import Spinner from "../assets/spinner.svg?react";
 import DeleteButton from "./DeleteButton";
 import PostPreview from "./PostPreview";
+import Bin from "../assets/bin.svg?react";
 
 export default function SelfPosts() {
   const {
@@ -36,22 +37,27 @@ export default function SelfPosts() {
     );
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-12">
       {posts?.length === 0 ? (
-        <p>No pets by you to display</p>
+        <p className="mt-4 text-center text-[30px] sm:text-4xl">
+          No pets by you to display {":("}
+        </p>
       ) : (
         posts?.map(post => {
           return (
-            <div key={post._id} className="flex items-center gap-4">
-              <div className="w-[500px]">
+            <div key={post._id}>
+              <div className="mx-auto w-[350px] justify-center gap-x-4 gap-y-9 pb-5 text-lg sm:w-[450px]">
                 <PostPreview post={post} inProfile={true} />
               </div>
-              <DeleteButton deleteFn={() => deletePost(post._id)}>
-                <button className="bg-red-700 px-1.5 py-0.5 text-3xl">
-                  delete me
-                </button>
-                <br />
-              </DeleteButton>
+              <div className="mx-auto w-min">
+                <DeleteButton deleteFn={() => deletePost(post._id)}>
+                  <button
+                    className="gray-bg flex aspect-square w-9 items-center justify-center rounded-[50%] shadow-sm transition-all hover:bg-red-400 active:bg-white sm:w-12 dark:bg-zinc-800 dark:hover:bg-red-700 active:dark:bg-zinc-400"
+                    aria-label={`delete ${post.name}`}>
+                    <Bin className="fill-neutral-950 sm:h-7 sm:w-7 dark:fill-stone-100"></Bin>
+                  </button>
+                </DeleteButton>
+              </div>
             </div>
           );
         })

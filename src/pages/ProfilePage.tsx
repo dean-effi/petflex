@@ -8,14 +8,12 @@ export default function ProfilePage() {
   const { userQuery } = useContext(appContext);
   const user = userQuery.user;
 
-  // console.log(user, username);
-
   if (!user && !userQuery.userLoading) {
     return <ErrorPage status={401} />;
   }
 
   return (
-    <div className="min-h-[100vh]">
+    <div className="min-h-[100vh] py-4 pb-16">
       <NameEdit user={user} />
       <SelfPosts />
     </div>
