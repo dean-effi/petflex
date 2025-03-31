@@ -71,7 +71,7 @@ export async function postPet(newPet: PostSubmitionObject) {
       ? newPet.birthDate || new Date().getFullYear()
       : (newPet.birthDate as any)
   );
-
+  // console.log("sending post", data, newPet);
   return fetchApi<PostType>(
     "posts",
     {

@@ -4,24 +4,7 @@ import { UseMutationResult } from "@tanstack/react-query";
 import ImageInput from "./ImageInput";
 import getDateInputString from "../helpers/getDateInputString";
 
-type PostFormProps = {
-  submitPost: (
-    e: FormEvent<HTMLFormElement>,
-    newPet: PostSubmitionObject
-  ) => void;
-  mutation: UseMutationResult<
-    PostType,
-    QueryError,
-    PostSubmitionObject,
-    unknown
-  >;
-  formType: "editing" | "posting";
-  post?: PostType;
-  cancelEdit?: () => void;
-};
-
 export default function PostForm({
-  submitPost,
   mutation,
   formType,
   post,
@@ -52,7 +35,7 @@ export default function PostForm({
       setClientError("Please provide an image");
       return;
     }
-    submitPost(e, newPet);
+    mutation.mutate(newPet);
   }
   return (
     <div className="mx-auto mt-4 w-[330px] sm:w-[410px] md:mt-6">
@@ -182,3 +165,15 @@ export default function PostForm({
     </div>
   );
 }
+
+type PostFormProps = {
+  mutation: UseMutationResult<
+    PostType,
+    QueryError,
+    PostSubmitionObject,
+    unknown
+  >;
+  formType: "editing" | "posting";
+  post?: PostType;
+  cancelEdit?: () => void;
+};

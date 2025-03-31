@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import PostForm from "./PostForm";
 import { PostSubmitionObject, PostType, QueryError } from "../types";
 import { appContext } from "../appContext";
-import { FormEvent, useContext } from "react";
+import { useContext } from "react";
 import { queryClient } from "../main";
 import { fetchApi } from "../fetchApi";
 import ErrorPage from "../pages/ErrorPage";
@@ -36,11 +36,6 @@ export default function PostEdit({
     },
   });
 
-  function onFormSubmit(e: FormEvent, newPet: PostSubmitionObject) {
-    e.preventDefault();
-    editMut.mutate(newPet);
-  }
-
   if (!user && !userLoading) {
     return <ErrorPage status={401} />;
   }
@@ -50,7 +45,6 @@ export default function PostEdit({
         cancelEdit={cancelEdit}
         formType="editing"
         post={post}
-        submitPost={onFormSubmit}
         mutation={editMut}
       />
     </main>

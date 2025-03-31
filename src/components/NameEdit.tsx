@@ -41,21 +41,21 @@ export default function NameEdit({
   return (
     <div className="mb-12">
       <div className="m-auto my-4 flex justify-center">
-        <div className="mb-2 flex items-center">
+        <div className="flex items-center">
           <h1 className="mr-2 text-center text-[42px] font-semibold sm:mr-2.5 md:text-5xl">
             Hello, {`${!isEditing ? user?.username || "" : ""}`}
           </h1>
           {isEditing && (
             <input
               name="username"
+              type="text"
+              aria-label="new username"
               maxLength={20}
+              value={username}
               onChange={e => setUsername(e.target.value)}
               onKeyDown={e => {
                 if (e.key === "Enter") nameMut.mutate();
               }}
-              value={username}
-              type="text"
-              aria-label="new username"
               style={{
                 width: (username?.length || 5 + 1).toString() + "ch",
               }}
@@ -69,7 +69,7 @@ export default function NameEdit({
             disabled={nameMut.isPending}
             onClick={() => setIsEditing(true)}
             aria-label="edit username">
-            <Pen className="self-start fill-neutral-950 dark:fill-stone-100"></Pen>
+            <Pen className="self-start fill-neutral-950 transition-transform hover:scale-125 dark:fill-stone-100"></Pen>
           </button>
         )}
       </div>
@@ -91,6 +91,7 @@ export default function NameEdit({
             onClick={() => {
               setUsername(user?.username);
               setIsEditing(false);
+              nameMut.reset();
             }}
             className="rounded-[10px] border-2 border-stone-800 p-1.5 px-[14px] text-lg text-stone-800 hover:border-stone-700 hover:text-stone-700 active:bg-stone-400 sm:text-xl dark:border-stone-400 dark:text-stone-400 dark:hover:border-stone-200 dark:hover:text-stone-200 dark:active:bg-stone-200 dark:active:text-stone-600">
             cancel
