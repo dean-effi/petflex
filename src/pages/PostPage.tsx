@@ -1,5 +1,4 @@
 import { useParams } from "react-router-dom";
-
 import CommentsSection from "../components/comments/CommentsSection";
 import PostDetails from "../components/PostDetails";
 import ErrorPage from "./ErrorPage";
@@ -37,8 +36,7 @@ export default function PostPage() {
         <Spinner className="w-[32px] animate-spin text-violet-800 dark:text-stone-50" />
       </div>
     );
-  }
-  if (postQuery.isError) {
+  } else if (postQuery.isError) {
     return <ErrorPage status={postQuery.error.status} />;
   }
   if (post) {

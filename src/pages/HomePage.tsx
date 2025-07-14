@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement, useContext } from "react";
 
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { fetchApi } from "../fetchApi";
@@ -9,14 +9,12 @@ import FiltersForm from "../components/home-page/FiltersForm";
 import Spinner from "../assets/spinner.svg?react";
 import LoadMoreBtn from "../components/home-page/LoadMoreBtn";
 import ErrorPage from "./ErrorPage";
+import { appContext } from "../appContext";
 
-export default function HomePage({
-  isLogged,
-}: {
-  isLogged: boolean;
-}) {
+export default function HomePage() {
   const [searchParams, setSearchParams] = useSearchParams();
-
+  const { userLoading, user } = useContext(appContext).userQuery;
+  const isLogged = Boolean(userLoading === false && user);
   const {
     data: posts,
     isLoading,

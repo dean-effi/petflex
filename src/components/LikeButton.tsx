@@ -5,14 +5,6 @@ import { fetchApi } from "../fetchApi";
 import HeartIcon from "../assets/heart.svg?react";
 import HeartIconFilled from "../assets/heart-filled.svg?react";
 
-type LikeButtonProps = {
-  postId: string;
-  liked: boolean;
-  initialLikes: number;
-  isUserLogged: boolean;
-  inPage?: boolean;
-};
-
 export default function LikeButton({
   postId,
   liked,
@@ -71,3 +63,11 @@ export default function LikeButton({
     </div>
   );
 }
+
+type LikeButtonProps = {
+  postId: string;
+  liked: boolean;
+  initialLikes: number;
+  isUserLogged: boolean;
+  inPage?: boolean;
+};

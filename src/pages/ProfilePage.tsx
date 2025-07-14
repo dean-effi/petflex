@@ -13,9 +13,9 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="min-h-[100vh] py-4 pb-16">
+    <main className="min-h-[100vh] py-4 pb-16">
       <NameEdit user={user} />
       <SelfPosts />
-    </div>
+    </main>
   );
 }

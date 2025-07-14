@@ -71,3 +71,12 @@ export type PostSubmitionObject = {
   isDead: boolean;
   image?: null | File | Blob;
 };
+
+export type AppContextType = {
+  userQuery: {
+    user: User | undefined;
+    userLoading: boolean;
+  };
+  isDark: boolean;
+  setIsDark: null | React.Dispatch<React.SetStateAction<boolean>>;
+};

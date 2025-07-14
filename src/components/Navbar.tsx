@@ -11,18 +11,13 @@ import { useContext, useRef, useState } from "react";
 import { appContext } from "../appContext";
 import NavbarLinks from "./NavbarLinks";
 import Profile from "../assets/profile.svg?react";
-export default function Navbar({
-  isDark,
-  setIsDark,
-}: {
-  isDark: boolean;
-  setIsDark: any;
-}) {
+export default function Navbar() {
+  const { isDark, setIsDark } = useContext(appContext);
   const [isOpen, setIsOpen] = useState(false);
   const everOpened = useRef(false);
 
   function changeTheme() {
-    setIsDark(!isDark);
+    setIsDark!(!isDark);
     localStorage.setItem("theme", !isDark ? "dark" : "light");
     document.documentElement.classList.toggle("dark");
   }
