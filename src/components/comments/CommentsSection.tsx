@@ -1,11 +1,10 @@
 import { ReactElement } from "react";
 import PostCommentForm from "./PostCommentForm";
-import { CommentType, QueryError, User } from "../../types";
-import { useQuery } from "@tanstack/react-query";
-import { fetchApi } from "../../fetchApi";
-import Comment from "./Comment";
+import { User } from "../../types";
 import Spinner from "../../assets/spinner.svg?react";
 import { Link } from "react-router-dom";
+import useGetComments from "../../customHooks/useGetComments";
+import sortComments from "../../utility/sortComments";
 
 export default function CommentsSection({
   postId,
@@ -14,21 +13,8 @@ export default function CommentsSection({
   postId: string;
   user: User | undefined;
 }) {
-  const { data: comments, isLoading } = useQuery<
-    CommentType[],
-    QueryError
-  >({
-    queryKey: ["comments", postId],
-    queryFn: () =>
-      fetchApi(
-        "comments/" + postId,
-        {
-          method: "GET",
-        },
-        false
-      ),
-    staleTime: 1000 * 60 * 20,
-  });
+  const { comments, isLoading } = useGetComments(postId);
+
   if (isLoading) {
     return (
       <div className="mt-8 flex justify-center">
@@ -36,36 +22,9 @@ export default function CommentsSection({
       </div>
     );
   }
-  let commentsElements: ReactElement<any>[] = [];
-  if (comments) {
-    const topLevelComments: CommentType[] = [];
-    const replyComments: CommentType[] = [];
-
-    comments.forEach(comment => {
-      if (comment.parentId == null) {
-        topLevelComments.push(comment);
-      } else {
-        replyComments.push(comment);
-      }
-    });
-
-    replyComments.sort(
-      (a, b) =>
-        new Date(a.createdAt).getTime() -
-        new Date(b.createdAt).getTime()
-    );
-    commentsElements = topLevelComments.map(comment => {
-      return (
-        <Comment
-          key={comment._id}
-          replyComments={replyComments}
-          comment={comment}
-          postId={postId}
-          user={user}
-        />
-      );
-    });
-  }
+  const commentsElements: ReactElement<any>[] | [] = comments?.length
+    ? sortComments(comments, user)
+    : [];
 
   return (
     <section className="p-4 pt-6 lg:px-0" aria-label="comments">
