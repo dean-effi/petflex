@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { PostSubmitionObject, QueryError } from "../types";
 import { postPet } from "../fetchApi";
 import { appContext } from "../appContext";
@@ -15,7 +15,9 @@ export default function PostFormPage() {
     onError: (err: QueryError) => err,
     onSuccess: () => setPosted(true),
   });
-
+  useEffect(() => {
+    if (posted) window.scrollTo(0, 0);
+  }, [posted]);
   if (!user && !userLoading) {
     return <ErrorPage status={401} />;
   }

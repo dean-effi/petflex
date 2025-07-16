@@ -2,16 +2,6 @@ import { FormEvent, useState } from "react";
 import { SetURLSearchParams } from "react-router-dom";
 import FitlersSelectInput from "./FitlersSelectInput";
 import FiltersIcon from "../../assets/filters.svg?react";
-type QueryOptionsType = {
-  order: string | null;
-  sortBy: string | null;
-  petType: string | null;
-};
-
-type FilterFormProps = {
-  searchParams: URLSearchParams;
-  setSearchParams: SetURLSearchParams;
-};
 
 export default function FiltersForm({
   searchParams,
@@ -114,3 +104,14 @@ export default function FiltersForm({
     </>
   );
 }
+
+type QueryOptionsType = {
+  order: string | null;
+  sortBy: string | null;
+  petType: string | null;
+};
+
+type FilterFormProps = {
+  searchParams: URLSearchParams;
+  setSearchParams: SetURLSearchParams;
+};

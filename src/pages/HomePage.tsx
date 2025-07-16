@@ -1,5 +1,4 @@
 import { ReactElement, useContext } from "react";
-
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { fetchApi } from "../fetchApi";
 import { PostType, QueryError } from "../types";

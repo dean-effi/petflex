@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { PostType, QueryError } from "../types";
 import { fetchApi } from "../fetchApi";
 import ErrorPage from "../pages/ErrorPage";
@@ -17,12 +17,6 @@ export default function SelfPosts() {
   } = useQuery<PostType[], QueryError>({
     queryKey: ["posts", "self"],
     queryFn: () => fetchApi("posts/self", { method: "GET" }, true),
-  });
-
-  const { mutate: deletePost } = useMutation({
-    mutationFn: (id: string) =>
-      fetchApi(`posts/${id}`, { method: "DELETE" }, true),
-    onSuccess: () => refetch(),
   });
 
   if (isError) {
@@ -50,7 +44,9 @@ export default function SelfPosts() {
                 <PostPreview post={post} inProfile={true} />
               </div>
               <div className="mx-auto w-min">
-                <DeleteButton deleteFn={() => deletePost(post._id)}>
+                <DeleteButton
+                  onSuccess={() => refetch()}
+                  id={post._id}>
                   <button
                     className="gray-bg flex aspect-square w-9 items-center justify-center rounded-[50%] shadow-sm transition-all hover:bg-red-400 active:bg-white sm:w-12 dark:bg-zinc-800 dark:hover:bg-red-700 active:dark:bg-zinc-400"
                     aria-label={`delete ${post.name}`}>

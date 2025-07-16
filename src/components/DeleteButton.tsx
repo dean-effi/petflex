@@ -1,20 +1,30 @@
 import { useState } from "react";
 import DeletePrompt from "./DeletePrompt";
+import { useMutation } from "@tanstack/react-query";
+import { fetchApi } from "../fetchApi";
 
 export default function DeleteButton({
-  deleteFn,
   children,
+  id,
+  onSuccess,
 }: {
-  deleteFn: () => void;
+  onSuccess: () => void;
+  id: string;
   children: React.ReactNode;
 }) {
   const [isDeleting, setIsDeleting] = useState(false);
+
+  const { mutate: deletePost } = useMutation({
+    mutationFn: () =>
+      fetchApi(`posts/${id}`, { method: "DELETE" }, true),
+    onSuccess,
+  });
 
   return (
     <>
       {isDeleting ? (
         <DeletePrompt
-          deleteFn={deleteFn}
+          deleteFn={deletePost}
           setIsDeleting={setIsDeleting}
         />
       ) : (

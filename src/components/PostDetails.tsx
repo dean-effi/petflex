@@ -1,9 +1,7 @@
-import { useMutation } from "@tanstack/react-query";
 import { PostType, User } from "../types";
 import CommentsLikesCounts from "./CommentsLikesCounts";
 import DeleteButton from "./DeleteButton";
 import PostBottomLine from "./PostBottomLine";
-import { fetchApi } from "../fetchApi";
 import { useNavigate } from "react-router-dom";
 export default function PostDetails({
   post,
@@ -17,14 +15,6 @@ export default function PostDetails({
   const userId = user?._id;
 
   const navigate = useNavigate();
-
-  const { mutate: deletePost } = useMutation({
-    mutationFn: () =>
-      fetchApi("posts/" + post._id, { method: "DELETE" }, true),
-    onSuccess: () => {
-      navigate("/");
-    },
-  });
 
   //due to some initial users being deleted
   post.user = post.user || {
@@ -71,7 +61,9 @@ export default function PostDetails({
                 className="normal-btn rounded-lg px-1.5 py-[3px] text-stone-50 xl:px-2">
                 Edit
               </button>
-              <DeleteButton deleteFn={() => deletePost()}>
+              <DeleteButton
+                id={post._id}
+                onSuccess={() => navigate("/")}>
                 <button className="rounded-lg border-2 border-stone-800 px-1.5 py-0.5 text-stone-800 hover:border-red-500 hover:text-red-500 active:bg-red-200 dark:border-stone-400 dark:text-stone-300">
                   Delete
                 </button>
